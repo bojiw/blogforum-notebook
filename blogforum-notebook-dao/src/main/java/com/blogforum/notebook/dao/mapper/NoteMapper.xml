@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blogforum.notebook.dao.mapper.NoteMapper">
+    
+    <!-- 添加笔记 -->
+	<insert id="save" parameterType="com.blogforum.notebook.pojo.entity.Note">
+		insert into 
+		note(
+			id,note_title,note_body,create_date,update_date,user_id,notebook_id,
+			blog_id,enclosure,type,del_flag,pwd_share_id,extjson,label
+		) 
+		values (
+			#{id},#{noteTitle},#{noteBody},#{createDate},#{updateDate},#{userId},
+			#{notebookId},#{blogId},#{enclosure},#{type},#{delFlag},#{pwdShareId},#{extjson},#{label}
+		)
+	</insert>
+	
+	<!-- 删除笔记 -->
+	<delete id="delete">
+	    delete from
+	    note
+	    where id=#{id}
+	    
+	</delete>
+	<!-- 修改笔记 -->
+	<update id="update" parameterType="com.blogforum.notebook.pojo.entity.Note">
+	    update 
+	    note 
+	    set note_title = #{noteTitle},note_body = #{noteBody},create_date = #{createDate},
+	    update_date = #{updateDate},user_id = #{userId},notebook_id = #{notebookId},blog_id = #{blogId},
+	    enclosure = #{enclosure},type = #{type},del_flag = #{delFlag},pwd_share_id = #{pwdShareId},
+	    extjson = #{extjson},label = #{label}
+	    where id=#{id}
+	    
+	</update>
+	
+	
+	<!-- 通过ID查询笔记 -->
+	<select id="getByID" resultType="com.blogforum.notebook.pojo.entity.Note" >
+	    SELECT 
+	    	*
+	    FROM note
+	    WHERE id=#{id}
+	</select>
+	
+	<!-- 通过id查询笔记 -->
+	<select id="get" parameterType="com.blogforum.notebook.pojo.entity.Note" resultType="com.blogforum.notebook.pojo.entity.Note">
+	    SELECT 
+	    	*
+	    FROM note
+	    WHERE id=#{id}
+	    ORDER BY update_date
+	</select>
+	
+	
+
+</mapper>
