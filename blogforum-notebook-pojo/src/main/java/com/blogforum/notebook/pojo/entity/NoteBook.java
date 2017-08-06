@@ -35,11 +35,6 @@ public class NoteBook extends DataEntity<NoteBook> {
 	 */
 	public List<Note> notes;
 
-	/**
-	 * 公共笔记
-	 */
-	public List<PublicNote> publicNotes;
-
 	public String getId() {
 		return id;
 	}
@@ -73,14 +68,6 @@ public class NoteBook extends DataEntity<NoteBook> {
 		this.notes = notes;
 	}
 
-	public List<PublicNote> getPublicNotes() {
-		return publicNotes;
-	}
-
-	public void setPublicNotes(List<PublicNote> publicNotes) {
-		this.publicNotes = publicNotes;
-	}
-
 	public String getUserId() {
 		return userId;
 	}
@@ -89,11 +76,8 @@ public class NoteBook extends DataEntity<NoteBook> {
 		this.userId = userId;
 	}
 
-	@Override
-	public String toString() {
-		return "NoteBook [id=" + id + ", parentId=" + parentId + ", name=" + name + ", userId=" + userId + ", notes="
-							+ notes + ", publicNotes=" + publicNotes + "]";
-	}
+	
+	
 
 
 }

@@ -3,31 +3,62 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${webAppDto.webTitle}</title>
-    <link rel="stylesheet" href="/static/user/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/user/widget/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/user/editor/css/editormd.css"/>
-    <script src="/static/user/widget/jquery/jquery.min.js"></script>
-    <script src="/static/user/widget/bootstrap/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        body {
-            padding-top: 60px;
-            padding-bottom: 40px;
-        }
-    </style>
+    <title>博记笔记</title>
+    <!--bootstrap-->
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Simplify -->
+	<link href="css/simplify.css" rel="stylesheet">
+	
+	<!-- Font Awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<!-- ionicons -->
+<link href="https://cdn.bootcss.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
 </head>
-<body>
-#parse("common/header.vm")
-<div class="container-fluid">
-    <div class="row">
-        <!--留空-->
-        <div class="col-md-1"></div>
-            <div class="col-md-10">
-                #parse(${mainPage})
-            </div>
-    </div>
+<body class="overflow-hidden">
+	<div class="wrapper preload">
+		<header class="top-nav">
+			<div class="top-nav-inner">
+				<div class="nav-header">
+					<a href="/" class="brand">
+						<i class="fa fa-database"></i><span class="brand-name">博记笔记</span>
+					</a>
+				</div><!--nav-header-->
+				<div class="nav-container">
+					<button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleLG">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<ul class="nav-notification">	
+						<li class="search-list">
+							<div class="search-input-wrapper">
+								<div class="search-input">
+									<input type="text" class="form-control input-sm inline-block" placeholder="搜索笔记">
+									<a href="#" class="input-icon text-normal"><i class="ion-ios7-search-strong"></i></a>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<button type="button" class="btn btn-info" data-toggle="tooltip" style="margin-left:1%;margin-top:0.5%">新建普通笔记</button>
+					<button type="button" class="btn btn-info" data-toggle="tooltip" style="margin-left:1%;margin-top:0.5%">新建markdown笔记</button>
+				</div><!--nav-container-->
+					
+					
 
-</div>
-#parse("common/footer.vm")
+			</div><!--top-nav-inner-->
+			
+		</header>
+
+	</div><!--wrapper-->
+
+
+
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+	<!-- Simplify -->
+	<script src="js/simplify/simplify.js"></script>
+	<script src="js/simplify/simplify_dashboard.js"></script>
+	
 </body>
 </html>

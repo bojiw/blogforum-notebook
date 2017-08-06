@@ -16,7 +16,7 @@
     
     <bean id="velocityConfigurer"
           class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-        <property name="resourceLoaderPath" value="/WEB-INF/"/>
+        <property name="resourceLoaderPath" value="/"/>
         <property name="velocityProperties">
             <props>
                 <prop key="input.encoding">utf-8</prop>

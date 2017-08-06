@@ -51,7 +51,6 @@
 	    	*
 	    FROM note
 	    WHERE id=#{id}
-	    ORDER BY update_date
 	</select>
 	
 	
