@@ -1,4 +1,24 @@
 
+.noteSplit {
+    position: absolute;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    overflow: hidden;
+    z-index: 3333;
+    cursor: col-resize;
+}
+#noteBookSearch {
+    color: #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #37485e;
+    height: 30px;
+    width: 90%;
+    margin: 3px auto;
+    margin-top: 0;
+    box-shadow: none;
+    
+}
 #overlay {
   background: rgba(0, 0, 0, 0.8);
   left: 0;
@@ -1635,7 +1655,8 @@ a.list-group-item.active:focus {
   overflow: hidden;
   padding-top: 54px;
   min-height: 100%;
-  padding-bottom: 45px;
+  padding-bottom: 0px;
+  height: 100%;
 }
 .wrapper.no-navigation {
   padding-top: 0;

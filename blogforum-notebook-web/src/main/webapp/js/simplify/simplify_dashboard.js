@@ -51,27 +51,27 @@ $(function	()	{
 		$('.chat-alert').removeClass('active');
 	}, 8000);
 	
-	$(window).resize(function(e)	{
-		// Redraw All Chart
-		setTimeout(function() {
-			totalVisitChart.redraw();
-			plotWithOptions();
-		},500);
-	});
-
-	$('#sidebarToggleLG').click(function()	{
-		// Redraw All Chart
-		setTimeout(function() {
-			totalVisitChart.redraw();
-			plotWithOptions();
-		},500);
-	});
-
-	$('#sidebarToggleSM').click(function()	{
-		// Redraw All Chart
-		setTimeout(function() {
-			totalVisitChart.redraw();
-			plotWithOptions();
-		},500);
-	});
+//	$(window).resize(function(e)	{
+//		// Redraw All Chart
+//		setTimeout(function() {
+//			totalVisitChart.redraw();
+//			plotWithOptions();
+//		},500);
+//	});
+//
+//	$('#sidebarToggleLG').click(function()	{
+//		// Redraw All Chart
+//		setTimeout(function() {
+//			totalVisitChart.redraw();
+//			plotWithOptions();
+//		},500);
+//	});
+//
+//	$('#sidebarToggleSM').click(function()	{
+//		// Redraw All Chart
+//		setTimeout(function() {
+//			totalVisitChart.redraw();
+//			plotWithOptions();
+//		},500);
+//	});
 });

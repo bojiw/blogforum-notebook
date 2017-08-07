@@ -16,6 +16,7 @@
 </head>
 <body class="overflow-hidden">
 	<div class="wrapper preload">
+		<!--头部-->
 		<header class="top-nav">
 			<div class="top-nav-inner">
 				<div class="nav-header">
@@ -42,12 +43,108 @@
 					<button type="button" class="btn btn-info" data-toggle="tooltip" style="margin-left:1%;margin-top:0.5%">新建普通笔记</button>
 					<button type="button" class="btn btn-info" data-toggle="tooltip" style="margin-left:1%;margin-top:0.5%">新建markdown笔记</button>
 				</div><!--nav-container-->
-					
-					
-
 			</div><!--top-nav-inner-->
-			
 		</header>
+		<!--下面内容主体-->
+		<div id="boxBody" style="width:100%;height:100%">
+			<!--左侧菜单栏-->
+			<aside class="sidebar-menu fixed" id="noteLeft" >
+				<div class="sidebar-inner scrollable-sidebar" >
+					<div class="main-menu">
+						<ul class="accordion">
+							<li class="openable bg-palette3 open">
+								<a href="#">
+									<span class="menu-content block">
+										<span class="menu-icon"><i class="glyphicon glyphicon-book"></i></span>
+										<span class="text m-left-sm">笔记本</span>
+										<span class="submenu-icon"></span>
+									</span>
+									
+								</a>
+								
+								<ul class="submenu bg-palette4">
+									<li><input type="text" class="form-control" id="noteBookSearch" placeholder="搜索笔记本" / ></li>
+									<div class="tree-view-menu-list font-16">
+										<ul class="font-16">
+											<li class="openable">
+												<a href="#"><i class="fa fa-folder m-right-xs folder-icon"></i>Personal</a>
+												<ul class="subtree">
+													<li><a href="#"><i class="fa fa-file m-right-xs"></i>Note.txt</a></li>
+													<li class="openable">
+														<a href="#"><i class="fa fa-folder m-right-xs folder-icon"></i>Photo</a>
+														<ul class="subtree">
+															<li><a href="#"><i class="fa fa-photo m-right-xs"></i>Photo1.jpg</a></li>
+															<li><a href="#"><i class="fa fa-photo m-right-xs"></i>Photo2.jpg</a></li>
+															<li class="last-link"><a href="#"><i class="fa fa-photo m-right-xs"></i>Photo3.jpg</a></li>
+														</ul>
+													</li>
+													
+													<li class="openable last-link">
+														<a href="#"><i class="fa fa-folder m-right-xs folder-icon"></i>Entertainment</a>
+														<ul class="subtree last-subtree">
+															<li class="openable">
+																<a href="#"><i class="fa fa-folder m-right-xs folder-icon"></i>Movie</a>
+																<ul class="subtree">
+																	<li><a href="#"><i class="fa fa-film m-right-xs"></i>Movie1.avi</a></li>
+																	<li><a href="#"><i class="fa fa-film m-right-xs"></i>Movie2.avi</a></li>
+																	<li class="last-link"><a href="#"><i class="fa fa-film m-right-xs"></i>Movie3.avi</a></li>
+																</ul>
+															</li>
+															<li class="openable last-link">
+																<a href="#"><i class="fa fa-folder m-right-xs folder-icon"></i>Music</a>
+																<ul class="subtree">
+																	<li><a href="#"><i class="fa fa-music m-right-xs"></i>Song1.mp3</a></li>
+																	<li><a href="#"><i class="fa fa-music m-right-xs"></i>Song2.mp3</a></li>
+																	<li><a href="#"><i class="fa fa-music m-right-xs"></i>Song3.mp3</a></li>
+																	<li><a href="#"><i class="fa fa-music m-right-xs"></i>Song4.mp3</a></li>
+																	<li><a href="#"><i class="fa fa-music m-right-xs"></i>Song5.mp3</a></li>
+																	<li class="last-link"><a href="#"><i class="fa fa-music m-right-xs"></i>Song6.mp3</a></li>
+																</ul>
+															</li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+											<li class="openable">
+												<a href="#"><i class="fa fa-folder m-right-xs folder-icon"></i>Business</a>
+												<ul class="subtree last-subtree">
+													<li class="openable">
+														<a href="#"><i class="fa fa-folder m-right-xs folder-icon"></i>Report</a>
+														<ul class="subtree">
+															<li><a href="#"><i class="fa fa-file m-right-xs"></i>Report1.pdf</a></li>
+															<li><a href="#"><i class="fa fa-file m-right-xs"></i>Report2.pdf</a></li>
+															<li><a href="#"><i class="fa fa-file m-right-xs"></i>Report3.pdf</a></li>
+															<li class="last-link"><a href="#"><i class="fa fa-file m-right-xs"></i>Report4.pdf</a></li>
+														</ul>
+													</li>
+													<li class="openable last-link">
+														<a href="#"><i class="fa fa-folder m-right-xs folder-icon"></i>Statistic</a>
+														<ul class="subtree">
+															<li><a href="#"><i class="fa fa-file m-right-xs"></i>Stat1.xls</a></li>
+															<li class="last-link"><a href="#"><i class="fa fa-file m-right-xs"></i>Stat2.xls</a></li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</div><!--tree-view-menu-list font-16-->
+								</ul>
+							</li><!--openable bg-palette3-->
+						</ul><!--accordion-->
+					</div><!--main-menu-->
+				</div><!--sidebar-inner scrollable-sidebar-->
+			</aside><!--sidebar-menu fixed-->
+			<div class="noteSplit" id="noteSplit" style="left: 240px; background: none;"></div>
+			<div id="noteRight" style="padding-left:240px;height:100%">
+				<div style="float:left;width:15%;height:100%;background:red">
+					aaaa
+				</div>
+				<div style="height:100%;background:blue">
+					bbb
+				</div>
+			</div><!--noteRight-->
+			
+		</div><!--boxBody-->
 
 	</div><!--wrapper-->
 
@@ -58,7 +155,6 @@
 	<script src="https://cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
 	<!-- Simplify -->
 	<script src="js/simplify/simplify.js"></script>
-	<script src="js/simplify/simplify_dashboard.js"></script>
-	
+
 </body>
 </html>

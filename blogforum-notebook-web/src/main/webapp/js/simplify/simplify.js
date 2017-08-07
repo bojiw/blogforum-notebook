@@ -44,7 +44,7 @@ $(function	()	{
 
 		return false;
 	});
-	
+	//点击菜单栏右侧弹出隐藏
 	$('#sidebarToggleLG').click(function()	{
 		if($('.wrapper').hasClass('display-right'))	{
 			$('.wrapper').removeClass('display-right');
@@ -53,10 +53,18 @@ $(function	()	{
 		else	{
 			//$('.nav-header').toggleClass('hide');
 			$('.top-nav').toggleClass('sidebar-mini');
+			$("#noteLeft").css("width","");
 			$('aside').toggleClass('sidebar-mini');
+			if($('aside').hasClass('sidebar-mini')){
+				$("#noteSplit").css("left","0px");
+				$("#noteRight").css("padding-left","60px");
+			}else{
+				$("#noteSplit").css("left","240px");
+				$("#noteRight").css("padding-left","240px");
+			}
+			
 			$('footer').toggleClass('sidebar-mini');
 			$('.main-container').toggleClass('sidebar-mini');
-			
 			$('.main-menu').find('.openable').removeClass('open');
 			$('.main-menu').find('.submenu').removeAttr('style');
 		}		
@@ -246,3 +254,45 @@ $(window).scroll(function(){
 		$('.scroll-to-top').removeClass('active')
 	 }
 });
+
+/**div拖拽自动变换宽度*/
+window.onload = function() {
+var oBoxBody = document.getElementById("boxBody"), oNoteLeft = document.getElementById("noteLeft"), oNoteRight = document.getElementById("noteRight"), oNoteSqlit = document.getElementById("noteSplit");
+oNoteSqlit.onmousedown = function(e) {
+ var disX = (e || event).clientX;
+ oNoteSqlit.left = oNoteSqlit.offsetLeft;
+ document.onmousemove = function(e) { 
+  var iT = oNoteSqlit.left + ((e || event).clientX - disX);
+ var e=e||window.event,tarnameb=e.target||e.srcElement;
+  var maxT = oBoxBody.clientWight - oNoteSqlit.offsetWidth;
+  oNoteSqlit.style.margin = 0;
+  iT < 0 && (iT = 0);
+  iT > maxT && (iT = maxT);
+  oNoteSqlit.style.left = oNoteLeft.style.width = iT + "px";
+  oNoteRight.style.paddingLeft = iT + "px";
+  return false
+ }; 
+ document.onmouseup = function() {
+  document.onmousemove = null;
+  document.onmouseup = null; 
+  oNoteSqlit.releaseCapture && oNoteSqlit.releaseCapture()
+ };
+oNoteSqlit.setCapture && oNoteSqlit.setCapture();
+return false
+};
+};
+
+
+$(function()	{
+	$('.tree-view-menu-list .openable a').click(function()	{
+
+		var parentElm = $(this).parent();
+
+		parentElm.toggleClass('open');	
+
+		parentElm.children('.subtree').slideToggle(200);
+
+		return false;
+	});
+});
+
