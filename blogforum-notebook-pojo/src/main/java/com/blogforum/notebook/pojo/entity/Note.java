@@ -14,57 +14,57 @@ public class Note extends DataEntity<Note> {
 	/**
 	 * 编号
 	 */
-	public String				id;
+	private String				id;
 	/**
 	 * 笔记标题
 	 */
-	public String				noteTitle;
+	private String				noteTitle;
 	/**
 	 * 笔记内容
 	 */
-	public String				noteBody;
+	private String				noteBody;
 	/**
 	 * 用户
 	 */
-	public String				userId;
+	private String				userId;
 	/**
 	 * 笔记本
 	 */
-	public String				notebookId;
+	private String				notebookId;
 
 	/**
 	 * 附件路径
 	 */
-	public String				enclosure;
+	private String				enclosure;
 
 	/**
 	 * 笔记类型 普通笔记或者markdown笔记
 	 */
-	public String				type;
+	private String				type;
 	/**
 	 * 删除标记 N为不删除 Y为删除
 	 */
-	public String				delFlag;
+	private String				delFlag;
 
 	/**
 	 * 扩展参数
 	 */
-	public String				extjson;
+	private String				extjson;
 
 	/**
 	 * 标签,用;隔开
 	 */
-	public String				label;
+	private String				label;
 
 	/**
 	 * 博客笔记
 	 */
-	public String				blogId;
+	private String				blogId;
 
 	/**
 	 * 加密的访问笔记
 	 */
-	public String			pwdShareId;
+	private String			pwdShareId;
 
 	public String getId() {
 		return id;

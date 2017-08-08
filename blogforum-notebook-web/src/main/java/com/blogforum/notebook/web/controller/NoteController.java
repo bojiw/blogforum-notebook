@@ -4,28 +4,25 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.notebook.pojo.entity.NoteBook;
 import com.blogforum.notebook.service.note.NoteBookService;
-import com.blogforum.notebook.web.constant.ViewConstant;
 
-/**
- * 首页
- * @author wwd
- *
- */
 @Controller
-public class IndexController {
+@RequestMapping("/note")
+public class NoteController {
 	@Autowired
 	private NoteBookService noteBookService;
 	
-	@RequestMapping("/")
-	public String index(ModelMap map){
+	@RequestMapping("/getNoteBooks")
+	@ResponseBody
+	public blogforumResult getNoteBooks(){
 		List<NoteBook> books = noteBookService.queryList();
-		map.put("noteBooks", books);
-		return ViewConstant.INDEX;
+		return blogforumResult.ok(books);
 	}
+	
 
 }

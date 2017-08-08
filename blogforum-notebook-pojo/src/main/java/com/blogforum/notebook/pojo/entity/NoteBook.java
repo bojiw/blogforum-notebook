@@ -16,19 +16,24 @@ public class NoteBook extends DataEntity<NoteBook> {
 	/**
 	 * 笔记本编号
 	 */
-	public String id;
+	private String id;
 	/**
 	 * 父类目ID=0时，代表的是一级的类目
 	 */
-	public String parentId;
+	private String parentId;
 	/**
 	 * 笔记本名称
 	 */
-	public String name;
+	private String name;
 	/**
 	 * 创建笔记本的用户id
 	 */
-	public String userId;
+	private String userId;
+	
+	/**
+	 * 判断是否有子节点
+	 */
+	private boolean isNode;
 	
 	/**
 	 * 笔记
@@ -75,6 +80,15 @@ public class NoteBook extends DataEntity<NoteBook> {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+	public boolean isNode() {
+		return isNode;
+	}
+
+	public void setNode(boolean isNode) {
+		this.isNode = isNode;
+	}
+
 
 	
 	

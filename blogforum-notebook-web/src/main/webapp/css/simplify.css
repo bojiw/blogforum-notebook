@@ -596,7 +596,7 @@ a.list-group-item.active:focus {
   bottom: 0;
   left: 0;
   z-index: 2;
-  border-right: 1px solid #17232c;
+  border-right: 1px solid #37485e;
   padding-top: 54px;
   padding-bottom: 35px;
   width: 240px;
@@ -711,12 +711,12 @@ a.list-group-item.active:focus {
 }
 .sidebar-menu .search-box {
   padding: 10px;
-  border: 1px solid #17232c;
+  border: 1px solid #37485e;
   border-width: 1px 0;
 }
 .sidebar-menu .search-box input {
-  background: #17232c;
-  border-color: #17232c;
+  background: #37485e;
+  border-color: #37485e;
   /*&:focus {
                 .box-shadow(none);
                 border: 1px solid @site-color4;
@@ -729,7 +729,7 @@ a.list-group-item.active:focus {
 .sidebar-menu .main-menu ul li {
   position: relative;
   background-color: transparent;
-  border-bottom: 1px solid #17232c;
+  border-bottom: 1px solid #37485e;
 }
 .sidebar-menu .main-menu ul li:before {
   position: absolute;
@@ -746,14 +746,14 @@ a.list-group-item.active:focus {
 }
 .sidebar-menu .main-menu ul li:hover,
 .sidebar-menu .main-menu ul li:focus {
-  background-color: #17232c;
+  background-color: #37485e;
 }
 .sidebar-menu .main-menu ul li:hover:before,
 .sidebar-menu .main-menu ul li:focus:before {
   right: 190px;
 }
 .sidebar-menu .main-menu ul li.open {
-  background-color: #17232c;
+  background-color: #37485e;
 }
 .sidebar-menu .main-menu ul li.open:before {
   right: 190px;
@@ -809,7 +809,7 @@ a.list-group-item.active:focus {
   -o-transition: all 0.5s ease;
 }
 .sidebar-menu .main-menu ul li.active {
-  background: #17232c;
+  background: #37485e;
 }
 .sidebar-menu .main-menu ul li.active:before {
   right: 190px;
@@ -895,7 +895,7 @@ a.list-group-item.active:focus {
 .sidebar-menu .main-menu ul li .submenu {
   position: relative;
   display: none;
-  background-color: #131e25;
+  background-color: #37485e;
 }
 .sidebar-menu .main-menu ul li .submenu.third-level {
   background-color: #10181e;
@@ -920,7 +920,7 @@ a.list-group-item.active:focus {
 }
 .sidebar-menu .main-menu ul li .submenu li a {
   position: relative;
-  background-color: #131e25;
+  background-color: #37485e;
   color: #7ca0bb;
   font-weight: normal;
   padding-top: 9px;
@@ -961,11 +961,11 @@ a.list-group-item.active:focus {
   height: 41px;
   z-index: -1;
   font-size: 10px;
-  background-color: #17232c;
+  background-color: #37485e;
 }
 .sidebar-menu .sidebar-fix-bottom {
   position: fixed;
-  background-color: #131e25;
+  background-color: #37485e;
   color: #8dacc4;
   left: 0;
   width: 240px;
@@ -1361,7 +1361,7 @@ a.list-group-item.active:focus {
     background-color: #1c2b36;
   }
   .sidebar-menu.sidebar-mini .main-menu li .submenu li a:hover {
-    background-color: #17232c !important;
+    background-color: #37485e !important;
   }
   .sidebar-menu.sidebar-mini .main-menu li .submenu li a:hover .submenu-label {
     color: #ffffff;
@@ -5190,7 +5190,7 @@ label.parsley-error {
   padding: 8px 10px;
 }
 .tree-view-menu-list > ul li.open > a .folder-icon:before {
-  content: "\f07c";
+
 }
 .tree-view-menu-list > ul li .subtree {
   display: none;
@@ -5232,7 +5232,6 @@ label.parsley-error {
   width: 10px;
   top: 18px;
   left: -5px;
-  background-color: #ddd;
 }
 .tree-view-menu-list > ul li .subtree li:after {
   position: absolute;
@@ -5242,7 +5241,6 @@ label.parsley-error {
   top: 0px;
   bottom: 0;
   left: -5px;
-  background-color: #ddd;
 }
 .tree-view-menu-list > ul li .subtree li.last-link:after {
   top: 0px;
@@ -6391,6 +6389,10 @@ label.parsley-error {
 }
 .font-14 {
   font-size: 14px;
+}
+.font-15 {
+  font-size: 15px;
+  width:10000px;
 }
 .font-16 {
   font-size: 16px;
