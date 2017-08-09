@@ -257,7 +257,7 @@ $(window).scroll(function(){
 
 /**div拖拽自动变换宽度*/
 window.onload = function() {
-var oBoxBody = document.getElementById("boxBody"), oNoteLeft = document.getElementById("noteLeft"), oNoteRight = document.getElementById("noteRight"), oNoteSqlit = document.getElementById("noteSplit");
+var oBoxBody = document.getElementById("boxBody"), oNoteLeft = document.getElementById("noteLeft"), oNoteRight = document.getElementById("noteRight"), oNoteSqlit = document.getElementById("noteBookSplit");
 oNoteSqlit.onmousedown = function(e) {
  var disX = (e || event).clientX;
  oNoteSqlit.left = oNoteSqlit.offsetLeft;
@@ -282,17 +282,4 @@ return false
 };
 };
 
-
-$(function()	{
-	$('.tree-view-menu-list .openable a').click(function()	{
-
-		var parentElm = $(this).parent();
-
-		parentElm.toggleClass('open');	
-
-		parentElm.children('.subtree').slideToggle(200);
-
-		return false;
-	});
-});
 

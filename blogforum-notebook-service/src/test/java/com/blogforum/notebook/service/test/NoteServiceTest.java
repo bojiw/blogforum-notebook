@@ -1,5 +1,7 @@
 package com.blogforum.notebook.service.test;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +29,14 @@ public class NoteServiceTest {
 		note.setUserId("20170720C416F96A979F44D4A9458A6C76B1024E83029325");
 		noteService.save(note);
 	}
+	@Test
+	public void queryList(){
+		List<Note> note = noteService.queryList();
+		for (Note note2 : note) {
+			String id = note2.getId();
+		}
+		
+	}
+	
 
 }

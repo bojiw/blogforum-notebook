@@ -26,7 +26,7 @@
         n.label nlabel
     </sql>
     <resultMap type="com.blogforum.notebook.pojo.entity.NoteBook" id="noteBookMap">
-        <id property="id" column="bid"/>
+        <id property="id" column="id"/>
         <result property="name" column="bname"/>
         <result property="userId" column="buser_id"/>
         <result property="parentId" column="bparent_id"/>
@@ -79,7 +79,7 @@
 	
 	<select id="queryList" resultMap="noteBookMap">
 	    select 
-	    <include refid="NoteBookField"></include>
+	    <include refid="NoteBookField"/>
 	    from note_book b
 	    left join note n
 	    on

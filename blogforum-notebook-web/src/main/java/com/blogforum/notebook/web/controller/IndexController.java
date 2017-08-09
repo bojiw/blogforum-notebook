@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.blogforum.notebook.pojo.entity.Note;
 import com.blogforum.notebook.pojo.entity.NoteBook;
 import com.blogforum.notebook.service.note.NoteBookService;
+import com.blogforum.notebook.service.note.NoteService;
 import com.blogforum.notebook.web.constant.ViewConstant;
 
 /**
@@ -20,11 +22,15 @@ import com.blogforum.notebook.web.constant.ViewConstant;
 public class IndexController {
 	@Autowired
 	private NoteBookService noteBookService;
+	@Autowired
+	private NoteService noteService;
 	
 	@RequestMapping("/")
 	public String index(ModelMap map){
 		List<NoteBook> books = noteBookService.queryList();
+		List<Note> notes = noteService.queryList();
 		map.put("noteBooks", books);
+		map.put("notes", notes);
 		return ViewConstant.INDEX;
 	}
 

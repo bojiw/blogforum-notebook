@@ -1,5 +1,5 @@
 
-.noteSplit {
+.noteBookSplit {
     position: absolute;
     top: 0;
     width: 5px;
@@ -19,6 +19,87 @@
     box-shadow: none;
     
 }
+
+.ibox-title {
+    height: 41px;
+    border-color: #edf1f2;
+    background-color: #f6f8f8;
+    color: #333;
+    font-weight: 700;
+    border-radius: 2px 2px 0 0;
+    padding: 15px 15px 3px 15px;
+    border-bottom: 1px solid transparent;
+    display: block;
+    clear: both;
+}
+
+.noteInfoList{
+    bottom: 0;
+    top: 0;
+    width: 250px;
+    border-right: 1px solid #cfcfcf;
+    border-left: 1px solid #cfcfcf;
+    z-index: 333;
+}
+.noteInfoListItem{
+    left: 0;
+    right: 0;
+    top: 36px;
+    bottom: 3px;
+}
+
+
+.node-body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    outline: none;
+}
+.node-body-ul {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    overflow-y: hidden;
+    padding: 0 5px;
+}
+.node-body-ul-li {
+position: relative;
+    height: 110px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #ebeff2;
+    border-radius: 3px;
+    margin-top: 5px;
+    background-color: #fff;
+}
+.node-body-ul-li .selected{
+	    background-color: #65bd77 !important;
+}
+.item-desc{
+	position: absolute;
+    left: 0;
+    top: 4px;
+    right: 0px;
+    margin-left: 4px;
+}
+.item-title{
+	    font-size: 16px;
+    height: 22px;
+    line-height: 20px;
+    overflow: hidden;
+    margin-bottom: 0px;
+    color: #000000;
+    border-bottom: dashed 1px #ebeff2;
+}
+.item-info{
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 #overlay {
   background: rgba(0, 0, 0, 0.8);
   left: 0;
@@ -600,7 +681,7 @@ a.list-group-item.active:focus {
   padding-top: 54px;
   padding-bottom: 35px;
   width: 240px;
-  background-color: #1c2b36;
+  background-color: #37485e;
   height: 100%;
   transition: left 0.5s ease;
   -webkit-transition: left 0.5s ease;
@@ -730,6 +811,7 @@ a.list-group-item.active:focus {
   position: relative;
   background-color: transparent;
   border-bottom: 1px solid #37485e;
+  transition: all 1s linear;
 }
 .sidebar-menu .main-menu ul li:before {
   position: absolute;
@@ -925,7 +1007,7 @@ a.list-group-item.active:focus {
   font-weight: normal;
   padding-top: 9px;
   padding-bottom: 9px;
-  padding-left: 45px;
+  padding-left: 15px;
   transition: all 0.4s ease;
   -webkit-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
@@ -1342,8 +1424,8 @@ a.list-group-item.active:focus {
     margin: 2px 0 0;
     font-size: 14px;
     list-style: none;
-    background-color: #1c2b36;
-    border: 1px solid #1c2b36;
+    background-color: #37485e;
+    border: 1px solid #37485e;
     right: -160px;
     left: auto;
     top: -5px;
@@ -1358,7 +1440,7 @@ a.list-group-item.active:focus {
     text-align: left;
     padding: 4px 20px;
     color: #8dacc4;
-    background-color: #1c2b36;
+    background-color: #37485e;
   }
   .sidebar-menu.sidebar-mini .main-menu li .submenu li a:hover {
     background-color: #37485e !important;
@@ -1382,12 +1464,12 @@ a.list-group-item.active:focus {
   }
   .sidebar-menu.sidebar-mini .main-menu li .submenu.third-level,
   .sidebar-menu.sidebar-mini .main-menu li .submenu.fourth-level {
-    background-color: #1c2b36;
+    background-color: #37485e;
   }
   .sidebar-menu.sidebar-mini .main-menu li .submenu.third-level li a,
   .sidebar-menu.sidebar-mini .main-menu li .submenu.fourth-level li a {
     padding-left: 20px;
-    background-color: #1c2b36;
+    background-color: #37485e;
   }
   .sidebar-menu.sidebar-mini .sidebar-fix-bottom {
     display: none;
@@ -1820,7 +1902,7 @@ a.list-group-item.active:focus {
   width: 45px;
   height: 45px;
   line-height: 45px;
-  background-color: #1c2b36;
+  background-color: #37485e;
   color: #fff;
   text-align: center;
   z-index: 10;
@@ -3459,7 +3541,6 @@ table tbody td.text-right {
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  margin-bottom: 20px;
   border-color: #e4e4e4;
   border-top-width: 4px;
   background-color: #fff;
@@ -5190,7 +5271,7 @@ label.parsley-error {
   padding: 8px 10px;
 }
 .tree-view-menu-list > ul li.open > a .folder-icon:before {
-
+	content: "\f07c";
 }
 .tree-view-menu-list > ul li .subtree {
   display: none;

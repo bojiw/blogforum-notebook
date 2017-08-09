@@ -68,7 +68,13 @@
 										<ul class="font-15">
 											#foreach($noteBook in $noteBooks)
 											<li class="openable">
-												<a href="#"><i onclick="getNoteBooks(this)" class="glyphicon glyphicon-chevron-right m-right-xs folder-icon"></i>$noteBook.name</a>
+												<a href="#" value=$noteBook.id>
+													#if($noteBook.isNode)
+													<i onclick="getNoteBooks(this)" class="glyphicon glyphicon-chevron-right m-right-xs folder-icon"></i>
+													#else
+													<i class="glyphicon glyphicon-chevron-right m-right-xs folder-icon" style="color:#37485e"></i>
+													#end
+													$noteBook.name</a>
 												<ul class="subtree"></ul>
 											</li>
 											#end
@@ -80,12 +86,48 @@
 					</div><!--main-menu-->
 				</div><!--sidebar-inner scrollable-sidebar-->
 			</aside><!--sidebar-menu fixed-->
-			<div class="noteSplit" id="noteSplit" style="left: 240px; background: none;"></div>
+			<div class="noteBookSplit" id="noteBookSplit" style="left: 240px; background: none;"></div>
 			<div id="noteRight" style="padding-left:240px;height:100%">
-				<div style="float:left;width:15%;height:100%;background:red">
-					aaaa
+				<div class="noteInfoList" style="float:left;width:278px;height:100%">
+					<div class="smart-widget">
+						<div class="ibox-title">
+							<span class="badge badge-danger pull-right">10</span>
+							最新笔记
+						</div>
+					</div>
+					<div class="noteInfoListItem">
+						<div class="node-body">
+							<ul class="node-body-ul">
+								#foreach($note in $notes)
+								<li class="node-body-ul-li">
+									<div class="item-desc">
+										<p class="item-title">
+										#if($note.noteTitle)
+										$note.noteTitle
+										#end
+										</p>
+										<p class="item-info">
+										<i class="fa fa-book"></i> 
+										<span class="note-notebook">
+										#if($note.noteTitle)
+										$note.noteTitle
+										#end
+										</span>
+										<i class="fa fa-clock-o"></i> 
+										<span class="updated-time">$date.format('yyyy-MM-dd HH:mm:ss ',$note.updateDate)</span>
+										</p><p class="desc">
+										#if($note.noteBody)
+										$note.noteBody
+										#end
+										</p>
+									</div>
+								</li>
+								#end
+							</ul>
+						</div>
+					</div>
 				</div>
-				<div style="height:100%;background:blue">
+				<div style="height:100%">
 					bbb
 				</div>
 			</div><!--noteRight-->
@@ -107,6 +149,7 @@
 			var clickObject = $(clicki);
 			var parentElm = clickObject.parent().parent();
 			var parentClickObjeck = clickObject.parent();
+			console.info(parentClickObjeck.attr("value"));
 			if(clickObject.hasClass("glyphicon-chevron-right")){
 				$.get("/note/getNoteBooks",function(data){
 					var html="";

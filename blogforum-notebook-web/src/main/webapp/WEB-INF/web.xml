@@ -29,7 +29,12 @@
 			<param-name>encoding</param-name>
 			<param-value>utf-8</param-value>
 		</init-param>
+		<init-param> 
+		<param-name>org.apache.velocity.toolbox</param-name> 
+		<param-value>/WEB-INF/toolbox.xml</param-value>      
+		</init-param> 
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
