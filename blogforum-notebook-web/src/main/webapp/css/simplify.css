@@ -51,7 +51,6 @@
 
 .node-body {
     overflow: hidden;
-    height: 100%;
     width: 100%;
     outline: none;
 }
@@ -65,8 +64,8 @@
     padding: 0 5px;
 }
 .node-body-ul-li {
-position: relative;
-    height: 110px;
+	position: relative;
+    height: 130px;
     overflow: hidden;
     cursor: pointer;
     border: 1px solid #ebeff2;
@@ -74,6 +73,14 @@ position: relative;
     margin-top: 5px;
     background-color: #fff;
 }
+.liactive {
+	background-color:#c5e7ff
+}
+
+.node-body-ul-li:hover {
+	background-color:#ECECEC
+}
+
 .node-body-ul-li .selected{
 	    background-color: #65bd77 !important;
 }
@@ -817,14 +824,14 @@ a.list-group-item.active:focus {
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 237px;
+  width: 2px;
   left: 0;
   content: "";
-  transition: right 0.4s ease;
-  -webkit-transition: right 0.4s ease;
-  -moz-transition: right 0.4s ease;
-  -ms-transition: right 0.4s ease;
-  -o-transition: right 0.4s ease;
+  transition: width 0.4s ease;
+  -webkit-transition: width 0.4s ease;
+  -moz-transition: width 0.4s ease;
+  -ms-transition: width 0.4s ease;
+  -o-transition: width 0.4s ease;
 }
 .sidebar-menu .main-menu ul li:hover,
 .sidebar-menu .main-menu ul li:focus {
@@ -832,13 +839,13 @@ a.list-group-item.active:focus {
 }
 .sidebar-menu .main-menu ul li:hover:before,
 .sidebar-menu .main-menu ul li:focus:before {
-  right: 190px;
+  width: 54px;
 }
 .sidebar-menu .main-menu ul li.open {
   background-color: #37485e;
 }
 .sidebar-menu .main-menu ul li.open:before {
-  right: 190px;
+  width: 54px;
 }
 .sidebar-menu .main-menu ul li.open .submenu {
   animation: fadeInRIght 0.5s ease;
@@ -3537,7 +3544,6 @@ table tbody td.text-right {
   color: #f6f6f6;
 }
 .smart-widget {
-  border: 1px solid #e6e6e6;
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;

@@ -40,8 +40,8 @@
 							</div>
 						</li>
 					</ul>
-					<button type="button" class="btn btn-info" data-toggle="tooltip" style="margin-left:1%;margin-top:0.5%">新建普通笔记</button>
-					<button type="button" class="btn btn-info" data-toggle="tooltip" style="margin-left:1%;margin-top:0.5%">新建markdown笔记</button>
+					<button type="button" class="btn btn-info btn-sm" data-toggle="tooltip" style="margin-left:2%;margin-top:0.6%">新建普通笔记</button>
+					<button type="button" class="btn btn-info btn-sm" data-toggle="tooltip" style="margin-left:1%;margin-top:0.6%">新建markdown笔记</button>
 				</div><!--nav-container-->
 			</div><!--top-nav-inner-->
 		</header>
@@ -95,8 +95,8 @@
 							最新笔记
 						</div>
 					</div>
-					<div class="noteInfoListItem">
-						<div class="node-body">
+					<div class="noteInfoListItem" style="height:100%">
+						<div class="node-body" id ="innerDiv" style="padding-bottom:30px;height:100%">
 							<ul class="node-body-ul">
 								#foreach($note in $notes)
 								<li class="node-body-ul-li">
@@ -124,11 +124,16 @@
 								</li>
 								#end
 							</ul>
+						</div><!--node-body-->
+					</div><!--noteInfoListItem-->
+				</div><!--noteInfoList-->
+				<div class="noteInfoList" style="margin-left:278px;border:0px;width:auto;height:100%">
+					<div class="smart-widget">
+						<div class="ibox-title">
+						aaa
 						</div>
 					</div>
-				</div>
-				<div style="height:100%">
-					bbb
+					
 				</div>
 			</div><!--noteRight-->
 			
@@ -154,7 +159,13 @@
 				$.get("/note/getNoteBooks",function(data){
 					var html="";
 					jQuery.each(data.data,function(i,item){
-						var lis="<li class='openable'><a href='#'><i onclick='getNoteBooks(this)' class='glyphicon glyphicon-chevron-right m-right-xs folder-icon'></i>"
+						var lis="<li class='openable'><a href='#' value=";
+						lis += item.id + ">";
+						if(item.isNode){
+							lis += "<i onclick='getNoteBooks(this)' class='glyphicon glyphicon-chevron-right m-right-xs folder-icon'></i>";
+						}else{
+							lis += "<i class='glyphicon glyphicon-chevron-right m-right-xs folder-icon' style='color:#37485e'></i>";
+						}
 						lis += item.name + "</a><ul class='subtree'></ul></li>"
 						html += lis;
 					});

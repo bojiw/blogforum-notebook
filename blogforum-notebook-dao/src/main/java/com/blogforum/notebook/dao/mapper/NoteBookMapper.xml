@@ -84,7 +84,7 @@
 	    left join note n
 	    on
 	    b.id = n.notebook_id AND b.parent_id = '0'
-	    order by b.update_date desc
+	    order by b.name desc
 	</select>
 	
 

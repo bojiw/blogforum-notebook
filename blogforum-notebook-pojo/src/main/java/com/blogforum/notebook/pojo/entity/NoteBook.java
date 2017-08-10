@@ -81,11 +81,11 @@ public class NoteBook extends DataEntity<NoteBook> {
 		this.userId = userId;
 	}
 
-	public boolean isNode() {
+	public boolean getIsNode() {
 		return isNode;
 	}
 
-	public void setNode(boolean isNode) {
+	public void setIsNode(boolean isNode) {
 		this.isNode = isNode;
 	}
 

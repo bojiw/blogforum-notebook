@@ -258,28 +258,53 @@ $(window).scroll(function(){
 /**div拖拽自动变换宽度*/
 window.onload = function() {
 var oBoxBody = document.getElementById("boxBody"), oNoteLeft = document.getElementById("noteLeft"), oNoteRight = document.getElementById("noteRight"), oNoteSqlit = document.getElementById("noteBookSplit");
-oNoteSqlit.onmousedown = function(e) {
- var disX = (e || event).clientX;
- oNoteSqlit.left = oNoteSqlit.offsetLeft;
- document.onmousemove = function(e) { 
-  var iT = oNoteSqlit.left + ((e || event).clientX - disX);
- var e=e||window.event,tarnameb=e.target||e.srcElement;
-  var maxT = oBoxBody.clientWight - oNoteSqlit.offsetWidth;
-  oNoteSqlit.style.margin = 0;
-  iT < 0 && (iT = 0);
-  iT > maxT && (iT = maxT);
-  oNoteSqlit.style.left = oNoteLeft.style.width = iT + "px";
-  oNoteRight.style.paddingLeft = iT + "px";
-  return false
- }; 
- document.onmouseup = function() {
-  document.onmousemove = null;
-  document.onmouseup = null; 
-  oNoteSqlit.releaseCapture && oNoteSqlit.releaseCapture()
- };
-oNoteSqlit.setCapture && oNoteSqlit.setCapture();
-return false
-};
+	oNoteSqlit.onmousedown = function(e) {
+	 var disX = (e || event).clientX;
+	 oNoteSqlit.left = oNoteSqlit.offsetLeft;
+	 document.onmousemove = function(e) { 
+	  var iT = oNoteSqlit.left + ((e || event).clientX - disX);
+	 var e=e||window.event,tarnameb=e.target||e.srcElement;
+	  var maxT = oBoxBody.clientWight - oNoteSqlit.offsetWidth;
+	  oNoteSqlit.style.margin = 0;
+	  iT < 0 && (iT = 0);
+	  iT > maxT && (iT = maxT);
+	  oNoteSqlit.style.left = oNoteLeft.style.width = iT + "px";
+	  oNoteRight.style.paddingLeft = iT + "px";
+	  return false
+	 }; 
+	 document.onmouseup = function() {
+	  document.onmousemove = null;
+	  document.onmouseup = null; 
+	  oNoteSqlit.releaseCapture && oNoteSqlit.releaseCapture()
+	 };
+	oNoteSqlit.setCapture && oNoteSqlit.setCapture();
+	return false
+	};
 };
 
+//笔记滚动条
+$(function(){  
+    $('#innerDiv').slimScroll({  
+        width: 'auto', //可滚动区域宽度
+        height: '100%', //可滚动区域高度
+
+    });
+    
+    $('#innerDiv').slimScroll().bind('slimscroll', function(e, pos){  
+        if(pos=='bottom'){
+           // 执行其他逻辑
+        }
+    });  
+});  
+
+//笔记点击变色
+$(function(){
+	$('.node-body-ul-li').click(function(){
+		var li = $(this);
+		li.addClass("liactive");
+		li.unbind('mouseenter').unbind('mouseleave');
+		li.siblings().removeClass("liactive");
+	});
+
+});
 
