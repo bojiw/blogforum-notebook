@@ -19,9 +19,8 @@
 		<property name="password" value="${jdbc.password}" />
 		<property name="driverClassName" value="${jdbc.driver}" />
 		<property name="maxActive" value="10" />
-		<property name="minIdle" value="5" />
 		<!-- 数据库连接超时时间 -->
-		<property name="maxWait" value="5000"/>
+		<property name="maxWait" value="600000"/>
 	</bean>
 	<!-- 让spring管理sqlsessionfactory 使用mybatis和spring整合包中的 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

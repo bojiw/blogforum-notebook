@@ -73,7 +73,14 @@
     margin-top: 5px;
     background-color: #fff;
 }
-.liactive {
+.node-body-ul-li-active {
+	position: relative;
+    height: 130px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #ebeff2;
+    border-radius: 3px;
+    margin-top: 5px;
 	background-color:#c5e7ff
 }
 
@@ -84,6 +91,39 @@
 .node-body-ul-li .selected{
 	    background-color: #65bd77 !important;
 }
+
+
+
+
+
+.noteRightInfo{
+    bottom: 0;
+    top: 0;
+    right: 0;
+    padding-left: 5px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    background-color: #ffffff;
+}
+
+.noteRightTitileText{
+	width:100%;
+	height:100%;
+    padding: 6px 12px;
+    border: none;
+    background-color: #ffffff;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    display: block;
+        
+}
+
+.noteEditer{
+	width:100%;
+	height:100%;
+}
+
+
 .item-desc{
 	position: absolute;
     left: 0;
