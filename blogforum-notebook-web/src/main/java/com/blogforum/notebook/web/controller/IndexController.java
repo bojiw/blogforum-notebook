@@ -34,4 +34,19 @@ public class IndexController {
 		return ViewConstant.INDEX;
 	}
 
+	@RequestMapping("/simplenote")
+	public String simpleNote(){
+		return ViewConstant.SIMPLENOTE;
+	}
+	
+	@RequestMapping("/nullnote")
+	public String nullNote(){
+		return ViewConstant.NULLNOTE;
+	}
+	
+	@RequestMapping("/markdownnote")
+	public String markDownNote(){
+		return ViewConstant.MARKDOWNNOTE;
+	}
+	
 }

@@ -43,7 +43,7 @@
 							</div>
 						</li>
 					</ul>
-					<button type="button" class="btn btn-info btn-sm" data-toggle="tooltip" style="margin-left:2%;margin-top:0.6%">新建普通笔记</button>
+					<button type="button" class="btn btn-info btn-sm simplenote" data-toggle="tooltip" style="margin-left:2%;margin-top:0.6%">新建普通笔记</button>
 					<button type="button" class="btn btn-info btn-sm" data-toggle="tooltip" style="margin-left:1%;margin-top:0.6%">新建markdown笔记</button>
 				</div><!--nav-container-->
 			</div><!--top-nav-inner-->
@@ -131,33 +131,7 @@
 					</div><!--noteInfoListItem-->
 				</div><!--noteInfoList-->
 				<div class="noteRightInfo" style="margin-left:278px;border:0px;width:auto;height:100%">
-					<div class="noteRightTop" style="height:80px;width:100%">
-						<div class="noteTitleTools" style="height:40%;width:100%">
-							<div class="noteRightTitle" style="float:left;width:70%;height:100%;margin:5px">
-								<input type="text" class="noteRightTitileText" placeholder="标题" >
-							</div>
-							<div class="pull-right" style="padding:6px 6px;width: 20%">
-								<div class="saveNote">
-									<div class="btn btn-info btn-sm" style="float:left;margin-right:10px">保存</div>
-								</div>
-								<div class="itemHistory">
-									<i class="glyphicon glyphicon-time" title="历史版本" style="float:left;margin-right:10px;margin-top:5px"></i>
-								</div>
-								<div class="itemDelete">
-									<i class="glyphicon glyphicon-trash" title="删除" style="margin-top:5px"></i>
-								</div>
-							</div>
-						</div><!--noteTitleTools-->
-						<div class="noteTags" >
-							<div style="float:left;width:70%;height:50%;margin:2px">
-								<input type="text" class="noteRightTitileText" name="tags" id="tags" value="foo,bar,baz" />
-							</div>
-						</div><!--noteTags-->
-					</div><!--noteRightTop-->
-					<div class="noteRightBottom" style="height:100%;width:95%;margin-top:5px" >
-						<div class="noteEditer" style="height:95%">
-						</div>
-					</div>
+
 				</div><!--noteRightInfo-->
 			</div><!--noteRight-->
 			
@@ -170,7 +144,7 @@
 	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
-	<script src="https://unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+	<script src="https://cdn.bootcss.com/wangEditor/3.0.8/wangEditor.min.js"></script>
 	<!-- Simplify -->
 	<script src="js/simplify/simplify.js"></script>
 	<!--标签-->

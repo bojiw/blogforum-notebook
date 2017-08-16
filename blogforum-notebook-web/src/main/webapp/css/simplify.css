@@ -1174,7 +1174,7 @@ a.list-group-item.active:focus {
     border-bottom: none;
   }
   .sidebar-menu.sidebar-mini .main-menu li:hover .submenu {
-    display: block;
+
     animation: fadeInLeft 0.7s ease;
     -webkit-animation: fadeInLeft 0.7s ease;
     -moz-animation: fadeInLeft 0.7s ease;

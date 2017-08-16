@@ -297,6 +297,14 @@ $(function(){
     });  
 });  
 
+$(function(){
+	$(".noteRightInfo").load("nullnote");
+	$(".simplenote").click(function(){
+		$(".noteRightInfo").load("simplenote");
+	});
+	
+});
+
 //笔记点击变色
 $(function(){
 	$('.node-body-ul-li').click(function(){
@@ -306,30 +314,7 @@ $(function(){
 		li.siblings().removeClass("node-body-ul-li-active");
 		li.siblings().addClass("node-body-ul-li");
 	});
-	//标签
-	$('#tags').tagsInput({
-		'autocomplete':{selectFirst:true,width:'10px',autoFill:true},
-		   'height':'100%',
-		   'width':'100%',
-		   'interactive':true,
-		   'defaultText':'添加标签...',
-		   'delimiter': [',',';'],   // Or a string with a single delimiter. Ex: ';'
-		   'removeWithBackspace' : true,
-		   'minChars' : 0,
-		   'maxChars' : 0, // if not provided there is no limit
-		   'placeholderColor' : '#d1d1d1'
-		});
-	$(".tagsinput").css("border","0px");
-	$(".tagsinput").css("padding","0px 0px");
 
-});
-
-$(function(){
-	var E = window.wangEditor;
-	var editor = new E('.noteEditer');
-	editor.create();
-	
-	
 });
 
 

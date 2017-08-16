@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body class="overflow-hidden">
+	<div style="height:100%;width:100%;padding-top:20%;padding-left:30%">
+		<div style="margin-left:30px;margin-bottom:30px">
+			<h3><small>当前笔记本没有笔记 可以选择新建。。。</small></h3>
+		</div>
+		<div class="btn btn-default simplenote" style="float:left;margin-right:30px">
+			新建普通笔记
+		</div>
+		<div class="btn btn-default markdownnote">
+			新建markdown笔记
+		</div>
+	</div>
+		<script src="js/note.js"></script>
+</body>
+</html>
