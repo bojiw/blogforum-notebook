@@ -54,6 +54,7 @@
   
 	<!-- 添加tomcat插件 -->
 	<build>
+	<finalName>blogforum</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
