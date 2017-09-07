@@ -24,6 +24,7 @@ public class NoteBookServiceTest {
 		noteBook.setParentId("0");
 		noteBook.setName("默认笔记本3");
 		noteBook.setUserId("20170720C416F96A979F44D4A9458A6C76B1024E83029325");
+		noteBook.setIsNode(true);
 		noteBookService.save(noteBook);
 	}
 
