@@ -1,3 +1,4 @@
 com\blogforum\notebook\web\controller\IndexController.class
 com\blogforum\notebook\web\controller\NoteController.class
+com\blogforum\notebook\web\controller\QiNiuYunController.class
 com\blogforum\notebook\web\constant\ViewConstant.class

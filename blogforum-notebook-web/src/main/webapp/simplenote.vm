@@ -27,7 +27,7 @@
 			</div><!--noteTags-->
 		</div><!--noteRightTop-->
 		<div class="noteRightBottom" style="height:90%;width:95%;margin-top:5px" >
-			<div class="noteEditer" style="height:90%">
+			<div id="editor" class="noteEditer" style="height:90%">
 			</div>
 		</div>
 	<script src="js/note.js"></script>

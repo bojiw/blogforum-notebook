@@ -296,17 +296,22 @@ $(function(){
         }
     });  
 });  
-
+//新建笔记
 $(function(){
+
 	$(".noteRightInfo").load("nullnote");
 	$(".simplenote").click(function(){
 		$(".noteRightInfo").load("simplenote");
+	});
+	$(".markdownnote").click(function(){
+		$(".noteRightInfo").load("markdownnote");
 	});
 	
 });
 
 //笔记点击变色
 $(function(){
+
 	$('.node-body-ul-li').click(function(){
 		var li = $(this);
 		li.removeClass("node-body-ul-li");
@@ -316,5 +321,4 @@ $(function(){
 	});
 
 });
-
 
