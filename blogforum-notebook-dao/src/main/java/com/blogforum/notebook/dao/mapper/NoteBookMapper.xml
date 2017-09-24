@@ -83,9 +83,40 @@
 	    from note_book b
 	    left join note n
 	    on
-	    b.id = n.notebook_id AND b.parent_id = '0'
+	    b.id = n.notebook_id
 	    order by b.name desc
 	</select>
-	
+	<select id="getById" resultMap="noteBookMap">
+	    select 
+	    <include refid="NoteBookField"/>
+		FROM
+		(
+			SELECT
+				*
+			from note_book
+			where
+			note_book.id = #{id}
+		) b
+	    left join note n
+	    on
+	    b.id = n.notebook_id
+	    
+	</select>
+	<select id="queryListByParentId" resultMap="noteBookMap">
+	    select 
+	    <include refid="NoteBookField"/>
+		FROM
+		(
+			SELECT
+				*
+			from note_book
+			where
+			note_book.parent_id = #{parentId}
+		) b
+	    left join note n
+	    on
+	    b.id = n.notebook_id
+	    order by b.name desc
+	</select>
 
 </mapper>

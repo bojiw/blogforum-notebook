@@ -322,3 +322,266 @@ $(function(){
 
 });
 
+$(function(){
+	//鼠标经过出现设置按钮
+	showsetting();
+	//笔记本设置按钮
+	bookSetting();
+	//给获取笔记本元素绑定点击事件
+	$('.glyphicon-chevron-right').on("click",getBooks);
+	
+	//左侧获取笔记本方法
+	function getBooks(){
+		var clickObject = $(this);
+		var parentElm = clickObject.parent().parent();
+		var parentClickObjeck = clickObject.parent();
+		if(clickObject.hasClass("glyphicon-chevron-right")){
+			$.get("/noteBook/getNoteBook/" + clickObject.next().attr("value"),function(data){
+				var html="";
+				jQuery.each(data.data,function(i,item){
+					var lis="<li class='openable'><a href='#' class='showsetting'>";
+					if(item.isNode){
+						lis += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon'></span>";
+					}else{
+						lis += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon' style='opacity:0'></span>";
+					}
+					lis += "<span class='noteBookName' value="
+					lis += item.id;
+					lis += " parentId="
+					lis += item.parentId
+					lis += ">";
+					lis += item.name
+					lis += "</span>";
+					lis += "<span title='设置' class='booksetting glyphicon glyphicon-cog'></span>";
+					lis += "<span title='笔记数量' style='float:right;font-size:16px'>0</span>";
+					lis += "</a><ul class='subtree'></ul></li>";
+					html += lis;
+				});
+				parentClickObjeck.next().html(html);
+				//关闭所有获取笔记本元素的点击事件
+				$('.glyphicon-chevron-right').off("click");
+				//给获取笔记本元素绑定点击事件
+				$('.glyphicon-chevron-right').on("click",getBooks);
+				//鼠标经过出现设置按钮
+				showsetting();
+				//关闭所有笔记设置按钮的点击事件 后面重新加上
+				$('.booksetting').off('click')
+				//笔记本设置按钮
+				bookSetting();
+			});
+			clickObject.removeClass("glyphicon-chevron-right");
+			clickObject.addClass("glyphicon-chevron-down");
+			parentElm.children('.subtree').show();
+		}else{
+			clickObject.removeClass("glyphicon-chevron-down");
+			clickObject.addClass("glyphicon-chevron-right");
+			parentElm.children('.subtree').hide();
+		}
+		return false;
+	}
+	
+	
+	
+	//添加笔记本
+	$('#addnotebook').click(function(){
+		layer.prompt({title: '输入笔记本名，并确认', formType: 3}, function(name, index){
+			  layer.close(index);
+			  $.post("/noteBook/addNoteBook",{
+				name:name,
+				//伪代码
+				userId:"20170720C416F96A979F44D4A9458A6C76B1024E83029325"
+				},
+				function(data) {
+				if(data.status != "200") {
+				layer.msg(data.msg);
+				} else {
+					  //设置内容
+					  var text="<li class='openable'>"
+					  text += "<a class='showsetting' href='#' >";
+					  text += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon' style='opacity:0'></span>";
+					  text += "<span class='noteBookName' value="
+					  text += data.data.id;
+					  text += " parentId="
+					  text += data.data.parentId
+					  text += ">";
+					  text += name;
+					  text += "</span>";
+					  text += "<span title='设置' class='booksetting glyphicon glyphicon-cog'></span>";
+					  text += "<span title='笔记数量' style='float:right;font-size:16px'>0</span>";
+					  text += "</a><ul class='subtree'></ul></li>";
+					  //把内容对象转换会jQuery对象
+					  var bookli = $(text);
+					  //获取ul
+					  var listbooks = $("#listbooks");
+					  //获取ul下的第一个li 在第一个li前加上text中的内容
+					  bookli.insertBefore(listbooks.children().first());
+					  showsetting();
+					  //关闭所有笔记设置按钮的点击事件 后面重新加上
+				  	  $('.booksetting').off('click')
+					  //笔记本设置按钮
+					  bookSetting();
+				}
+	
+			  });
+
+		});
+	});
+	function showsetting(){
+		//鼠标经过出现设置按钮
+		$(".showsetting").hover(function(){
+			$(this).find(".booksetting").eq(0).css("opacity","100");
+			$(this).css("background-color","#527198");
+		},function(){
+			$(this).find(".booksetting").eq(0).css("opacity","0");
+			$(this).css("background-color","#37485e");
+		});
+	}
+	var book;
+	//笔记本设置按钮
+	function bookSetting(){
+		//点击设置按钮
+		$('.booksetting').on('click', function(e) {
+			book = $(this).prev();
+			var items = [
+				{ title: '添加子笔记本', icon: 'ion-plus-round', fn: addNodeNoteBook },
+				{ title: '重命名', icon: 'ion-edit', fn: rename },
+				{ title: '删除笔记本', icon: 'ion-trash-a', fn: deleteNoteBook },
+			]
+
+			basicContext.show(items, e.originalEvent)
+
+		})
+		
+		//添加子笔记本
+		function addNodeNoteBook(){
+			layer.prompt({title: '输入笔记本名，并确认', formType: 3}, function(name, index){
+				  layer.close(index);
+				  $.post("/noteBook/addNoteBook",{
+					name:name,
+					//伪代码
+					userId:"20170720C416F96A979F44D4A9458A6C76B1024E83029325",
+					parentId:book.attr("value")
+					},
+					function(data) {
+					if(data.status != "200") {
+					layer.msg(data.msg);
+					} else {
+						  var html ="";
+						  //设置内容
+						  var text="<li class='openable'>"
+						  text += "<a class='showsetting' href='#' >";
+						  text += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon' style='opacity:0'></span>";
+						  text += "<span class='noteBookName' value="
+						  text += data.data.id;
+						  text += " parentId="
+						  text += data.data.parentId
+						  text += ">";
+						  text += name;
+						  text += "</span>";
+						  text += "<span title='设置' class='booksetting glyphicon glyphicon-cog'></span>";
+						  text += "<span title='笔记数量' style='float:right;font-size:16px'>0</span>";
+						  text += "</a><ul class='subtree'></ul></li>";
+						  html += text;
+						  //获取笔记名前面的三角
+						  var triangle = book.prev();
+						  //获取subtree这个元素
+						  var subtree = book.parent().next();
+						  //如果三角属性为透明 则设置为不透明并且样式为下拉样式
+						  if(triangle.css("opacity") == "0"){
+							  triangle.css("opacity","100");
+							  triangle.removeClass("glyphicon-chevron-right");
+							  triangle.addClass("glyphicon-chevron-down");
+							  subtree.html(html);
+							  subtree.show();
+							  //关闭所有获取笔记本元素的点击事件
+							  $('.glyphicon-chevron-right').off("click");
+							  //给获取笔记本元素绑定点击事件
+							  $('.glyphicon-chevron-right').on("click",getBooks);
+							  //鼠标经过出现设置按钮
+							  showsetting();
+							  //关闭所有笔记设置按钮的点击事件 后面重新加上
+							  $('.booksetting').off('click')
+							  //笔记本设置按钮
+							  bookSetting();
+						  }else{
+							  triangle.removeClass("glyphicon-chevron-right");
+							  triangle.addClass("glyphicon-chevron-down");
+							  subtree.html(html + subtree.html());
+							  subtree.show();
+							  //关闭所有获取笔记本元素的点击事件
+							  $('.glyphicon-chevron-right').off("click");
+							  //给获取笔记本元素绑定点击事件
+							  $('.glyphicon-chevron-right').on("click",getBooks);
+							  //鼠标经过出现设置按钮
+							  showsetting();
+							  //关闭所有笔记设置按钮的点击事件 后面重新加上
+							  $('.booksetting').off('click')
+							  //笔记本设置按钮
+							  bookSetting();
+						  }
+						  
+					}
+		
+				  });
+
+			});
+		}
+		
+		//删除笔记本
+		function deleteNoteBook(){
+			
+			layer.confirm('确定要删除该笔记本吗,删除会导致该笔记本下所有笔记和子笔记本删除', {
+				  btn: ['确定','取消'] //按钮
+				}, function(index){
+					 $.post("/noteBook/deleteNoteBook",{
+							id:book.attr("value"),
+							parentId:book.attr("parentId")
+							},
+							function(data) {
+							if(data.status != "200") {
+								layer.msg(data.msg);
+							} else {
+								if(book.attr("parentId") == "0"){
+									book.parent().parent().remove();
+								}else{
+									//如果父笔记本已经没有子笔记本
+									if(!data.data){
+										//获取父笔记本的三角设置透明度为0
+										book.parent().parent().parent().prev().find(".folder-icon").first().css("opacity","0");
+										book.parent().parent().remove();
+									}else{
+										book.parent().parent().remove();
+									}
+								}
+							}
+					 });
+					 layer.close(index);
+				});
+		}
+			
+		//重命名笔记本
+		function rename(){
+			layer.prompt({title: '输入新笔记本名，并确认', formType: 3}, function(name, index){
+				  layer.close(index);
+				  $.post("/noteBook/updateNoteBook",{
+					id:book.attr("value"),
+					name:name
+					},
+					function(data) {
+					if(data.status != "200") {
+					layer.msg(data.msg);
+					} else {
+						book.html(data.data.name);
+					}
+		
+				  });
+
+			});
+		}
+	}
+
+
+	
+
+});
+

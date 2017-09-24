@@ -123,6 +123,18 @@
 	height:100%;
 }
 
+.booksetting {
+	margin-left:2px;
+	opacity: 0;
+	top: 4px;
+	float:right;
+	color:#edf1f2
+}
+
+
+
+
+
 
 .item-desc{
 	position: absolute;
@@ -957,7 +969,6 @@ a.list-group-item.active:focus {
   font-weight: 600;
   background: transparent;
   color: #8dacc4;
-  text-transform: uppercase;
   outline: none;
 }
 .sidebar-menu .main-menu ul li a .menu-icon {

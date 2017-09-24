@@ -27,7 +27,7 @@ public class IndexController {
 	
 	@RequestMapping("/")
 	public String index(ModelMap map){
-		List<NoteBook> books = noteBookService.queryList();
+		List<NoteBook> books = noteBookService.queryListByParentId("0");
 		List<Note> notes = noteService.queryList();
 		map.put("noteBooks", books);
 		map.put("notes", notes);
