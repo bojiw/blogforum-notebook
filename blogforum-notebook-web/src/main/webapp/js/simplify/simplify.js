@@ -339,22 +339,7 @@ $(function(){
 			$.get("/noteBook/getNoteBook/" + clickObject.next().attr("value"),function(data){
 				var html="";
 				jQuery.each(data.data,function(i,item){
-					var lis="<li class='openable'><a href='#' class='showsetting'>";
-					if(item.isNode){
-						lis += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon'></span>";
-					}else{
-						lis += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon' style='opacity:0'></span>";
-					}
-					lis += "<span class='noteBookName' value="
-					lis += item.id;
-					lis += " parentId="
-					lis += item.parentId
-					lis += ">";
-					lis += item.name
-					lis += "</span>";
-					lis += "<span title='设置' class='booksetting glyphicon glyphicon-cog'></span>";
-					lis += "<span title='笔记数量' style='float:right;font-size:16px'>0</span>";
-					lis += "</a><ul class='subtree'></ul></li>";
+					var lis = getBookHtml(item);
 					html += lis;
 				});
 				parentClickObjeck.next().html(html);
@@ -381,6 +366,27 @@ $(function(){
 	}
 	
 	
+	function getBookHtml(item){
+		var lis="<li class='openable'><a href='#' class='showsetting'>";
+		if(item.isNode){
+			lis += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon'></span>";
+		}else{
+			lis += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon' style='opacity:0'></span>";
+		}
+		lis += "<span class='noteBookName' value="
+		lis += item.id;
+		lis += " parentId="
+		lis += item.parentId
+		lis += ">";
+		lis += item.name
+		lis += "</span>";
+		lis += "<span title='设置' class='booksetting glyphicon glyphicon-cog'></span>";
+		lis += "<span title='笔记数量' style='float:right;font-size:16px'>0</span>";
+		lis += "</a><ul class='subtree'></ul></li>";
+		return lis;
+	}
+	
+	
 	
 	//添加笔记本
 	$('#addnotebook').click(function(){
@@ -396,19 +402,7 @@ $(function(){
 				layer.msg(data.msg);
 				} else {
 					  //设置内容
-					  var text="<li class='openable'>"
-					  text += "<a class='showsetting' href='#' >";
-					  text += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon' style='opacity:0'></span>";
-					  text += "<span class='noteBookName' value="
-					  text += data.data.id;
-					  text += " parentId="
-					  text += data.data.parentId
-					  text += ">";
-					  text += name;
-					  text += "</span>";
-					  text += "<span title='设置' class='booksetting glyphicon glyphicon-cog'></span>";
-					  text += "<span title='笔记数量' style='float:right;font-size:16px'>0</span>";
-					  text += "</a><ul class='subtree'></ul></li>";
+					  var text=getBookHtml(data.data);
 					  //把内容对象转换会jQuery对象
 					  var bookli = $(text);
 					  //获取ul
@@ -468,19 +462,7 @@ $(function(){
 					} else {
 						  var html ="";
 						  //设置内容
-						  var text="<li class='openable'>"
-						  text += "<a class='showsetting' href='#' >";
-						  text += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon' style='opacity:0'></span>";
-						  text += "<span class='noteBookName' value="
-						  text += data.data.id;
-						  text += " parentId="
-						  text += data.data.parentId
-						  text += ">";
-						  text += name;
-						  text += "</span>";
-						  text += "<span title='设置' class='booksetting glyphicon glyphicon-cog'></span>";
-						  text += "<span title='笔记数量' style='float:right;font-size:16px'>0</span>";
-						  text += "</a><ul class='subtree'></ul></li>";
+						  var text= getBookHtml(data.data);
 						  html += text;
 						  //获取笔记名前面的三角
 						  var triangle = book.prev();
@@ -529,6 +511,18 @@ $(function(){
 		
 		//删除笔记本
 		function deleteNoteBook(){
+			//获取笔记数量
+			var noteSum = book.next().next().text();
+			if(noteSum != "0"){
+				layer.msg("该笔记本下有笔记不可删除!!!");
+				return;
+			}
+			//获取小三角的透明度
+			var isNote = book .prev().css("opacity");
+			if(isNote != "0"){
+				layer.msg("该笔记本下有子笔记不可删除!!!");
+				return;
+			}
 			
 			layer.confirm('确定要删除该笔记本吗,删除会导致该笔记本下所有笔记和子笔记本删除', {
 				  btn: ['确定','取消'] //按钮
