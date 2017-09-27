@@ -76,6 +76,13 @@ public class NoteBookController {
 		Boolean isNode = true;
 		//删除笔记这里需要考虑子笔记本和笔记的删除
 		List<NoteBook> delnoteBooks = noteBookService.queryListByParentId(id);
+		if(CollectionUtils.isNotEmpty(delnoteBooks)){
+			blogforumResult.build(BizError.ILLEGAL_PARAMETER, "该笔记本下有笔记不可删除!!!");
+		}
+		NoteBook noteBook = noteBookService.getById(id);
+		if (noteBook.getIsNode()) {
+			blogforumResult.build(BizError.ILLEGAL_PARAMETER, "该笔记本下有子笔记不可删除!!!");
+		}
 		noteBookService.delete(id);
 		if (!StringUtils.equals(parentId, "0")) {
 			List<NoteBook> noteBooks = noteBookService.queryListByParentId(parentId);
