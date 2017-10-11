@@ -1,4 +1,5 @@
 $(function	()	{
+	
 	//scrollable sidebar
 	$('.scrollable-sidebar').slimScroll({
 		height: '100%',
@@ -255,6 +256,8 @@ $(window).scroll(function(){
 	 }
 });
 
+
+
 /**div拖拽自动变换宽度*/
 window.onload = function() {
 var oBoxBody = document.getElementById("boxBody"), oNoteLeft = document.getElementById("noteLeft"), oNoteRight = document.getElementById("noteRight"), oNoteSqlit = document.getElementById("noteBookSplit");
@@ -298,14 +301,54 @@ $(function(){
 });  
 //新建笔记
 $(function(){
-
+	//第一次进入页面 默认选中笔记本的id为第一个笔记本
+	var selectedBook = $("#listbooks").find(".noteBookName").first();
+	var selectedBookId = selectedBook.attr("value")
+	var bookName = selectedBook.html();
+	//设置当前选中的笔记本的id和name 方便其他地方获取
+	$("#selectedBook").attr("value",selectedBookId);
+	$("#selectedBook").attr("name",bookName);
+	
 	$(".noteRightInfo").load("nullnote");
+	//点击新建普通笔记时建立新笔记
 	$(".simplenote").click(function(){
-		$(".noteRightInfo").load("simplenote");
+		if(selectedBookId == null){
+			layer.msg("没有选中笔记本   无法创建笔记");
+			return;
+		}
+		var isFlat = addNote(selectedBookId,bookName);
+		if(isFlat){
+			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId});
+		}
 	});
+	//点击新建markdown笔记时建立新笔记
 	$(".markdownnote").click(function(){
-		$(".noteRightInfo").load("markdownnote");
+		if(selectedBookId == null){
+			layer.msg("没有选中笔记本   无法创建笔记");
+			return;
+		}
+		var isFlat = addNote(selectedBookId,bookName);
+		if(isFlat){
+			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId});
+		}
 	});
+	
+	
+	//添加笔记
+	function addNote(noteBookId,noteBookName){
+		 var isFlat = true;
+		 $.post("/note/addNote",{
+				noteBookId:noteBookId,
+				label:noteBookName
+				},
+				function(data) {
+				if(data.status != "200") {
+					layer.msg(data.msg);
+					isFlat = false;
+				}
+		 });
+		 return isFlat;
+	}
 	
 });
 
@@ -389,9 +432,7 @@ $(function(){
 		layer.prompt({title: '输入笔记本名，并确认', formType: 3}, function(name, index){
 			  layer.close(index);
 			  $.post("/noteBook/addNoteBook",{
-				name:name,
-				//伪代码
-				userId:"20170720C416F96A979F44D4A9458A6C76B1024E83029325"
+				name:name
 				},
 				function(data) {
 				if(data.status != "200") {
@@ -444,8 +485,6 @@ $(function(){
 						  layer.close(index);
 						  $.post("/noteBook/addNoteBook",{
 							name:name,
-							//伪代码
-							userId:"20170720C416F96A979F44D4A9458A6C76B1024E83029325",
 							parentId:book.attr("value")
 							},
 							function(data) {

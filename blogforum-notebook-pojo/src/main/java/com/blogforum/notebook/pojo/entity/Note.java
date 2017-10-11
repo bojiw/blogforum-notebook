@@ -23,6 +23,12 @@ public class Note extends DataEntity<Note> {
 	 * 笔记内容
 	 */
 	private String				noteBody;
+	
+	/**
+	 * md格式笔记内容
+	 */
+	private String				mdNoteBody;
+
 	/**
 	 * 用户
 	 */
@@ -30,7 +36,7 @@ public class Note extends DataEntity<Note> {
 	/**
 	 * 笔记本
 	 */
-	private String				notebookId;
+	private String				noteBookId;
 
 	/**
 	 * 附件路径
@@ -66,6 +72,12 @@ public class Note extends DataEntity<Note> {
 	 */
 	private String			pwdShareId;
 
+	
+	/**
+	 * 内容类型 是原创还是转载还是翻译
+	 */
+	private String			textType;
+	
 	public String getId() {
 		return id;
 	}
@@ -149,13 +161,6 @@ public class Note extends DataEntity<Note> {
 		this.blogId = blogId;
 	}
 
-	public String getNotebookId() {
-		return notebookId;
-	}
-
-	public void setNotebookId(String notebookId) {
-		this.notebookId = notebookId;
-	}
 
 	public String getPwdShareId() {
 		return pwdShareId;
@@ -165,12 +170,31 @@ public class Note extends DataEntity<Note> {
 		this.pwdShareId = pwdShareId;
 	}
 
-	@Override
-	public String toString() {
-		return "Note [id=" + id + ", noteTitle=" + noteTitle + ", noteBody=" + noteBody + ", userId=" + userId
-							+ ", notebookId=" + notebookId + ", enclosure=" + enclosure + ", type=" + type
-							+ ", delFlag=" + delFlag + ", extjson=" + extjson + ", label=" + label + ", blogId="
-							+ blogId + ", pwdShareId=" + pwdShareId + "]";
+
+	public String getMdNoteBody() {
+		return mdNoteBody;
 	}
 
+	public void setMdNoteBody(String mdNoteBody) {
+		this.mdNoteBody = mdNoteBody;
+	}
+
+	public String getNoteBookId() {
+		return noteBookId;
+	}
+
+	public void setNoteBookId(String noteBookId) {
+		this.noteBookId = noteBookId;
+	}
+
+	public String getTextType() {
+		return textType;
+	}
+
+	public void setTextType(String noteType) {
+		this.textType = noteType;
+	}
+	
+	
+	
 }

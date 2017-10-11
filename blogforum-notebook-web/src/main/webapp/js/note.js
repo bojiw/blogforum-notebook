@@ -59,7 +59,7 @@ $(function(){
 		   		layer.msg("上传失败请重试！！！");
 		   	 });
 		    },null,null);   
-		};
+	};
 	editor.create();
 	$(".w-e-text-container").css("height","100%");
 	

@@ -8,29 +8,31 @@
         n.id id,
         n.note_title	noteTitle,
         n.note_body	noteBody,
+        n.md_note_body	mdNoteBody,
         n.create_date	createDate,
         n.update_date	updateDate,
         n.user_id	userId,
-        n.notebook_id	notebookId,
+        n.note_book_id	noteBookId,
         n.blog_id	blogId,
         n.enclosure	enclosure,
         n.type	type,
         n.del_flag	delFlag,
         n.pwd_share_id	pwdShareId,
         n.extjson	extjson,
-        n.label	label
+        n.label	label,
+        n.text_type	textType
     </sql>
     
     <!-- 添加笔记 -->
 	<insert id="save" parameterType="com.blogforum.notebook.pojo.entity.Note">
 		insert into 
 		note(
-			id,note_title,note_body,create_date,update_date,user_id,notebook_id,
-			blog_id,enclosure,type,del_flag,pwd_share_id,extjson,label
+			id,note_title,note_body,md_note_body,create_date,update_date,user_id,note_book_id,
+			blog_id,enclosure,type,del_flag,pwd_share_id,extjson,label,text_type
 		) 
 		values (
-			#{id},#{noteTitle},#{noteBody},#{createDate},#{updateDate},#{userId},
-			#{notebookId},#{blogId},#{enclosure},#{type},#{delFlag},#{pwdShareId},#{extjson},#{label}
+			#{id},#{noteTitle},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{userId},
+			#{noteBookId},#{blogId},#{enclosure},#{type},#{delFlag},#{pwdShareId},#{extjson},#{label},#{textType}
 		)
 	</insert>
 	
@@ -45,10 +47,10 @@
 	<update id="update" parameterType="com.blogforum.notebook.pojo.entity.Note">
 	    update 
 	    note 
-	    set note_title = #{noteTitle},note_body = #{noteBody},create_date = #{createDate},
-	    update_date = #{updateDate},user_id = #{userId},notebook_id = #{notebookId},blog_id = #{blogId},
+	    set note_title = #{noteTitle},note_body = #{noteBody},md_note_body = #{mdNoteBody},create_date = #{createDate},
+	    update_date = #{updateDate},user_id = #{userId},note_book_id = #{noteBookId},blog_id = #{blogId},
 	    enclosure = #{enclosure},type = #{type},del_flag = #{delFlag},pwd_share_id = #{pwdShareId},
-	    extjson = #{extjson},label = #{label}
+	    extjson = #{extjson},label = #{label},text_type=#{textType}
 	    where id=#{id}
 	    
 	</update>

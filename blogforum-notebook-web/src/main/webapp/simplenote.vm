@@ -22,7 +22,7 @@
 			</div><!--noteTitleTools-->
 			<div class="noteTags" >
 				<div style="float:left;width:70%;height:50%;margin:2px">
-					<input type="text" class="noteRightTitileText" name="tags" id="tags" value="foo,bar,baz" />
+					<input type="text" class="noteRightTitileText" name="tags" id="tags" value=$noteBookName />
 				</div>
 			</div><!--noteTags-->
 		</div><!--noteRightTop-->

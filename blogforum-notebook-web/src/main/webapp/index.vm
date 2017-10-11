@@ -68,22 +68,22 @@
 										<span class="text m-left-sm">笔记本</span>
 									</span>
 								</a>
-								
 								<ul  class="submenu bg-palette4">
 									<li><input type="text" class="form-control" id="noteBookSearch" placeholder="搜索笔记本" / ></li>
 									<div class="tree-view-menu-list font-16">
+									<hidden id = "selectedBook"/>
 										<ul class="font-15" id="listbooks" style="width:auto">
 											#foreach($noteBook in $noteBooks)
 											<li class="openable">
 												<a class="showsetting" href="#" >
-													#if($noteBook.isNode)
+													#if($noteBook.haveNode)
 													<span  class="glyphicon glyphicon-chevron-right m-right-xs folder-icon"></span>
 													#else
 													<span class="glyphicon glyphicon-chevron-right m-right-xs folder-icon" style="opacity:0"></span>
 													#end
 													<span class="noteBookName" parentId=$noteBook.parentId value=$noteBook.id>$noteBook.name</span>
 													<span title="设置" class="booksetting glyphicon glyphicon-cog " ></span>	
-													<span title="笔记数量" style="float:right;font-size:16px">0</span>
+													<span title="笔记数量" style="float:right;font-size:16px">$noteBook.noteNum</span>
 												</a>
 												<ul class="subtree"></ul>
 											</li>

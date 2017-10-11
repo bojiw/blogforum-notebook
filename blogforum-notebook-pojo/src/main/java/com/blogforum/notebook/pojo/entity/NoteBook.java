@@ -33,7 +33,13 @@ public class NoteBook extends DataEntity<NoteBook> {
 	/**
 	 * 判断是否有子节点
 	 */
-	private boolean isNode;
+	private boolean haveNode;
+	
+	
+	/**
+	 * 笔记数量
+	 */
+	private int	noteNum;
 	
 	/**
 	 * 笔记
@@ -81,14 +87,25 @@ public class NoteBook extends DataEntity<NoteBook> {
 		this.userId = userId;
 	}
 
-	public boolean getIsNode() {
-		return isNode;
+
+	public boolean getHaveNode() {
+		return haveNode;
 	}
 
-	public void setIsNode(boolean isNode) {
-		this.isNode = isNode;
+	public void setHaveNode(boolean haveNode) {
+		this.haveNode = haveNode;
 	}
 
+	public int getNoteNum() {
+		return noteNum;
+	}
+
+	public void setNoteNum(int noteNum) {
+		this.noteNum = noteNum;
+	}
+
+	
+	
 
 	
 	

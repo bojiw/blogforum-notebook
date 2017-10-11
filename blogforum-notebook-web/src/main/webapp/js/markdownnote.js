@@ -1,6 +1,5 @@
 
 $(function() {
-
 		//标签
 		$('#tags').tagsInput({
 			'autocomplete':{selectFirst:true,width:'10px',autoFill:true},
@@ -13,7 +12,7 @@ $(function() {
 			   'minChars' : 0,
 			   'maxChars' : 0, // if not provided there is no limit
 			   'placeholderColor' : '#d1d1d1'
-			});
+		});
 		$(".tagsinput").css("border","0px");
 		$(".tagsinput").css("padding","0px 0px");
 	
@@ -35,7 +34,8 @@ $(function() {
 	        sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
             //启动本地图片上传功能
 			imageUpload:true,
-			imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"]
+			imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+			saveHTMLToTextarea : true
         });
         
         //绑定粘贴事件图片上传七牛云
@@ -151,5 +151,14 @@ $(function() {
 			return image.click();
 
 		}
+		//保存笔记
+		$("#saveMd").click(function(){
+			var md = editor.getMarkdown();       // 获取 Markdown 源码
+			var html = editor.getHTML();           // 获取 Textarea 保存的 HTML 源码
+			var wedhtml = editor.getPreviewedHTML();
+			console.info(md);
+			console.info(html);
+			console.info(wedhtml);
+		});
 
 });

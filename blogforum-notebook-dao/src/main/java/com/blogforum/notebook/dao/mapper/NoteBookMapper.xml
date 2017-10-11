@@ -11,7 +11,9 @@
         b.parent_id bparent_id,
         b.create_date bcreate_date,
         b.update_date bupdate_date,
-        b.isNode bisNode,
+        b.have_node bhave_node,
+        b.note_num noteNum
+        <!-- 
         n.id nid,
         n.note_title nnote_title,
         n.note_body nnote_body,
@@ -24,6 +26,9 @@
         n.pwd_share_id npwd_share_id,
         n.extjson nextjson,
         n.label nlabel
+        
+         -->
+
     </sql>
     <resultMap type="com.blogforum.notebook.pojo.entity.NoteBook" id="noteBookMap">
         <id property="id" column="id"/>
@@ -32,7 +37,10 @@
         <result property="parentId" column="bparent_id"/>
         <result property="createDate" column="bcreate_date"/>
         <result property="updateDate" column="bupdate_date"/>
-        <result property="isNode" column="bisNode"/>
+        <result property="haveNode" column="bhave_node"/>
+        <result property="noteNum" column="note_num"/>
+        <!-- 
+        
         <collection property="notes" ofType="com.blogforum.notebook.pojo.entity.Note">
             <id property="id" column="nid" />
         	<result property="noteTitle" column="nnote_title" />
@@ -47,6 +55,8 @@
         	<result property="extjson" column="nextjson" />
         	<result property="label" column="nlabel" />
         </collection>
+         -->
+
         
     </resultMap>
     
@@ -54,10 +64,10 @@
 	<insert id="save" parameterType="com.blogforum.notebook.pojo.entity.NoteBook">
 		insert into
 		note_book(
-			id,parent_id,name,user_id,create_date,update_date,isNode
+			id,parent_id,name,user_id,create_date,update_date,have_node,note_num
 		)
 		values(
-			#{id},#{parentId},#{name},#{userId},#{createDate},#{updateDate},#{isNode}
+			#{id},#{parentId},#{name},#{userId},#{createDate},#{updateDate},#{haveNode},#{noteNum}
 		)
 	</insert>
 	
@@ -73,7 +83,7 @@
 	    update 
 	    note_book 
 	    set parent_id = #{parentId},name = #{name},user_id = #{userId},
-	    create_date = #{createDate},update_date = #{updateDate},isNode=#{isNode}
+	    create_date = #{createDate},update_date = #{updateDate},have_node=#{haveNode},note_num=#{noteNum}
 	    where id=#{id}
 	</update>
 	
@@ -81,41 +91,22 @@
 	    select 
 	    <include refid="NoteBookField"/>
 	    from note_book b
-	    left join note n
-	    on
-	    b.id = n.notebook_id
 	    order by b.name desc
 	</select>
 	<select id="getById" resultMap="noteBookMap">
 	    select 
 	    <include refid="NoteBookField"/>
-		FROM
-		(
-			SELECT
-				*
-			from note_book
-			where
-			note_book.id = #{id}
-		) b
-	    left join note n
-	    on
-	    b.id = n.notebook_id
+		from note_book b
+		where
+		b.id = #{id}
 	    
 	</select>
 	<select id="queryListByParentId" resultMap="noteBookMap">
 	    select 
 	    <include refid="NoteBookField"/>
-		FROM
-		(
-			SELECT
-				*
-			from note_book
-			where
-			note_book.parent_id = #{parentId}
-		) b
-	    left join note n
-	    on
-	    b.id = n.notebook_id
+		from note_book b
+		where
+		b.parent_id = #{parentId}
 	    order by b.name desc
 	</select>
 

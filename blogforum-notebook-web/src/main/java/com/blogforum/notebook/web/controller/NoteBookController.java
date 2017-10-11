@@ -34,21 +34,21 @@ public class NoteBookController {
 	
 	@RequestMapping( value = "/addNoteBook" ,method = RequestMethod.POST) 
 	@ResponseBody
-	public blogforumResult addNoteBooks(String name,String userId,@RequestParam(defaultValue="0") String parentId){
+	public blogforumResult addNoteBooks(String name,@RequestParam(defaultValue="0") String parentId){
 		NoteBook noteBook = new NoteBook();
 		String id = UUIDCreateUtils.getUUID();
 		noteBook.setId(id);
 		noteBook.setParentId(parentId);
 		noteBook.setName(name);
-		noteBook.setUserId(userId);
+		noteBook.setUserId(UUIDCreateUtils.getUUID());
 		noteBook.setCreateDate(new Date());
 		noteBook.setUpdateDate(new Date());
 		noteBook.setParentId(parentId);
 		noteBookService.save(noteBook);
 		if (!StringUtils.equals(parentId, "0")) {
 			NoteBook parentNoteBook = noteBookService.getById(parentId);
-			if (!parentNoteBook.getIsNode()) {
-				parentNoteBook.setIsNode(true);
+			if (!parentNoteBook.getHaveNode()) {
+				parentNoteBook.setHaveNode(true);
 				noteBookService.update(parentNoteBook);
 			}
 		}
@@ -80,7 +80,7 @@ public class NoteBookController {
 			blogforumResult.build(BizError.ILLEGAL_PARAMETER, "该笔记本下有笔记不可删除!!!");
 		}
 		NoteBook noteBook = noteBookService.getById(id);
-		if (noteBook.getIsNode()) {
+		if (noteBook.getHaveNode()) {
 			blogforumResult.build(BizError.ILLEGAL_PARAMETER, "该笔记本下有子笔记不可删除!!!");
 		}
 		noteBookService.delete(id);
@@ -88,7 +88,7 @@ public class NoteBookController {
 			List<NoteBook> noteBooks = noteBookService.queryListByParentId(parentId);
 			if (CollectionUtils.isEmpty(noteBooks)) {
 				NoteBook parentNoteBook = noteBookService.getById(parentId);
-				parentNoteBook.setIsNode(false);
+				parentNoteBook.setHaveNode(false);
 				noteBookService.update(parentNoteBook);
 				isNode = false;
 			}

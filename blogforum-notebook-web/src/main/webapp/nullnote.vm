@@ -18,10 +18,15 @@
 <script type="text/javascript"> 
 
 	$(".simplenote1").click(function(){
-		$(".noteRightInfo").load("simplenote");
+		//获取当前选中的笔记本id和name
+		var selectedBookId = $("#selectedBook").attr("value");
+		var bookName = $("#selectedBook").attr("name");
+		$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId});
 	});
 	$(".markdownnote1").click(function(){
-		$(".noteRightInfo").load("markdownnote");
+		var selectedBookId = $("#selectedBook").attr("value");
+		var bookName = $("#selectedBook").attr("name");
+		$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId});
 	});
 
 </script> 
