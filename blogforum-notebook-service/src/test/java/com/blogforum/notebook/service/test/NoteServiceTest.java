@@ -25,7 +25,7 @@ public class NoteServiceTest {
 		note.setDelFlag("N");
 		note.setNoteBody("test测试");
 		note.setNoteTitle("这是测试");
-		note.setNotebookId("123456789");
+		note.setNoteBookId("123456789");
 		note.setUserId("20170720C416F96A979F44D4A9458A6C76B1024E83029325");
 		noteService.save(note);
 	}
