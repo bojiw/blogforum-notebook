@@ -20,6 +20,10 @@
     
 }
 
+.clickBookNote{
+	background-color:#192A40!important;
+}
+
 .ibox-title {
     height: 41px;
     border-color: #edf1f2;
@@ -1080,6 +1084,9 @@ a.list-group-item.active:focus {
   -ms-transition: all 0.4s ease;
   -o-transition: all 0.4s ease;
 }
+.sidebar-menu .main-menu ul li .submenu li a:hover{
+	background-color: #527198;
+}
 .sidebar-menu .main-menu ul li .submenu li a:hover .submenu-label {
   color: #ffffff;
   transition: all 0.2s ease;
@@ -1087,6 +1094,7 @@ a.list-group-item.active:focus {
   -moz-transition: all 0.2s ease;
   -ms-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
+  
 }
 .sidebar-menu .main-menu ul li .submenu li a .badge {
   top: 8px;
@@ -5361,6 +5369,9 @@ label.parsley-error {
 }
 .tree-view-menu-list > ul li .subtree li a.last-link:before {
   bottom: 20px;
+}
+.subtree{
+	margin-left:10px;
 }
 .tree-view-menu-list > ul li .subtree li:before {
   position: absolute;

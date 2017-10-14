@@ -352,6 +352,7 @@ $(function(){
 	
 });
 
+
 //笔记点击变色
 $(function(){
 
@@ -370,7 +371,14 @@ $(function(){
 	showsetting();
 	//给获取笔记本元素绑定点击事件
 	$('.glyphicon-chevron-right').on("click",getBooks);
-	
+	//设置第一个为默认选中
+	$(".showsetting").first().addClass("clickBookNote");
+	//设置笔记本点击事件
+	var clickBookNote = function(){
+		$(".showsetting").removeClass("clickBookNote");
+		$(this).addClass("clickBookNote");
+	}
+	refreshMenu();
 	//左侧获取笔记本方法
 	function getBooks(){
 		var clickObject = $(this);
@@ -407,7 +415,7 @@ $(function(){
 	
 	function getBookHtml(item){
 		var lis="<li class='openable'><a href='#' class='showsetting'>";
-		if(item.isNode){
+		if(item.haveNode){
 			lis += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon'></span>";
 		}else{
 			lis += "<span class='glyphicon glyphicon-chevron-right m-right-xs folder-icon' style='opacity:0'></span>";
@@ -420,7 +428,7 @@ $(function(){
 		lis += item.name
 		lis += "</span>";
 		lis += "<span title='设置' class='booksetting glyphicon glyphicon-cog'></span>";
-		lis += "<span title='笔记数量' style='float:right;font-size:16px'>0</span>";
+		lis += "<span title='笔记数量' style='float:right;font-size:16px'>" + item.noteNum +"</span>";
 		lis += "</a><ul class='subtree'></ul></li>";
 		return lis;
 	}
@@ -459,10 +467,8 @@ $(function(){
 		//鼠标经过出现设置按钮
 		$(".showsetting").hover(function(){
 			$(this).find(".booksetting").eq(0).css("opacity","100");
-			$(this).css("background-color","#527198");
 		},function(){
 			$(this).find(".booksetting").eq(0).css("opacity","0");
-			$(this).css("background-color","#37485e");
 		});
 	}
 	var book;
@@ -599,7 +605,7 @@ $(function(){
 
 					});
 				}
-			}
+	}
 	//笔记本右键设置按钮
 	$('.showsetting').on('contextmenu', onClick);
 	//笔记本设置按钮
@@ -611,6 +617,8 @@ $(function(){
 		  $('.showsetting').off('click')
 		  //关闭所有笔记设置按钮的点击事件 后面重新加上
 		  $('.booksetting').off('click')
+		  //绑定点击笔记本按钮触发事件
+		  $('.showsetting').on('click',clickBookNote);
 		  //笔记本右键设置按钮
 		  $('.showsetting').on('contextmenu', onClick);
 		  //笔记本设置按钮
