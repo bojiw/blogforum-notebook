@@ -35,9 +35,10 @@ public class IndexController {
 	}
 
 	@RequestMapping("/simplenote")
-	public String simpleNote(ModelMap map,String noteBookName,String noteBookId){
+	public String simpleNote(ModelMap map,String noteBookName,String noteBookId,String noteId){
 		map.put("noteBookId", noteBookId);
 		map.put("noteBookName", noteBookName);
+		map.put("noteId", noteId);
 		return ViewConstant.SIMPLENOTE;
 	}
 	
@@ -47,9 +48,10 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/markdownnote")
-	public String markDownNote(ModelMap map,String noteBookName,String noteBookId){
+	public String markDownNote(ModelMap map,String noteBookName,String noteBookId,String noteId){
 		map.put("noteBookId", noteBookId);
 		map.put("noteBookName", noteBookName);
+		map.put("noteId", noteId);
 		return ViewConstant.MARKDOWNNOTE;
 	}
 	

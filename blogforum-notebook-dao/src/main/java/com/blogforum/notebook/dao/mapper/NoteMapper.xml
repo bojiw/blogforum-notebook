@@ -20,7 +20,8 @@
         n.pwd_share_id	pwdShareId,
         n.extjson	extjson,
         n.label	label,
-        n.text_type	textType
+        n.text_type	textType,
+        n.context	context
     </sql>
     
     <!-- 添加笔记 -->
@@ -28,11 +29,11 @@
 		insert into 
 		note(
 			id,note_title,note_body,md_note_body,create_date,update_date,user_id,note_book_id,
-			blog_id,enclosure,type,del_flag,pwd_share_id,extjson,label,text_type
+			blog_id,enclosure,type,del_flag,pwd_share_id,extjson,label,text_type,context
 		) 
 		values (
 			#{id},#{noteTitle},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{userId},
-			#{noteBookId},#{blogId},#{enclosure},#{type},#{delFlag},#{pwdShareId},#{extjson},#{label},#{textType}
+			#{noteBookId},#{blogId},#{enclosure},#{type},#{delFlag},#{pwdShareId},#{extjson},#{label},#{textType},#{context}
 		)
 	</insert>
 	
@@ -50,25 +51,17 @@
 	    set note_title = #{noteTitle},note_body = #{noteBody},md_note_body = #{mdNoteBody},create_date = #{createDate},
 	    update_date = #{updateDate},user_id = #{userId},note_book_id = #{noteBookId},blog_id = #{blogId},
 	    enclosure = #{enclosure},type = #{type},del_flag = #{delFlag},pwd_share_id = #{pwdShareId},
-	    extjson = #{extjson},label = #{label},text_type=#{textType}
+	    extjson = #{extjson},label = #{label},text_type=#{textType},context=#{context}
 	    where id=#{id}
 	    
 	</update>
 	
 	
 	<!-- 通过ID查询笔记 -->
-	<select id="getByID" resultType="com.blogforum.notebook.pojo.entity.Note" >
+	<select id="getById" resultType="com.blogforum.notebook.pojo.entity.Note" >
 	    SELECT 
-	    	*
-	    FROM note
-	    WHERE id=#{id}
-	</select>
-	
-	<!-- 通过id查询笔记 -->
-	<select id="get" parameterType="com.blogforum.notebook.pojo.entity.Note" resultType="com.blogforum.notebook.pojo.entity.Note">
-	    SELECT 
-	    	*
-	    FROM note
+	    	<include refid="NoteField"/>
+	    FROM note n
 	    WHERE id=#{id}
 	</select>
 	
@@ -76,6 +69,7 @@
 	    SELECT 
 	    	<include refid="NoteField"/>
 	    FROM note n
+	    order by n.update_date desc
 	</select>
 
 </mapper>

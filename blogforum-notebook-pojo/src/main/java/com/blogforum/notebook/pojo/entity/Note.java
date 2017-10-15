@@ -23,7 +23,7 @@ public class Note extends DataEntity<Note> {
 	 * 笔记内容
 	 */
 	private String				noteBody;
-	
+
 	/**
 	 * md格式笔记内容
 	 */
@@ -70,14 +70,18 @@ public class Note extends DataEntity<Note> {
 	/**
 	 * 加密的访问笔记
 	 */
-	private String			pwdShareId;
+	private String				pwdShareId;
 
-	
+	/**
+	 * 纯文本笔记内容
+	 */
+	private String				context;
+
 	/**
 	 * 内容类型 是原创还是转载还是翻译
 	 */
-	private String			textType;
-	
+	private String				textType;
+
 	public String getId() {
 		return id;
 	}
@@ -102,7 +106,6 @@ public class Note extends DataEntity<Note> {
 		this.noteBody = noteBody;
 	}
 
-
 	public String getUserId() {
 		return userId;
 	}
@@ -110,8 +113,6 @@ public class Note extends DataEntity<Note> {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
-
 
 	public String getEnclosure() {
 		return enclosure;
@@ -161,7 +162,6 @@ public class Note extends DataEntity<Note> {
 		this.blogId = blogId;
 	}
 
-
 	public String getPwdShareId() {
 		return pwdShareId;
 	}
@@ -169,7 +169,6 @@ public class Note extends DataEntity<Note> {
 	public void setPwdShareId(String pwdShareId) {
 		this.pwdShareId = pwdShareId;
 	}
-
 
 	public String getMdNoteBody() {
 		return mdNoteBody;
@@ -194,7 +193,13 @@ public class Note extends DataEntity<Note> {
 	public void setTextType(String noteType) {
 		this.textType = noteType;
 	}
-	
-	
-	
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
 }

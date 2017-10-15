@@ -153,12 +153,37 @@ $(function() {
 		}
 		//保存笔记
 		$("#saveMd").click(function(){
+			var loading = layer.load(1, {shade: [0.1,'#fff']}); //0.1透明度的白色背景
 			var md = editor.getMarkdown();       // 获取 Markdown 源码
 			var html = editor.getHTML();           // 获取 Textarea 保存的 HTML 源码
-			var wedhtml = editor.getPreviewedHTML();
-			console.info(md);
-			console.info(html);
-			console.info(wedhtml);
+			var context = $(html).text();
+			var title  = $(".noteRightTitileText").val();
+			var label = $("#tags").attr("value");
+			var id = $("#noteId").attr("value");
+			var bookId = $("#noteBookId").val();
+			var type = "markdown";
+			var textType = $("#textType").val();
+		    $.post("/note/updateNote",{
+				id:id,
+				noteTitle:title,
+				noteBody:html,
+				context:context,
+		    	mdNoteBody:md,
+		    	noteBookId:bookId,
+		    	type:type,
+		    	label:label,
+		    	textType:textType
+				},
+				function(data) {
+					if(data.status != "200") {
+						layer.close(loading);
+						layer.msg(data.msg);
+					}else{
+						layer.close(loading);
+						layer.msg("保存成功")
+					}
+					
+		    });
 		});
 
 });

@@ -299,58 +299,7 @@ $(function(){
         }
     });  
 });  
-//新建笔记
-$(function(){
-	//第一次进入页面 默认选中笔记本的id为第一个笔记本
-	var selectedBook = $("#listbooks").find(".noteBookName").first();
-	var selectedBookId = selectedBook.attr("value")
-	var bookName = selectedBook.html();
-	//设置当前选中的笔记本的id和name 方便其他地方获取
-	$("#selectedBook").attr("value",selectedBookId);
-	$("#selectedBook").attr("name",bookName);
-	
-	$(".noteRightInfo").load("nullnote");
-	//点击新建普通笔记时建立新笔记
-	$(".simplenote").click(function(){
-		if(selectedBookId == null){
-			layer.msg("没有选中笔记本   无法创建笔记");
-			return;
-		}
-		var isFlat = addNote(selectedBookId,bookName);
-		if(isFlat){
-			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId});
-		}
-	});
-	//点击新建markdown笔记时建立新笔记
-	$(".markdownnote").click(function(){
-		if(selectedBookId == null){
-			layer.msg("没有选中笔记本   无法创建笔记");
-			return;
-		}
-		var isFlat = addNote(selectedBookId,bookName);
-		if(isFlat){
-			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId});
-		}
-	});
-	
-	
-	//添加笔记
-	function addNote(noteBookId,noteBookName){
-		 var isFlat = true;
-		 $.post("/note/addNote",{
-				noteBookId:noteBookId,
-				label:noteBookName
-				},
-				function(data) {
-				if(data.status != "200") {
-					layer.msg(data.msg);
-					isFlat = false;
-				}
-		 });
-		 return isFlat;
-	}
-	
-});
+
 
 
 //笔记点击变色
@@ -367,6 +316,60 @@ $(function(){
 });
 
 $(function(){
+	//新建笔记
+	//第一次进入页面 默认选中笔记本的id为第一个笔记本
+	var selectedBook = $("#listbooks").find(".noteBookName").first();
+	var selectedBookId = selectedBook.attr("value");
+	var bookName = selectedBook.html();
+	//设置当前选中的笔记本的id和name 方便其他地方获取
+	$("#selectedBook").attr("value",selectedBookId);
+	$("#selectedBook").attr("name",bookName);
+	
+	$(".noteRightInfo").load("nullnote");
+	//点击新建普通笔记时建立新笔记
+	$(".simplenote").click(function(){
+		if(selectedBookId == null){
+			layer.msg("没有选中笔记本   无法创建笔记");
+			return;
+		}
+		var bookId = addNote(selectedBookId,bookName);
+		if(bookId != "0"){
+			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId,bookId:bookId});
+		}
+	});
+	//点击新建markdown笔记时建立新笔记
+	$(".markdownnote").click(function(){
+		if(selectedBookId == null){
+			layer.msg("没有选中笔记本   无法创建笔记");
+			return;
+		}
+		var noteId = addNote(selectedBookId,bookName);
+		if(noteId != "0"){
+			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
+		}
+	});
+	
+	
+	//添加笔记
+	function addNote(noteBookId,noteBookName){
+		 var noteId = "0";
+		 $.ajax({  
+	         type : "post",  
+	          url : "/note/addNote",  
+	          data : {noteBookId:noteBookId,label:noteBookName},  
+	          async : false,  
+	          success : function(data){  
+					if(data.status != "200") {
+						layer.msg(data.msg);
+					}else{
+						noteId = data.data.id;
+					}
+	          }  
+	     }); 
+		 return noteId;
+	}
+	
+	
 	//鼠标经过出现设置按钮
 	showsetting();
 	//给获取笔记本元素绑定点击事件
@@ -377,6 +380,15 @@ $(function(){
 	var clickBookNote = function(){
 		$(".showsetting").removeClass("clickBookNote");
 		$(this).addClass("clickBookNote");
+		selectedBook = $(this).find(".noteBookName");
+		settingSelectedBook(selectedBook);
+	}
+	function settingSelectedBook(selectedBook){
+		selectedBookId = selectedBook.attr("value");
+		bookName = selectedBook.html();
+		//设置当前选中的笔记本的id和name 方便其他地方获取
+		$("#selectedBook").attr("value",selectedBook.attr("value"));
+		$("#selectedBook").attr("name",selectedBook.html());
 	}
 	refreshMenu();
 	//左侧获取笔记本方法
