@@ -27,12 +27,15 @@
 				<div style="float:left;width:70%;height:50%;margin:2px">
 					<input type="text" class="noteRightTitileText" name="tags" id="tags" value=$noteBookName />
 				</div>
-				<div class="btn-group marginTB-xs">
-					<select id="textType" class="form-control" style="margin-left:20px">
+				<div class="posirelative select-out-div" style="width:80px;margin-top:10px">
+					<select id="textType" class="m-wrap" style="margin-left:20px">
 						<option>原创</option>
 						<option>转载</option>
 						<option>翻译</option>
 					</select>
+					<span class="select-hide-span">
+                       <b class="select-show-b"></b>
+                    </span>
 				</div>
 			</div><!--noteTags-->
 		</div><!--noteRightTop-->

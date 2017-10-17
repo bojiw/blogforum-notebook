@@ -332,9 +332,9 @@ $(function(){
 			layer.msg("没有选中笔记本   无法创建笔记");
 			return;
 		}
-		var bookId = addNote(selectedBookId,bookName);
-		if(bookId != "0"){
-			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId,bookId:bookId});
+		var noteId = addNote(selectedBookId,bookName);
+		if(noteId != "0"){
+			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 		}
 	});
 	//点击新建markdown笔记时建立新笔记

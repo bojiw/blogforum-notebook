@@ -47,7 +47,7 @@
 					if(data.status != "200") {
 						layer.msg(data.msg);
 					}else{
-						bookId = data.data.id;
+						noteId = data.data.id;
 					}
 	          }  
 	     }); 

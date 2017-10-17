@@ -12,7 +12,7 @@
 				<hidden id = "noteId" value=$noteId />
 				<div class="pull-right" style="padding:6px 6px;width: 20%">
 					<div class="saveNote">
-						<div class="btn btn-info btn-sm" style="float:left;margin-right:10px"><i class="fa fa-save m-right-xs"></i>保存</div>
+						<div  id = "saveNote" class="btn btn-info btn-sm" style="float:left;margin-right:10px"><i class="fa fa-save m-right-xs"></i>保存</div>
 					</div>
 					<div class="itemHistory">
 						<i class="glyphicon glyphicon-time" title="历史版本" style="float:left;margin-right:10px;margin-top:5px"></i>
@@ -26,11 +26,22 @@
 				<div style="float:left;width:70%;height:50%;margin:2px">
 					<input type="text" class="noteRightTitileText" name="tags" id="tags" value=$noteBookName />
 				</div>
+				<div class="posirelative select-out-div" style="width:80px;margin-top:10px">
+					<select id="textType" class="m-wrap" style="margin-left:20px">
+						<option>原创</option>
+						<option>转载</option>
+						<option>翻译</option>
+					</select>
+					<span class="select-hide-span">
+                       <b class="select-show-b"></b>
+                    </span>
+				</div>
 			</div><!--noteTags-->
 		</div><!--noteRightTop-->
 		<div class="noteRightBottom" style="height:90%;width:95%;margin-top:5px" >
 			<div id="editor" class="noteEditer" style="height:90%">
 			</div>
+			
 		</div>
 	<script src="js/note.js"></script>
 </body>

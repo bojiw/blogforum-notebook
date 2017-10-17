@@ -1,0 +1,10 @@
+127.0.0.1 - - [17/Oct/2017:23:49:53 +0800] "GET / HTTP/1.1" 200 60007 http-bio-8080-exec-1 3270
+127.0.0.1 - - [17/Oct/2017:23:49:53 +0800] "GET /css/simplify.css HTTP/1.1" 304 - http-bio-8080-exec-2 113
+127.0.0.1 - - [17/Oct/2017:23:49:53 +0800] "GET /js/simplify/simplify.js HTTP/1.1" 304 - http-bio-8080-exec-3 31
+127.0.0.1 - - [17/Oct/2017:23:49:55 +0800] "GET /nullnote HTTP/1.1" 200 1762 http-bio-8080-exec-4 20
+127.0.0.1 - - [17/Oct/2017:23:49:57 +0800] "POST /note/addNote HTTP/1.1" 200 522 http-bio-8080-exec-5 691
+127.0.0.1 - - [17/Oct/2017:23:49:57 +0800] "POST /simplenote HTTP/1.1" 200 1999 http-bio-8080-exec-6 26
+127.0.0.1 - - [17/Oct/2017:23:49:57 +0800] "GET /js/note.js HTTP/1.1" 200 4582 http-bio-8080-exec-7 28
+127.0.0.1 - - [17/Oct/2017:23:50:20 +0800] "POST /note/updateNote HTTP/1.1" 200 50 http-bio-8080-exec-8 7648
+127.0.0.1 - - [17/Oct/2017:23:50:26 +0800] "GET / HTTP/1.1" 200 60615 http-bio-8080-exec-9 268
+127.0.0.1 - - [17/Oct/2017:23:50:26 +0800] "GET /nullnote HTTP/1.1" 200 1762 http-bio-8080-exec-10 4

@@ -117,6 +117,42 @@ $(function(){
 		str+= d.getSeconds(); 
 		return a + str;
 	}
+	
+	
+	
+	//保存笔记
+	$("#saveNote").click(function(){
+		var loading = layer.load(1, {shade: [0.1,'#fff']}); //0.1透明度的白色背景
+		var html = editor.txt.html()           // 获取 Textarea 保存的 HTML 源码
+		var context = $(html).text();
+		var title  = $(".noteRightTitileText").val();
+		var label = $("#tags").attr("value");
+		var id = $("#noteId").attr("value");
+		var type = "simplenote";
+		var textType = $("#textType").val();
+	    $.post("/note/updateNote",{
+			id:id,
+			noteTitle:title,
+			noteBody:html,
+			context:context,
+	    	type:type,
+	    	label:label,
+	    	textType:textType
+			},
+			function(data) {
+				if(data.status != "200") {
+					layer.close(loading);
+					layer.msg(data.msg);
+				}else{
+					layer.close(loading);
+					layer.msg("保存成功")
+				}
+				
+	    });
+	});
+	
+	
+	
 
 	
 });

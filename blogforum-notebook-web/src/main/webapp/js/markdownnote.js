@@ -160,7 +160,6 @@ $(function() {
 			var title  = $(".noteRightTitileText").val();
 			var label = $("#tags").attr("value");
 			var id = $("#noteId").attr("value");
-			var bookId = $("#noteBookId").val();
 			var type = "markdown";
 			var textType = $("#textType").val();
 		    $.post("/note/updateNote",{
@@ -169,7 +168,6 @@ $(function() {
 				noteBody:html,
 				context:context,
 		    	mdNoteBody:md,
-		    	noteBookId:bookId,
 		    	type:type,
 		    	label:label,
 		    	textType:textType
