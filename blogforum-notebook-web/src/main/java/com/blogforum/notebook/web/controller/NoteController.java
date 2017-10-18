@@ -2,6 +2,9 @@ package com.blogforum.notebook.web.controller;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.blogforum.common.enums.BizError;
 import com.blogforum.common.tools.UUIDCreateUtils;
 import com.blogforum.common.tools.blogforumResult;
+import com.blogforum.notebook.common.page.Page;
 import com.blogforum.notebook.pojo.entity.Note;
 import com.blogforum.notebook.service.note.NoteService;
 
@@ -46,5 +50,12 @@ public class NoteController {
 		return blogforumResult.ok();
 	}
 	
+	
+	@RequestMapping(value = "/getBookList", method = RequestMethod.GET)
+	@ResponseBody
+	public blogforumResult getBookList(Note note,HttpServletRequest request, HttpServletResponse response){
+		Page<Note> notes = noteService.queryList(new Page<Note>(request, response), note);
+		return blogforumResult.ok(notes);
+	}
 
 }

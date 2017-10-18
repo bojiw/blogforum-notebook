@@ -69,6 +69,11 @@
 	    SELECT 
 	    	<include refid="NoteField"/>
 	    FROM note n
+	    where 
+	    del_flag='N'
+	    <if test="noteBookId != null and noteBookId != ''">
+			AND note_book_id = #{noteBookId}
+		</if>
 	    order by n.update_date desc
 	</select>
 

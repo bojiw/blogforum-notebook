@@ -70,7 +70,8 @@
 								<ul  class="submenu bg-palette4">
 									<li><input type="text" class="form-control" id="noteBookSearch" placeholder="搜索笔记本" / ></li>
 									<div class="tree-view-menu-list font-16">
-									<hidden id = "selectedBook"/>
+										<hidden id = "selectedBook"/>
+										<li class="openable"><a class="showsetting" href="#" ><span class="noteBookName">所有笔记</span></a></li>
 										<ul class="font-15" id="listbooks" style="width:auto">
 											#foreach($noteBook in $noteBooks)
 											<li class="openable">
@@ -107,7 +108,7 @@
 					<div class="noteInfoListItem" style="height:100%">
 						<div class="node-body" id ="innerDiv" style="padding-bottom:30px;height:100%">
 							<ul class="node-body-ul">
-								#foreach($note in $notes)
+								#foreach($note in $notes.list)
 								<li class="node-body-ul-li">
 									<div class="item-desc">
 										<p class="item-title">

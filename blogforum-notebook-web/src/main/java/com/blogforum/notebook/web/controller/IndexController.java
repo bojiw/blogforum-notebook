@@ -2,11 +2,15 @@ package com.blogforum.notebook.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.blogforum.notebook.common.page.Page;
 import com.blogforum.notebook.pojo.entity.Note;
 import com.blogforum.notebook.pojo.entity.NoteBook;
 import com.blogforum.notebook.service.note.NoteBookService;
@@ -26,9 +30,10 @@ public class IndexController {
 	private NoteService noteService;
 	
 	@RequestMapping("/")
-	public String index(ModelMap map){
+	public String index(ModelMap map,HttpServletRequest request, HttpServletResponse response){
 		List<NoteBook> books = noteBookService.queryListByParentId("0");
-		List<Note> notes = noteService.queryList();
+		
+		Page<Note> notes = noteService.queryList(new Page<Note>(request, response),new Note());
 		map.put("noteBooks", books);
 		map.put("notes", notes);
 		return ViewConstant.INDEX;

@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Page<T> {
 
 	private int pageNo = 1; // 当前页码
-	private int pageSize = 10;// Integer.valueOf(Global.getConfig("page.pageSize"));
+	private int pageSize = 20;// Integer.valueOf(Global.getConfig("page.pageSize"));
 								// // 页面大小，设置为“-1”表示不进行分页（分页无效）
 
 	private long count;// 总记录数，设置为“-1”表示不查询总数
@@ -45,9 +45,9 @@ public class Page<T> {
 	private String funcParam = ""; // 函数的附加参数，第三个参数值。
 
 	// private String message = ""; // 设置提示消息，显示在“共n条”之后
+	
 
 	public Page() {
-		this.pageSize = -1;
 	}
 
 	/**
@@ -83,6 +83,8 @@ public class Page<T> {
 			if (StringUtils.isNumeric(no)) {
 				this.setPageNo(Integer.parseInt(no));
 			}
+		} else {
+			CookieUtils.setCookie(response, "pageNo", String.valueOf(this.pageNo));
 		}
 		// 设置页面大小参数（传递repage参数，来记住页码大小）
 		String size = request.getParameter("pageSize");
@@ -96,6 +98,9 @@ public class Page<T> {
 			}
 		} else if (defaultPageSize != -2) {
 			this.pageSize = defaultPageSize;
+		} else {
+			CookieUtils.setCookie(response, "pageSize", String.valueOf(this.pageSize));
+
 		}
 		// 设置排序参数
 		String orderBy = request.getParameter("orderBy");

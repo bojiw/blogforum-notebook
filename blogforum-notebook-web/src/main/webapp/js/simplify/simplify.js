@@ -374,8 +374,8 @@ $(function(){
 	showsetting();
 	//给获取笔记本元素绑定点击事件
 	$('.glyphicon-chevron-right').on("click",getBooks);
-	//设置第一个为默认选中
-	$(".showsetting").first().addClass("clickBookNote");
+	//设置第一个笔记本为默认选中
+	$("#listbooks").find(".showsetting").first().addClass("clickBookNote");
 	//设置笔记本点击事件
 	var clickBookNote = function(){
 		$(".showsetting").removeClass("clickBookNote");
@@ -389,6 +389,12 @@ $(function(){
 		//设置当前选中的笔记本的id和name 方便其他地方获取
 		$("#selectedBook").attr("value",selectedBook.attr("value"));
 		$("#selectedBook").attr("name",selectedBook.html());
+		
+		$.get("note/getBookList", {
+			noteBookId: selectedBookId
+			},function(data){
+			layer.msg(data);
+		});
 	}
 	refreshMenu();
 	//左侧获取笔记本方法
