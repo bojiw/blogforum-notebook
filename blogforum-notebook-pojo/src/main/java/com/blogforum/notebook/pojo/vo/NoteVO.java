@@ -1,16 +1,20 @@
 /***********************************************************************
- * Module:  Note.java
- * Author:  Administrator
+ * Module:  NoteVO.java
+ * Author:  wwd
  * Purpose: Defines the Class Note
  ***********************************************************************/
-package com.blogforum.notebook.pojo.entity;
+package com.blogforum.notebook.pojo.vo;
 
-/** 笔记表 */
-public class Note extends DataEntity<Note> {
+import com.blogforum.notebook.pojo.entity.DataEntity;
+
+/** 笔记显示VO */
+public class NoteVO extends DataEntity<NoteVO> {
+
 	/**
 	 * 
 	 */
-	private static final long	serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * 编号
 	 */
@@ -81,7 +85,11 @@ public class Note extends DataEntity<Note> {
 	 * 内容类型 是原创还是转载还是翻译
 	 */
 	private String				textType;
-	
+
+	/**
+	 * 笔记本名
+	 */
+	private String				noteBookName;
 
 	public String getId() {
 		return id;
@@ -203,5 +211,12 @@ public class Note extends DataEntity<Note> {
 		this.context = context;
 	}
 
+	public String getNoteBookName() {
+		return noteBookName;
+	}
+
+	public void setNoteBookName(String noteBookName) {
+		this.noteBookName = noteBookName;
+	}
 
 }

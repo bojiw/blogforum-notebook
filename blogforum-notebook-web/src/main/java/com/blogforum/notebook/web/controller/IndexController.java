@@ -5,14 +5,19 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.blogforum.common.tools.BaseConverter;
 import com.blogforum.notebook.common.page.Page;
 import com.blogforum.notebook.pojo.entity.Note;
 import com.blogforum.notebook.pojo.entity.NoteBook;
+import com.blogforum.notebook.pojo.vo.NoteBookVO;
+import com.blogforum.notebook.pojo.vo.NoteVO;
 import com.blogforum.notebook.service.note.NoteBookService;
 import com.blogforum.notebook.service.note.NoteService;
 import com.blogforum.notebook.web.constant.ViewConstant;
@@ -32,10 +37,25 @@ public class IndexController {
 	@RequestMapping("/")
 	public String index(ModelMap map,HttpServletRequest request, HttpServletResponse response){
 		List<NoteBook> books = noteBookService.queryListByParentId("0");
-		
-		Page<Note> notes = noteService.queryList(new Page<Note>(request, response),new Note());
-		map.put("noteBooks", books);
-		map.put("notes", notes);
+		BaseConverter<NoteBook, NoteBookVO> converter = new BaseConverter<>();
+		List<NoteBookVO> notebooks = converter.convertList(books, NoteBookVO.class);
+		for (NoteBookVO noteBookVO : notebooks) {
+			noteBookVO.setNoteCount(noteService.countByNoteBookId(noteBookVO.getId()));
+		}
+		Page<Note> page = noteService.queryList(new Page<Note>(request, response),new Note());
+		Page<NoteVO>pageNoteVO = new Page<>();
+		BeanUtils.copyProperties(page, pageNoteVO,"list");
+		BaseConverter<Note, NoteVO> noteConverter = new BaseConverter<>();
+		List<NoteVO> noteVOs = noteConverter.convertList(page.getList(), NoteVO.class);
+		if (CollectionUtils.isNotEmpty(noteVOs)) {
+			for (NoteVO noteVO : noteVOs) {
+				NoteBook noteBook = noteBookService.getById(noteVO.getNoteBookId());
+				noteVO.setNoteBookName(noteBook.getName());
+			}
+		}
+		pageNoteVO.setList(noteVOs);
+		map.put("noteBooks", notebooks);
+		map.put("notes", pageNoteVO);
 		return ViewConstant.INDEX;
 	}
 

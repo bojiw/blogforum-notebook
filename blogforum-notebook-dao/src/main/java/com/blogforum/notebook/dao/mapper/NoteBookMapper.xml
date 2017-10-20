@@ -11,9 +11,10 @@
         b.parent_id bparent_id,
         b.create_date bcreate_date,
         b.update_date bupdate_date,
-        b.have_node bhave_node,
-        b.note_num noteNum
+        b.have_node bhave_node
+        
         <!-- 
+        COUNT(n.id) noteNum
         n.id nid,
         n.note_title nnote_title,
         n.note_body nnote_body,
@@ -38,7 +39,6 @@
         <result property="createDate" column="bcreate_date"/>
         <result property="updateDate" column="bupdate_date"/>
         <result property="haveNode" column="bhave_node"/>
-        <result property="noteNum" column="note_num"/>
         <!-- 
         
         <collection property="notes" ofType="com.blogforum.notebook.pojo.entity.Note">
@@ -101,13 +101,40 @@
 		b.id = #{id}
 	    
 	</select>
+	
+	<select id="queryListByParentId" resultMap="noteBookMap">
+	    select 
+	    	<include refid="NoteBookField"/>
+		from 
+			note_book b
+		where 
+			b.parent_id = #{parentId}
+		ORDER BY
+			b.name DESC
+	</select>
+	
+	
+	<!--  left join获取对应笔记数量 因全部改为单表查询 注释掉不用
 	<select id="queryListByParentId" resultMap="noteBookMap">
 	    select 
 	    <include refid="NoteBookField"/>
-		from note_book b
-		where
-		b.parent_id = #{parentId}
+		from 
+		(
+			SELECT 
+			 * 
+			FROM
+			 	note_book
+			WHERE
+				note_book.parent_id = #{parentId}
+		) b
+		LEFT JOIN
+		note n
+		ON
+		b.id = n.note_book_id
+		GROUP BY
+		n.id
 	    order by b.name desc
 	</select>
+	-->
 
 </mapper>

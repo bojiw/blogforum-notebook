@@ -1,16 +1,25 @@
 /***********************************************************************
- * Module:  NodeGroup.java
- * Author:  Administrator
- * Purpose: Defines the Class NodeGroup
+ * Module:  NoteBookVO.java
+ * Author:  wwd
+ * Purpose: Defines the Class Note
  ***********************************************************************/
-package com.blogforum.notebook.pojo.entity;
+package com.blogforum.notebook.pojo.vo;
 
-/** 笔记本 存放笔记 */
-public class NoteBook extends DataEntity<NoteBook> {
+import com.blogforum.notebook.pojo.entity.DataEntity;
+
+/**
+ * 笔记本显示VO
+ * 
+ * @author wwd
+ *
+ */
+public class NoteBookVO extends DataEntity<NoteBookVO> {
+
 	/**
 	 * 
 	 */
 	private static final long	serialVersionUID	= 1L;
+
 	/**
 	 * 笔记本编号
 	 */
@@ -32,6 +41,11 @@ public class NoteBook extends DataEntity<NoteBook> {
 	 * 判断是否有子节点
 	 */
 	private boolean				haveNode;
+
+	/**
+	 * 对应笔记总数
+	 */
+	private int				noteCount;
 
 	public String getId() {
 		return id;
@@ -71,6 +85,14 @@ public class NoteBook extends DataEntity<NoteBook> {
 
 	public void setHaveNode(boolean haveNode) {
 		this.haveNode = haveNode;
+	}
+
+	public int getNoteCount() {
+		return noteCount;
+	}
+
+	public void setNoteCount(int noteCount) {
+		this.noteCount = noteCount;
 	}
 
 }

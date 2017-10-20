@@ -5,4 +5,6 @@ import com.blogforum.notebook.service.BaseService;
 
 public interface NoteService extends BaseService<Note> {
 
+	public int countByNoteBookId(String noteBookId);
+	
 }
