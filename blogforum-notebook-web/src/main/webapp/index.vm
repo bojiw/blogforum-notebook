@@ -19,7 +19,6 @@
 	<!--菜单-->
 	<link rel="stylesheet" type="text/css" href="css/basicContext.min.css">
 	<link rel="stylesheet" type="text/css" href="css/default.min.css">
-	
 </head>
 <body class="overflow-hidden">
 	<div class="wrapper preload">
@@ -83,7 +82,7 @@
 													#end
 													<span class="noteBookName" parentId=$noteBook.parentId value=$noteBook.id>$noteBook.name</span>
 													<span title="设置" class="booksetting glyphicon glyphicon-cog " ></span>	
-													<span title="笔记数量" style="float:right;font-size:16px">$noteBook.noteCount</span>
+													<span title="笔记数量" style="float:right;font-size:14px">$noteBook.noteCount</span>
 												</a>
 												<ul class="subtree"></ul>
 											</li>
@@ -105,8 +104,12 @@
 							最新笔记
 						</div>
 					</div>
-					<div class="noteInfoListItem" style="height:97%">
+					<div class="noteInfoListItem" style="height:99%">
 						<div class="node-body" id ="innerDiv" style="padding-bottom:30px;height:100%">
+							<hidden id = "notePageNo" value = $notes.pageNo/>
+							<hidden id = "notePageSize" value = $notes.pageSize/>
+							<hidden id = "noteCount" value = $notes.count/>
+							<hidden id = "noteLastPage" value = $notes.lastPage/>
 							<ul class="node-body-ul">
 								#foreach($note in $notes.list)
 								<li class="node-body-ul-li">
@@ -139,6 +142,11 @@
 								</li>
 								#end
 							</ul>
+							<div id = "loading" >
+							  <div class="bounce1"></div>
+							  <div class="bounce2"></div>
+							  <div class="bounce3"></div>
+							</div>
 						</div><!--node-body-->
 					</div><!--noteInfoListItem-->
 				</div><!--noteInfoList-->

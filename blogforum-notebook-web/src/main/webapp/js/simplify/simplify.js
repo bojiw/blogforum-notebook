@@ -285,21 +285,6 @@ var oBoxBody = document.getElementById("boxBody"), oNoteLeft = document.getEleme
 	};
 };
 
-//笔记滚动条
-$(function(){  
-    $('#innerDiv').slimScroll({  
-        width: 'auto', //可滚动区域宽度
-        height: '100%', //可滚动区域高度
-
-    });
-    
-    $('#innerDiv').slimScroll().bind('slimscroll', function(e, pos){  
-        if(pos=='bottom'){
-           // 执行其他逻辑
-        }
-    });  
-});  
-
 
 
 //笔记点击变色
@@ -381,9 +366,9 @@ $(function(){
 		$(".showsetting").removeClass("clickBookNote");
 		$(this).addClass("clickBookNote");
 		selectedBook = $(this).find(".noteBookName");
-		settingSelectedBook(selectedBook);
+		noteBookClick(selectedBook);
 	}
-	function settingSelectedBook(selectedBook){
+	function noteBookClick(selectedBook){
 		selectedBookId = selectedBook.attr("value");
 		bookName = selectedBook.html();
 		//设置当前选中的笔记本的id和name 方便其他地方获取
@@ -393,10 +378,116 @@ $(function(){
 		$.get("note/getBookList", {
 			noteBookId: selectedBookId
 			},function(data){
-			layer.msg(data);
+			if(data.status != "200"){
+				layer.msg(data.msg);
+			}else{
+				var html="";
+				jQuery.each(data.data.list,function(i,item){
+					var lis = getNoteHtml(item);
+					html += lis;
+				});
+				$(".node-body-ul").html(html);
+				$("#notePageNo").attr("value",data.data.pageNo);
+				$("#notePageSize").attr("value",data.data.pageSize);
+				$("#noteCount").attr("value",data.data.count);
+				$("#noteLastPage").attr("value",data.data.lastPage);
+			}
 		});
 	}
+	function getNoteHtml(item){
+		var lis = "<li class='node-body-ul-li'><div class='item-desc'><p class='item-title'> ";
+		if(item.noteTitle != null){
+			lis += item.noteTitle;
+		}
+		lis += "</p><p class='item-info'><i class='fa fa-book'></i><span class='note-notebook'> ";
+		if(item.noteBookName != null){
+			lis += item.noteBookName;
+		}
+		lis += " </span><i class='fa fa-clock-o'> </i> <span class='updated-time'> ";
+		lis += dateToString(new Date(item.updateDate));
+		lis += "</p><p class='desc'>";
+		if(item.context != null){
+			if(item.context.length > 80){
+				lis += item.context.substring(0,80);
+				lis += "...";
+			}else{
+				lis += item.context;
+			}
+		}
+		lis += "</p></div></li>";
+		return lis;
+		
+	}
+	
+	//获取时间
+	  function dateToString(date){  
+		    var year = date.getFullYear();  
+		    var month =(date.getMonth() + 1).toString();  
+		    var day = (date.getDate()).toString();  
+		    var hour = (date.getHours()).toString();  
+		    var minute = (date.getMinutes()).toString();  
+		    var second = (date.getSeconds()).toString();  
+		    if (month.length == 1) {  
+		        month = "0" + month;  
+		    }  
+		    if (day.length == 1) {  
+		        day = "0" + day;  
+		    }  
+		    if (hour.length == 1) {  
+		        hour = "0" + hour;  
+		    }  
+		    if (minute.length == 1) {  
+		        minute = "0" + minute;  
+		    }  
+		    if (second.length == 1) {  
+		        second = "0" + second;  
+		    }  
+		     var dateTime = year + "-" + month + "-" + day +" "+ hour +":"+minute+":"+second;  
+		     return dateTime;  
+	  }  
 	refreshMenu();
+	
+	
+	//笔记滚动条
+	$('#innerDiv').slimScroll({  
+		width: 'auto', //可滚动区域宽度
+		height: '98%', //可滚动区域高度
+	
+	});
+	//笔记滚动条滚到到最底时执行的代码
+	$('#innerDiv').slimScroll().bind('slimscroll', function(e, pos){  
+		if(pos=='bottom'){
+		   if($("#noteLastPage").attr("value") == "false"){
+
+			   var html = $(".node-body-ul").html();
+			   $("#loading").addClass("spinner");
+			   var pageNo = parseInt($("#notePageNo").attr("value")) + 1;
+				$.get("note/getBookList", {
+					noteBookId: selectedBookId,
+					pageNo: pageNo
+					
+					},function(data){
+					if(data.status != "200"){
+						layer.msg(data.msg);
+					}else{
+						jQuery.each(data.data.list,function(i,item){
+							var lis = getNoteHtml(item);
+							html += lis;
+						});
+						$(".node-body-ul").html(html);
+						$("#notePageNo").attr("value",data.data.pageNo);
+						$("#notePageSize").attr("value",data.data.pageSize);
+						$("#noteCount").attr("value",data.data.count);
+						$("#noteLastPage").attr("value",data.data.lastPage);
+					}
+					$("#loading").removeClass("spinner");
+				});
+		   }
+		   
+		}
+	});  
+	
+	
 	//左侧获取笔记本方法
 	function getBooks(){
 		var clickObject = $(this);
@@ -404,20 +495,24 @@ $(function(){
 		var parentClickObjeck = clickObject.parent();
 		if(clickObject.hasClass("glyphicon-chevron-right")){
 			$.get("/noteBook/getNoteBook/" + clickObject.next().attr("value"),function(data){
-				var html="";
-				jQuery.each(data.data,function(i,item){
-					var lis = getBookHtml(item);
-					html += lis;
-				});
-				parentClickObjeck.next().html(html);
-				//关闭所有获取笔记本元素的点击事件
-				$('.glyphicon-chevron-right').off("click");
-				//给获取笔记本元素绑定点击事件
-				$('.glyphicon-chevron-right').on("click",getBooks);
-				//鼠标经过出现设置按钮
-				showsetting();
-			  //刷新笔记本右键和设置菜单
-			  refreshMenu();
+				if(data.status != "200"){
+					layer.msg(data.msg);
+				}else{
+					var html="";
+					jQuery.each(data.data,function(i,item){
+						var lis = getBookHtml(item);
+						html += lis;
+					});
+					parentClickObjeck.next().html(html);
+					//关闭所有获取笔记本元素的点击事件
+					$('.glyphicon-chevron-right').off("click");
+					//给获取笔记本元素绑定点击事件
+					$('.glyphicon-chevron-right').on("click",getBooks);
+					//鼠标经过出现设置按钮
+					showsetting();
+				    //刷新笔记本右键和设置菜单
+				    refreshMenu();
+				}
 			});
 			clickObject.removeClass("glyphicon-chevron-right");
 			clickObject.addClass("glyphicon-chevron-down");
@@ -446,7 +541,7 @@ $(function(){
 		lis += item.name
 		lis += "</span>";
 		lis += "<span title='设置' class='booksetting glyphicon glyphicon-cog'></span>";
-		lis += "<span title='笔记数量' style='float:right;font-size:16px'>" + item.noteNum +"</span>";
+		lis += "<span title='笔记数量' style='float:right;font-size:14px'>" + item.noteCount +"</span>";
 		lis += "</a><ul class='subtree'></ul></li>";
 		return lis;
 	}

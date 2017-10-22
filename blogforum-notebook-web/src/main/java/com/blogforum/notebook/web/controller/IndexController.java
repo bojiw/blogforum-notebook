@@ -21,6 +21,7 @@ import com.blogforum.notebook.pojo.vo.NoteVO;
 import com.blogforum.notebook.service.note.NoteBookService;
 import com.blogforum.notebook.service.note.NoteService;
 import com.blogforum.notebook.web.constant.ViewConstant;
+import com.google.common.collect.Lists;
 
 /**
  * 首页
@@ -42,15 +43,20 @@ public class IndexController {
 		for (NoteBookVO noteBookVO : notebooks) {
 			noteBookVO.setNoteCount(noteService.countByNoteBookId(noteBookVO.getId()));
 		}
-		Page<Note> page = noteService.queryList(new Page<Note>(request, response),new Note());
 		Page<NoteVO>pageNoteVO = new Page<>();
-		BeanUtils.copyProperties(page, pageNoteVO,"list");
-		BaseConverter<Note, NoteVO> noteConverter = new BaseConverter<>();
-		List<NoteVO> noteVOs = noteConverter.convertList(page.getList(), NoteVO.class);
-		if (CollectionUtils.isNotEmpty(noteVOs)) {
-			for (NoteVO noteVO : noteVOs) {
-				NoteBook noteBook = noteBookService.getById(noteVO.getNoteBookId());
-				noteVO.setNoteBookName(noteBook.getName());
+		List<NoteVO> noteVOs = Lists.newArrayList();
+		if (CollectionUtils.isNotEmpty(notebooks)) {
+			Note note = new Note();
+			note.setNoteBookId(notebooks.get(0).getId());
+			Page<Note> page = noteService.queryList(new Page<Note>(request, response),note);
+			BeanUtils.copyProperties(page, pageNoteVO,"list");
+			BaseConverter<Note, NoteVO> noteConverter = new BaseConverter<>();
+			noteVOs = noteConverter.convertList(page.getList(), NoteVO.class);
+			if (CollectionUtils.isNotEmpty(noteVOs)) {
+				for (NoteVO noteVO : noteVOs) {
+					NoteBook noteBook = noteBookService.getById(noteVO.getNoteBookId());
+					noteVO.setNoteBookName(noteBook.getName());
+				}
 			}
 		}
 		pageNoteVO.setList(noteVOs);

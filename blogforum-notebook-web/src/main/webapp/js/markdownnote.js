@@ -162,6 +162,7 @@ $(function() {
 			var id = $("#noteId").attr("value");
 			var type = "markdown";
 			var textType = $("#textType").val();
+			var noteBookId =$("#noteBookId").attr("value");
 		    $.post("/note/updateNote",{
 				id:id,
 				noteTitle:title,
@@ -170,6 +171,7 @@ $(function() {
 		    	mdNoteBody:md,
 		    	type:type,
 		    	label:label,
+		    	noteBookId:noteBookId,
 		    	textType:textType
 				},
 				function(data) {

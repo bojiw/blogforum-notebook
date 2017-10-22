@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blogforum.common.enums.BizError;
+import com.blogforum.common.tools.BaseConverter;
 import com.blogforum.common.tools.UUIDCreateUtils;
 import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.notebook.pojo.entity.NoteBook;
+import com.blogforum.notebook.pojo.vo.NoteBookVO;
 import com.blogforum.notebook.service.note.NoteBookService;
 
 @Controller
@@ -29,7 +31,9 @@ public class NoteBookController {
 	@ResponseBody
 	public blogforumResult getNoteBooks( @PathVariable String parentId){
 		List<NoteBook> books = noteBookService.queryListByParentId(parentId);
-		return blogforumResult.ok(books);
+		BaseConverter<NoteBook, NoteBookVO> noteBookConver = new BaseConverter<>();
+		List<NoteBookVO> noteBooks = noteBookConver.convertList(books, NoteBookVO.class);
+		return blogforumResult.ok(noteBooks);
 	}
 	
 	@RequestMapping( value = "/addNoteBook" ,method = RequestMethod.POST) 
