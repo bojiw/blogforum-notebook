@@ -374,23 +374,35 @@ $(function(){
 		//设置当前选中的笔记本的id和name 方便其他地方获取
 		$("#selectedBook").attr("value",selectedBook.attr("value"));
 		$("#selectedBook").attr("name",selectedBook.html());
-		
+		$(".node-body-ul").html("");
+		$("#loading").addClass("spinner");
 		$.get("note/getBookList", {
 			noteBookId: selectedBookId
 			},function(data){
 			if(data.status != "200"){
+				$("#loading").removeClass("spinner");
 				layer.msg(data.msg);
 			}else{
 				var html="";
+				//为了防止有人点击笔记本太快出现请求两次 第二次先返回结果 第一次后返回结果 导致最终显示的笔记为第一次点击获取的笔记 加一个判断获取的笔记对应的笔记本是否是用户最终选择的笔记本 如果不是则不用运行
+				var isExect = true;
 				jQuery.each(data.data.list,function(i,item){
+					if(item.noteBookId != selectedBookId){
+						isExect = false;
+						return false;
+					}
 					var lis = getNoteHtml(item);
 					html += lis;
 				});
-				$(".node-body-ul").html(html);
-				$("#notePageNo").attr("value",data.data.pageNo);
-				$("#notePageSize").attr("value",data.data.pageSize);
-				$("#noteCount").attr("value",data.data.count);
-				$("#noteLastPage").attr("value",data.data.lastPage);
+				if(isExect){
+					$("#loading").removeClass("spinner");
+					$(".node-body-ul").html(html);
+					$("#notePageNo").attr("value",data.data.pageNo);
+					$("#notePageSize").attr("value",data.data.pageSize);
+					$("#noteCount").attr("value",data.data.count);
+					$("#noteLastPage").attr("value",data.data.lastPage);
+				}
+
 			}
 		});
 	}

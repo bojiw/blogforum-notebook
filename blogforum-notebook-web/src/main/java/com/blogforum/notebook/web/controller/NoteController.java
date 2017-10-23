@@ -24,7 +24,7 @@ import com.blogforum.notebook.pojo.entity.NoteBook;
 import com.blogforum.notebook.pojo.vo.NoteVO;
 import com.blogforum.notebook.service.note.NoteBookService;
 import com.blogforum.notebook.service.note.NoteService;
-import com.blogforum.notebook.web.enums.YesOrNo;
+import com.blogforum.notebook.web.enums.IsDelFlag;
 
 @Controller
 @RequestMapping("/note")
@@ -37,7 +37,7 @@ public class NoteController {
 	@RequestMapping(value = "/addNote" , method = RequestMethod.POST)
 	@ResponseBody
 	public blogforumResult addNote(Note note){
-		note.setDelFlag(YesOrNo.N.name());
+		note.setDelFlag(IsDelFlag.N.getValue());
 		note.setId(UUIDCreateUtils.getUUID());
 		//伪代码
 		note.setUserId("20170905C132BB4668E64566834B18B5BC0307DB57810067");
@@ -55,6 +55,7 @@ public class NoteController {
 		note.setCreateDate(oldNote.getCreateDate());
 		note.setUpdateDate(new Date());
 		note.setUserId(oldNote.getUserId());
+		note.setDelFlag(oldNote.getDelFlag());
 		noteService.update(note);
 		return blogforumResult.ok();
 	}
