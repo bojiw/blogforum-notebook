@@ -319,6 +319,14 @@ $(function(){
 		}
 		var noteId = addNote(selectedBookId,bookName);
 		if(noteId != "0"){
+			//拼接第一次创建的html代码
+			var lis = initNoteHtml(bookName,noteId);
+			//把新加的笔记html代码放到第一个位置
+			var html = $(".node-body-ul").html();
+			$(".node-body-ul").html(lis+html);
+			//修改笔记本的笔记数量+1
+			var count = $(".clickBookNote").children('span').eq(3).html();
+			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
 			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 		}
 	});
@@ -330,6 +338,15 @@ $(function(){
 		}
 		var noteId = addNote(selectedBookId,bookName);
 		if(noteId != "0"){
+			$("#selectedNoteId").attr("value",noteId);
+			//拼接第一次创建的html代码
+			var lis = initNoteHtml(bookName,noteId);
+			//把新加的笔记html代码放到第一个位置
+			var html = $(".node-body-ul").html();
+			$(".node-body-ul").html(lis+html);
+			//修改笔记本的笔记数量+1
+			var count = $(".clickBookNote").children('span').eq(3).html();
+			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
 			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 		}
 	});
@@ -353,6 +370,36 @@ $(function(){
 	     }); 
 		 return noteId;
 	}
+	
+	//拼接note的html代码
+	function initNoteHtml(noteBookName,noteId){
+		var lis = "<li class='node-body-ul-li'>"
+		lis += "<span class='noteId' value=";
+		lis += noteId;
+		lis += "/><div class='item-desc'><p class='item-title'> ";
+		lis += "</p><p class='item-info'><i class='fa fa-book'></i><span class='note-notebook'> ";
+		if(noteBookName != null){
+			lis += noteBookName;
+		}
+		lis += " </span><i class='fa fa-clock-o'> </i> <span class='updated-time'> ";
+		lis += dateToString(new Date());
+		lis += "</p><p class='desc'>";
+		lis += "</p></div></li>";
+		return lis;
+		
+	}
+	
+	//点击笔记方法
+	var clickNote = function(){
+		var noteId = $(this).children('span').eq(0).attr("value");
+		$("#selectedNoteId").attr("value",noteId);
+		
+	}
+	
+	function noteClick(noteId){
+		
+	}
+	
 	
 	
 	//鼠标经过出现设置按钮
@@ -533,6 +580,7 @@ $(function(){
 			clickObject.removeClass("glyphicon-chevron-down");
 			clickObject.addClass("glyphicon-chevron-right");
 			parentElm.children('.subtree').hide();
+
 		}
 		return false;
 	}
@@ -598,6 +646,7 @@ $(function(){
 	}
 	var book;
 	var onClick = function(e) {
+		//获取notebook这个元素
 		book = $(this).prev();
 		if(book.attr('class') != "noteBookName"){
 			book = $(this).find(".noteBookName");
@@ -740,6 +789,7 @@ $(function(){
 	function refreshMenu(){
 		  //关闭所有笔记设置按钮的点击事件 后面重新加上
 		  $('.showsetting').off('click')
+		  $('.showsetting').off('contextmenu');
 		  //关闭所有笔记设置按钮的点击事件 后面重新加上
 		  $('.booksetting').off('click')
 		  //绑定点击笔记本按钮触发事件

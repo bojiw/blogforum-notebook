@@ -64,10 +64,10 @@
 	<insert id="save" parameterType="com.blogforum.notebook.pojo.entity.NoteBook">
 		insert into
 		note_book(
-			id,parent_id,name,user_id,create_date,update_date,have_node,note_num
+			id,parent_id,name,user_id,create_date,update_date,have_node
 		)
 		values(
-			#{id},#{parentId},#{name},#{userId},#{createDate},#{updateDate},#{haveNode},#{noteNum}
+			#{id},#{parentId},#{name},#{userId},#{createDate},#{updateDate},#{haveNode}
 		)
 	</insert>
 	
@@ -83,7 +83,7 @@
 	    update 
 	    note_book 
 	    set parent_id = #{parentId},name = #{name},user_id = #{userId},
-	    create_date = #{createDate},update_date = #{updateDate},have_node=#{haveNode},note_num=#{noteNum}
+	    create_date = #{createDate},update_date = #{updateDate},have_node=#{haveNode}
 	    where id=#{id}
 	</update>
 	

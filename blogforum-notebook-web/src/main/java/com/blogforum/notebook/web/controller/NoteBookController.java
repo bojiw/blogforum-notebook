@@ -56,7 +56,11 @@ public class NoteBookController {
 				noteBookService.update(parentNoteBook);
 			}
 		}
-		return blogforumResult.ok(noteBook);
+		BaseConverter<NoteBook, NoteBookVO> noteBookConverter = new BaseConverter<>();
+		NoteBookVO noteBookVO = noteBookConverter.convert(noteBook, NoteBookVO.class);
+		noteBookVO.setNoteCount(0);
+		
+		return blogforumResult.ok(noteBookVO);
 	}
 	
 	
@@ -70,7 +74,10 @@ public class NoteBookController {
 		noteBook.setName(name);
 		noteBookService.update(noteBook);
 		
-		return blogforumResult.ok(noteBook);
+		BaseConverter<NoteBook, NoteBookVO> noteBookConverter = new BaseConverter<>();
+		NoteBookVO noteBookVO = noteBookConverter.convert(noteBook, NoteBookVO.class);
+		noteBookVO.setNoteCount(0);
+		return blogforumResult.ok(noteBookVO);
 	}
 	
 	@RequestMapping("/deleteNoteBook")

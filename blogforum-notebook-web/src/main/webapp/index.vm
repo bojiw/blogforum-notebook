@@ -110,9 +110,11 @@
 							<hidden id = "notePageSize" value = $notes.pageSize/>
 							<hidden id = "noteCount" value = $notes.count/>
 							<hidden id = "noteLastPage" value = $notes.lastPage/>
+							<hidden id = "selectedNoteId"/>
 							<ul class="node-body-ul">
 								#foreach($note in $notes.list)
 								<li class="node-body-ul-li">
+									<span class="noteId" value=$note.id />
 									<div class="item-desc">
 										<p class="item-title">
 										#if($note.noteTitle)

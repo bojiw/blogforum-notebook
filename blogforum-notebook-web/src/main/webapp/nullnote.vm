@@ -27,6 +27,15 @@
 		var bookName = $("#selectedBook").attr("name");
 		var noteId = addNote(selectedBookId,bookName);
 		if(noteId != "0"){
+			$("#selectedNoteId").attr("value",noteId);
+			//拼接第一次创建的html代码
+			var lis = initNoteHtml(bookName,noteId);
+			//把新加的笔记html代码放到第一个位置
+			var html = $(".node-body-ul").html();
+			$(".node-body-ul").html(lis+html);
+			//修改笔记本的笔记数量+1
+			var count = $(".clickBookNote").children('span').eq(3).html();
+			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
 			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 		}
 	});
@@ -40,6 +49,15 @@
 		
 		var noteId = addNote(selectedBookId,bookName);
 		if(noteId != "0"){
+			$("#selectedNoteId").attr("value",noteId);
+			//拼接第一次创建的html代码
+			var lis = initNoteHtml(bookName,noteId);
+			//把新加的笔记html代码放到第一个位置
+			var html = $(".node-body-ul").html();
+			$(".node-body-ul").html(lis+html);
+			//修改笔记本的笔记数量+1
+			var count = $(".clickBookNote").children('span').eq(3).html();
+			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
 			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 		}
 	});
@@ -61,6 +79,49 @@
 	     }); 
 		 return noteId;
 	}
+		//拼接note的html代码
+	function initNoteHtml(noteBookName,noteId){
+		var lis = "<li class='node-body-ul-li'>"
+		lis += "<span class='noteId' value=";
+		lis += noteId;
+		lis += "/><div class='item-desc'><p class='item-title'> ";
+		lis += "</p><p class='item-info'><i class='fa fa-book'></i><span class='note-notebook'> ";
+		if(noteBookName != null){
+			lis += noteBookName;
+		}
+		lis += " </span><i class='fa fa-clock-o'> </i> <span class='updated-time'> ";
+		lis += dateToString(new Date());
+		lis += "</p><p class='desc'>";
+		lis += "</p></div></li>";
+		return lis;
+		
+	}
+		//获取时间
+	  function dateToString(date){  
+		    var year = date.getFullYear();  
+		    var month =(date.getMonth() + 1).toString();  
+		    var day = (date.getDate()).toString();  
+		    var hour = (date.getHours()).toString();  
+		    var minute = (date.getMinutes()).toString();  
+		    var second = (date.getSeconds()).toString();  
+		    if (month.length == 1) {  
+		        month = "0" + month;  
+		    }  
+		    if (day.length == 1) {  
+		        day = "0" + day;  
+		    }  
+		    if (hour.length == 1) {  
+		        hour = "0" + hour;  
+		    }  
+		    if (minute.length == 1) {  
+		        minute = "0" + minute;  
+		    }  
+		    if (second.length == 1) {  
+		        second = "0" + second;  
+		    }  
+		     var dateTime = year + "-" + month + "-" + day +" "+ hour +":"+minute+":"+second;  
+		     return dateTime;  
+	  }  
 </script> 
 		
 
