@@ -30,11 +30,11 @@ public class Note extends DataEntity<Note> {
 	private String				mdNoteBody;
 
 	/**
-	 * 用户
+	 * 用户Id
 	 */
 	private String				userId;
 	/**
-	 * 笔记本
+	 * 笔记本Id
 	 */
 	private String				noteBookId;
 
@@ -63,7 +63,7 @@ public class Note extends DataEntity<Note> {
 	private String				label;
 
 	/**
-	 * 博客笔记
+	 * 博客笔记iD
 	 */
 	private String				blogId;
 
@@ -81,7 +81,11 @@ public class Note extends DataEntity<Note> {
 	 * 内容类型 是原创还是转载还是翻译
 	 */
 	private String				textType;
-	
+
+	/**
+	 * 笔记本名字
+	 */
+	private String				noteBookName;
 
 	public String getId() {
 		return id;
@@ -203,5 +207,12 @@ public class Note extends DataEntity<Note> {
 		this.context = context;
 	}
 
+	public String getNoteBookName() {
+		return noteBookName;
+	}
+
+	public void setNoteBookName(String noteBookName) {
+		this.noteBookName = noteBookName;
+	}
 
 }

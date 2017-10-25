@@ -131,12 +131,12 @@
 										<i class="fa fa-clock-o"></i> 
 										<span class="updated-time">$date.format('yyyy-MM-dd HH:mm:ss ',$note.updateDate)</span>
 										</p><p class="desc">
-										#if($note.context)
-											#if($note.context.length()>80)
-											    #set($str=$note.context.substring(0,80))
+										#if($note.noteContext)
+											#if($note.noteContext.length()>80)
+											    #set($str=$note.noteContext.substring(0,80))
 											    $str ...
 											#else
-											    $note.context
+											    $note.noteContext
 											#end
 										#end
 										</p>

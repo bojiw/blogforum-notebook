@@ -317,7 +317,8 @@ $(function(){
 			layer.msg("没有选中笔记本   无法创建笔记");
 			return;
 		}
-		var noteId = addNote(selectedBookId,bookName);
+		var type = "simplenote";
+		var noteId = addNote(selectedBookId,bookName,type);
 		if(noteId != "0"){
 			//拼接第一次创建的html代码
 			var lis = initNoteHtml(bookName,noteId);
@@ -326,6 +327,8 @@ $(function(){
 			$(".node-body-ul").html(lis+html);
 			//修改笔记本的笔记数量+1
 			var count = $(".clickBookNote").children('span').eq(3).html();
+			//设置选择笔记本id
+			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
 			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 		}
@@ -336,7 +339,8 @@ $(function(){
 			layer.msg("没有选中笔记本   无法创建笔记");
 			return;
 		}
-		var noteId = addNote(selectedBookId,bookName);
+		var type = "markdownnote";
+		var noteId = addNote(selectedBookId,bookName,type);
 		if(noteId != "0"){
 			$("#selectedNoteId").attr("value",noteId);
 			//拼接第一次创建的html代码
@@ -346,6 +350,8 @@ $(function(){
 			$(".node-body-ul").html(lis+html);
 			//修改笔记本的笔记数量+1
 			var count = $(".clickBookNote").children('span').eq(3).html();
+			//设置选择笔记本id
+			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
 			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 		}
@@ -353,12 +359,12 @@ $(function(){
 	
 	
 	//添加笔记
-	function addNote(noteBookId,noteBookName){
+	function addNote(noteBookId,noteBookName,type){
 		 var noteId = "0";
 		 $.ajax({  
 	         type : "post",  
 	          url : "/note/addNote",  
-	          data : {noteBookId:noteBookId,label:noteBookName},  
+	          data : {noteBookId:noteBookId,noteBookName:noteBookName,type:type},  
 	          async : false,  
 	          success : function(data){  
 					if(data.status != "200") {
@@ -423,7 +429,7 @@ $(function(){
 		$("#selectedBook").attr("name",selectedBook.html());
 		$(".node-body-ul").html("");
 		$("#loading").addClass("spinner");
-		$.get("note/getBookList", {
+		$.get("note/getNoteTitleList", {
 			noteBookId: selectedBookId
 			},function(data){
 			if(data.status != "200"){
@@ -465,12 +471,12 @@ $(function(){
 		lis += " </span><i class='fa fa-clock-o'> </i> <span class='updated-time'> ";
 		lis += dateToString(new Date(item.updateDate));
 		lis += "</p><p class='desc'>";
-		if(item.context != null){
-			if(item.context.length > 80){
-				lis += item.context.substring(0,80);
+		if(item.noteContext != null){
+			if(item.noteContext.length > 80){
+				lis += item.noteContext.substring(0,80);
 				lis += "...";
 			}else{
-				lis += item.context;
+				lis += item.noteContext;
 			}
 		}
 		lis += "</p></div></li>";
@@ -521,7 +527,7 @@ $(function(){
 			   var html = $(".node-body-ul").html();
 			   $("#loading").addClass("spinner");
 			   var pageNo = parseInt($("#notePageNo").attr("value")) + 1;
-				$.get("note/getBookList", {
+				$.get("note/getNoteTitleList", {
 					noteBookId: selectedBookId,
 					pageNo: pageNo
 					

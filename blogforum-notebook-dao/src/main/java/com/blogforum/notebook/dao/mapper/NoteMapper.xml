@@ -21,7 +21,8 @@
         n.extjson	extjson,
         n.label	label,
         n.text_type	textType,
-        n.context	context
+        n.context	context,
+        n.note_book_name	noteBookName
         <!-- 
         b.id bid,
         b.name bname,
@@ -32,7 +33,7 @@
         b.have_node bhave_node
          -->
     </sql>
-    
+
     <resultMap type="com.blogforum.notebook.pojo.entity.Note" id="noteMap">
         <id property="id" column="id" />
         <result property="noteTitle" column="noteTitle" />
@@ -49,6 +50,7 @@
         <result property="label" column="label" />
         <result property="textType" column="textType" />
         <result property="context" column="context" />
+        <result property="noteBookName" column="noteBookName"/>
         <!--  
         <collection property="noteBooks" ofType="com.blogforum.notebook.pojo.entity.NoteBook">
             <id property="id" column="bid"/>
@@ -62,7 +64,24 @@
 	    -->
     </resultMap>
 
-   
+    <sql id="NoteTitle">
+        n.id id,
+        n.note_title	noteTitle,
+        n.update_date	updateDate,
+        n.user_id	userId,
+        n.textType	textType,
+        n.context	context,
+        n.note_book_name	noteBookName
+    </sql>
+    <resultMap type="com.blogforum.notebook.pojo.entity.Note" id="noteTitleMap">
+        <id property="id" column="id" />
+        <result property="noteTitle" column="noteTitle" />
+        <result property="updateDate" column="updateDate" />
+        <result property="userId" column="userId" />
+        <result property="textType" column="textType" />
+        <result property="context" column="context" />
+        <result property="noteBookName" column="noteBookName"/>
+    </resultMap>
 
         
     <!-- 添加笔记 -->
@@ -70,11 +89,11 @@
 		insert into 
 		note(
 			id,note_title,note_body,md_note_body,create_date,update_date,user_id,note_book_id,
-			blog_id,enclosure,type,del_flag,pwd_share_id,extjson,label,text_type,context
+			blog_id,enclosure,type,del_flag,pwd_share_id,extjson,label,text_type,context,note_book_name
 		) 
 		values (
 			#{id},#{noteTitle},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{userId},
-			#{noteBookId},#{blogId},#{enclosure},#{type},#{delFlag},#{pwdShareId},#{extjson},#{label},#{textType},#{context}
+			#{noteBookId},#{blogId},#{enclosure},#{type},#{delFlag},#{pwdShareId},#{extjson},#{label},#{textType},#{context},#{noteBookName}
 		)
 	</insert>
 	
@@ -92,7 +111,7 @@
 	    set note_title = #{noteTitle},note_body = #{noteBody},md_note_body = #{mdNoteBody},create_date = #{createDate},
 	    update_date = #{updateDate},user_id = #{userId},note_book_id = #{noteBookId},blog_id = #{blogId},
 	    enclosure = #{enclosure},type = #{type},del_flag = #{delFlag},pwd_share_id = #{pwdShareId},
-	    extjson = #{extjson},label = #{label},text_type=#{textType},context=#{context}
+	    extjson = #{extjson},label = #{label},text_type=#{textType},context=#{context},note_book_name=#{noteBookName}
 	    where id=#{id}
 	    
 	</update>
@@ -134,6 +153,21 @@
 		    del_flag='N'
 				AND note_book_id = #{noteBookId}
 	    	
+	</select>
+	
+	<select id="queryNoteTitleList" resultMap="noteTitleMap">
+	    SELECT
+		    <include refid="NoteTitle"/>
+	    FROM note n
+	    where 
+	    del_flag='N'
+	    <if test="noteBookId != null and noteBookId != ''">
+			AND note_book_id = #{noteBookId}
+		</if>
+	    <if test="userId != null and userId != ''">
+			AND user_id = #{userId}
+		</if>
+	    order by n.update_date desc
 	</select>
 	
 

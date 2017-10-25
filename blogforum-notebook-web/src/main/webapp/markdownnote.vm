@@ -9,8 +9,6 @@
 				<div class="noteRightTitle" style="float:left;width:70%;height:100%;margin:5px">
 					<input type="text" class="noteRightTitileText" placeholder="标题" >
 				</div>
-				<hidden id = "noteBookId" value=$noteBookId />
-				<hidden id = "noteId" value=$noteId />
 				<div class="pull-right" style="padding:6px 6px;width: 20%">
 					<div class="saveNote">
 						<div id = "saveMd" class="btn btn-info btn-sm" style="float:left;margin-right:10px"><i class="fa fa-save m-right-xs"></i>保存</div>

@@ -14,76 +14,71 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.blogforum.common.tools.BaseConverter;
 import com.blogforum.notebook.common.page.Page;
-import com.blogforum.notebook.pojo.entity.Note;
 import com.blogforum.notebook.pojo.entity.NoteBook;
+import com.blogforum.notebook.pojo.entity.NoteTitle;
 import com.blogforum.notebook.pojo.vo.NoteBookVO;
-import com.blogforum.notebook.pojo.vo.NoteVO;
+import com.blogforum.notebook.pojo.vo.NoteTitleVO;
 import com.blogforum.notebook.service.note.NoteBookService;
-import com.blogforum.notebook.service.note.NoteService;
+import com.blogforum.notebook.service.note.NoteTitleService;
 import com.blogforum.notebook.web.constant.ViewConstant;
 import com.google.common.collect.Lists;
 
 /**
  * 首页
+ * 
  * @author wwd
  *
  */
 @Controller
 public class IndexController {
 	@Autowired
-	private NoteBookService noteBookService;
+	private NoteBookService		noteBookService;
 	@Autowired
-	private NoteService noteService;
-	
+	private NoteTitleService	noteTitleService;
+
 	@RequestMapping("/")
-	public String index(ModelMap map,HttpServletRequest request, HttpServletResponse response){
+	public String index(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
 		List<NoteBook> books = noteBookService.queryListByParentId("0");
 		BaseConverter<NoteBook, NoteBookVO> converter = new BaseConverter<>();
 		List<NoteBookVO> notebooks = converter.convertList(books, NoteBookVO.class);
 		for (NoteBookVO noteBookVO : notebooks) {
-			noteBookVO.setNoteCount(noteService.countByNoteBookId(noteBookVO.getId()));
+			noteBookVO.setNoteCount(noteTitleService.countByNoteBookId(noteBookVO.getId()));
 		}
-		Page<NoteVO>pageNoteVO = new Page<>();
-		List<NoteVO> noteVOs = Lists.newArrayList();
+		Page<NoteTitleVO> pageNoteVO = new Page<>();
+		List<NoteTitleVO> noteTitleVOs = Lists.newArrayList();
 		if (CollectionUtils.isNotEmpty(notebooks)) {
-			Note note = new Note();
-			note.setNoteBookId(notebooks.get(0).getId());
-			Page<Note> page = noteService.queryList(new Page<Note>(request, response),note);
-			BeanUtils.copyProperties(page, pageNoteVO,"list");
-			BaseConverter<Note, NoteVO> noteConverter = new BaseConverter<>();
-			noteVOs = noteConverter.convertList(page.getList(), NoteVO.class);
-			if (CollectionUtils.isNotEmpty(noteVOs)) {
-				for (NoteVO noteVO : noteVOs) {
-					NoteBook noteBook = noteBookService.getById(noteVO.getNoteBookId());
-					noteVO.setNoteBookName(noteBook.getName());
-				}
-			}
+			NoteTitle noteTitle = new NoteTitle();
+			noteTitle.setNoteBookId(notebooks.get(0).getId());
+			Page<NoteTitle> page = noteTitleService.queryList(new Page<NoteTitle>(request, response), noteTitle);
+			BeanUtils.copyProperties(page, pageNoteVO, "list");
+			BaseConverter<NoteTitle, NoteTitleVO> noteConverter = new BaseConverter<>();
+			noteTitleVOs = noteConverter.convertList(page.getList(), NoteTitleVO.class);
 		}
-		pageNoteVO.setList(noteVOs);
+		pageNoteVO.setList(noteTitleVOs);
 		map.put("noteBooks", notebooks);
 		map.put("notes", pageNoteVO);
 		return ViewConstant.INDEX;
 	}
 
 	@RequestMapping("/simplenote")
-	public String simpleNote(ModelMap map,String noteBookName,String noteBookId,String noteId){
+	public String simpleNote(ModelMap map, String noteBookName, String noteBookId, String noteId) {
 		map.put("noteBookId", noteBookId);
 		map.put("noteBookName", noteBookName);
 		map.put("noteId", noteId);
 		return ViewConstant.SIMPLENOTE;
 	}
-	
+
 	@RequestMapping("/nullnote")
-	public String nullNote(ModelMap map){
+	public String nullNote(ModelMap map) {
 		return ViewConstant.NULLNOTE;
 	}
-	
+
 	@RequestMapping("/markdownnote")
-	public String markDownNote(ModelMap map,String noteBookName,String noteBookId,String noteId){
+	public String markDownNote(ModelMap map, String noteBookName, String noteBookId, String noteId) {
 		map.put("noteBookId", noteBookId);
 		map.put("noteBookName", noteBookName);
 		map.put("noteId", noteId);
 		return ViewConstant.MARKDOWNNOTE;
 	}
-	
+
 }

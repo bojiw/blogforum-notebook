@@ -1,6 +1,6 @@
 package com.blogforum.notebook.web.controller;
 
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,65 +19,75 @@ import com.blogforum.common.tools.BaseConverter;
 import com.blogforum.common.tools.UUIDCreateUtils;
 import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.notebook.common.page.Page;
-import com.blogforum.notebook.pojo.entity.Note;
-import com.blogforum.notebook.pojo.entity.NoteBook;
+import com.blogforum.notebook.pojo.entity.NoteBody;
+import com.blogforum.notebook.pojo.entity.NoteTitle;
+import com.blogforum.notebook.pojo.vo.NoteTitleVO;
 import com.blogforum.notebook.pojo.vo.NoteVO;
-import com.blogforum.notebook.service.note.NoteBookService;
-import com.blogforum.notebook.service.note.NoteService;
+import com.blogforum.notebook.service.note.NoteBodyService;
+import com.blogforum.notebook.service.note.NoteTitleService;
 import com.blogforum.notebook.web.enums.IsDelFlag;
 
 @Controller
 @RequestMapping("/note")
 public class NoteController {
 	@Autowired
-	private NoteService noteService;
+	private NoteTitleService	noteTitleService;
 	@Autowired
-	private NoteBookService noteBookService;
-	
-	@RequestMapping(value = "/addNote" , method = RequestMethod.POST)
+	private NoteBodyService		noteBodyService;
+
+	@RequestMapping(value = "/addNote", method = RequestMethod.POST)
 	@ResponseBody
-	public blogforumResult addNote(Note note){
-		note.setDelFlag(IsDelFlag.N.getValue());
-		note.setId(UUIDCreateUtils.getUUID());
+	public blogforumResult addNote(NoteTitle noteTitle) {
+		noteTitle.setDelFlag(IsDelFlag.N.getValue());
 		//伪代码
-		note.setUserId("20170905C132BB4668E64566834B18B5BC0307DB57810067");
-		noteService.save(note);
-		return blogforumResult.ok(note);
+		noteTitle.setUserId("20170905C132BB4668E64566834B18B5BC0307DB57810067");
+		noteTitle.setId(UUIDCreateUtils.getUUID());
+		noteTitleService.save(noteTitle);
+		NoteBody noteBody = new NoteBody();
+		noteBody.setId(UUIDCreateUtils.getUUID());
+		noteBody.setDelFlag(IsDelFlag.N.getValue());
+		noteBody.setNoteTitleId(noteTitle.getId());
+		noteBodyService.save(noteBody);
+		return blogforumResult.ok(noteTitle);
 	}
-	
+
 	@RequestMapping(value = "/updateNote", method = RequestMethod.POST)
 	@ResponseBody
-	public blogforumResult updateNote(Note note){
-		Note oldNote = noteService.getById(note.getId());
-		if (oldNote == null) {
-			return blogforumResult.build(BizError.ILLEGAL_PARAMETER,"没有该笔记!");
+	public blogforumResult updateNote(NoteVO note) {
+		NoteTitle noteTitle = noteTitleService.getById(note.getNoteTitleId());
+
+		if (noteTitle == null) {
+			return blogforumResult.build(BizError.ILLEGAL_PARAMETER, "没有该笔记!");
 		}
-		note.setCreateDate(oldNote.getCreateDate());
-		note.setUpdateDate(new Date());
-		note.setUserId(oldNote.getUserId());
-		note.setDelFlag(oldNote.getDelFlag());
-		noteService.update(note);
+		noteTitle.setNoteTitle(note.getNoteTitle());
+		noteTitle.setNoteContext(note.getNoteContext());
+		noteTitleService.update(noteTitle);
+		List<NoteBody> oldNoteBody = noteBodyService.getByNoteTitleId(note.getNoteTitleId());
+		if (CollectionUtils.isEmpty(oldNoteBody)) {
+			return blogforumResult.build(BizError.SYS_EXCEPTION, "系统异常,没有对应的笔记内容!");
+		}
+		Iterator<NoteBody> iterator = oldNoteBody.iterator();
+		NoteBody noteBody = iterator.next();
+		noteBody.setNoteBody(note.getNoteBody());
+		noteBody.setMdNoteBody(note.getMdNoteBody());
+		noteBody.setTextType(note.getTextType());
+		noteBody.setLabel(note.getLabel());
+		noteBodyService.update(noteBody);
 		return blogforumResult.ok();
 	}
-	
-	
-	@RequestMapping(value = "/getBookList", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/getNoteTitleList", method = RequestMethod.GET)
 	@ResponseBody
-	public blogforumResult getBookList(Note note,HttpServletRequest request, HttpServletResponse response){
-		Page<Note> page = noteService.queryList(new Page<Note>(request, response), note);
-		
-		Page<NoteVO>pageNoteVO = new Page<>();
-		BeanUtils.copyProperties(page, pageNoteVO,"list");
-		BaseConverter<Note, NoteVO> noteConverter = new BaseConverter<>();
-		List<NoteVO> noteVOs = noteConverter.convertList(page.getList(), NoteVO.class);
-		if (CollectionUtils.isNotEmpty(noteVOs)) {
-			for (NoteVO noteVO : noteVOs) {
-				NoteBook noteBook = noteBookService.getById(noteVO.getNoteBookId());
-				noteVO.setNoteBookName(noteBook.getName());
-			}
-		}
-		pageNoteVO.setList(noteVOs);
-		return blogforumResult.ok(pageNoteVO);
+	public blogforumResult getNoteTitleList(NoteTitle noteTitle, HttpServletRequest request,
+						HttpServletResponse response) {
+		Page<NoteTitle> page = noteTitleService.queryList(new Page<NoteTitle>(request, response), noteTitle);
+
+		Page<NoteTitleVO> pageNoteTitleVO = new Page<>();
+		BeanUtils.copyProperties(page, pageNoteTitleVO, "list");
+		BaseConverter<NoteTitle, NoteTitleVO> noteConverter = new BaseConverter<>();
+		List<NoteTitleVO> noteVOs = noteConverter.convertList(page.getList(), NoteTitleVO.class);
+		pageNoteTitleVO.setList(noteVOs);
+		return blogforumResult.ok(pageNoteTitleVO);
 	}
 
 }

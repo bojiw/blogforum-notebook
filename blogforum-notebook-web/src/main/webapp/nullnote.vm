@@ -25,7 +25,8 @@
 			return;
 		}
 		var bookName = $("#selectedBook").attr("name");
-		var noteId = addNote(selectedBookId,bookName);
+		var type = "simplenote";
+		var noteId = addNote(selectedBookId,bookName,type);
 		if(noteId != "0"){
 			$("#selectedNoteId").attr("value",noteId);
 			//拼接第一次创建的html代码
@@ -35,6 +36,8 @@
 			$(".node-body-ul").html(lis+html);
 			//修改笔记本的笔记数量+1
 			var count = $(".clickBookNote").children('span').eq(3).html();
+			//设置选择笔记本id
+			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
 			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 		}
@@ -47,7 +50,8 @@
 		}
 		var bookName = $("#selectedBook").attr("name");
 		
-		var noteId = addNote(selectedBookId,bookName);
+		var type = "markdownnote";
+		var noteId = addNote(selectedBookId,bookName,type);
 		if(noteId != "0"){
 			$("#selectedNoteId").attr("value",noteId);
 			//拼接第一次创建的html代码
@@ -57,17 +61,19 @@
 			$(".node-body-ul").html(lis+html);
 			//修改笔记本的笔记数量+1
 			var count = $(".clickBookNote").children('span').eq(3).html();
+			//设置选择笔记本id
+			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
 			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 		}
 	});
 	//添加笔记
-	function addNote(noteBookId,noteBookName){
+	function addNote(noteBookId,noteBookName,type){
 		 var noteId = "0";
 		 $.ajax({  
 	         type : "post",  
 	          url : "/note/addNote",  
-	          data : {noteBookId:noteBookId,label:noteBookName},  
+	          data : {noteBookId:noteBookId,noteBookName:noteBookName,type:type},  
 	          async : false,  
 	          success : function(data){  
 					if(data.status != "200") {

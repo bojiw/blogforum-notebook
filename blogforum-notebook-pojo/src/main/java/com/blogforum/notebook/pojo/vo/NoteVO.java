@@ -16,9 +16,9 @@ public class NoteVO extends DataEntity<NoteVO> {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * 编号
+	 * 笔记头部id
 	 */
-	private String				id;
+	private String				noteTitleId;
 	/**
 	 * 笔记标题
 	 */
@@ -79,7 +79,7 @@ public class NoteVO extends DataEntity<NoteVO> {
 	/**
 	 * 纯文本笔记内容
 	 */
-	private String				context;
+	private String				noteContext;
 
 	/**
 	 * 内容类型 是原创还是转载还是翻译
@@ -91,12 +91,21 @@ public class NoteVO extends DataEntity<NoteVO> {
 	 */
 	private String				noteBookName;
 
-	public String getId() {
-		return id;
+
+	public String getNoteTitleId() {
+		return noteTitleId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setNoteTitleId(String noteTitleId) {
+		this.noteTitleId = noteTitleId;
+	}
+
+	public String getNoteContext() {
+		return noteContext;
+	}
+
+	public void setNoteContext(String noteContext) {
+		this.noteContext = noteContext;
 	}
 
 	public String getNoteTitle() {
@@ -201,14 +210,6 @@ public class NoteVO extends DataEntity<NoteVO> {
 
 	public void setTextType(String noteType) {
 		this.textType = noteType;
-	}
-
-	public String getContext() {
-		return context;
-	}
-
-	public void setContext(String context) {
-		this.context = context;
 	}
 
 	public String getNoteBookName() {

@@ -159,15 +159,14 @@ $(function() {
 			var context = $(html).text();
 			var title  = $(".noteRightTitileText").val();
 			var label = $("#tags").attr("value");
-			var id = $("#noteId").attr("value");
-			var type = "markdown";
+			var noteTitleId = $("#selectedNoteId").attr("value");
 			var textType = $("#textType").val();
-			var noteBookId =$("#noteBookId").attr("value");
+			var noteBookId =$("#selectedBook").attr("value");
 		    $.post("/note/updateNote",{
-				id:id,
+		    	noteTitleId:noteTitleId,
 				noteTitle:title,
 				noteBody:html,
-				context:context,
+				noteContext:context,
 		    	mdNoteBody:md,
 		    	type:type,
 		    	label:label,

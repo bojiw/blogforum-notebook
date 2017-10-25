@@ -1,5 +1,7 @@
 package com.blogforum.notebook.service.note.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,11 @@ public class NoteServiceImpl extends CrudService<Note> implements NoteService{
 	@Override
 	public int countByNoteBookId(String noteBookId) {
 		return noteMapper.countByNoteBookId(noteBookId);
+	}
+
+	@Override
+	public List<Note> queryNoteTitleList(String noteBookId) {
+		return noteMapper.queryNoteTitleList(noteBookId);
 	}
 
 
