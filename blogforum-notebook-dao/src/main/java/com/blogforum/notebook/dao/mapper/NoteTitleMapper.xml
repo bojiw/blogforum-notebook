@@ -17,8 +17,7 @@
         nt.del_flag	delFlag,
         nt.pwd_share_id	pwdShareId,
         nt.extjson	extjson,
-        nt.note_book_name	noteBookName,
-        nt.image_context		imageContext
+        nt.note_book_name	noteBookName
     </sql>
 
     
@@ -35,7 +34,6 @@
         <result property="pwdShareId" column="pwdShareId" />
         <result property="extjson" column="extjson" />
         <result property="noteBookName" column="noteBookName"/>
-        <result property="imageContext" column="imageContext"/>
     </resultMap>
         
     <!-- 添加笔记 -->
@@ -43,11 +41,11 @@
 		insert into 
 		note_title(
 			id,note_title,note_context,create_date,update_date,user_id,note_book_id,
-			blog_id,type,del_flag,pwd_share_id,extjson,note_book_name,image_context
+			blog_id,type,del_flag,pwd_share_id,extjson,note_book_name
 		) 
 		values (
 			#{id},#{noteTitle},#{noteContext},#{createDate},#{updateDate},#{userId},#{noteBookId},
-			#{blogId},#{type},#{delFlag},#{pwdShareId},#{extjson},#{noteBookName},#{imageContext}
+			#{blogId},#{type},#{delFlag},#{pwdShareId},#{extjson},#{noteBookName}
 		)
 	</insert>
 	
@@ -69,7 +67,7 @@
 		    note_title = #{noteTitle},note_context = #{noteContext},create_date = #{createDate},
 		    update_date = #{updateDate},user_id = #{userId},note_book_id = #{noteBookId},blog_id = #{blogId},
 		    type = #{type},del_flag = #{delFlag},pwd_share_id = #{pwdShareId},
-		    extjson = #{extjson},note_book_name=#{noteBookName},image_Context=#{imageContext}
+		    extjson = #{extjson},note_book_name=#{noteBookName}
 	    where 
 	    	id=#{id}
 	    

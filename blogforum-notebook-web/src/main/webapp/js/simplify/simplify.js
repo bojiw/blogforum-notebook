@@ -287,19 +287,6 @@ var oBoxBody = document.getElementById("boxBody"), oNoteLeft = document.getEleme
 
 
 
-//笔记点击变色
-$(function(){
-
-	$('.node-body-ul-li').click(function(){
-		var li = $(this);
-		li.removeClass("node-body-ul-li");
-		li.addClass("node-body-ul-li-active");
-		li.siblings().removeClass("node-body-ul-li-active");
-		li.siblings().addClass("node-body-ul-li");
-	});
-
-});
-
 $(function(){
 	//新建笔记
 	//第一次进入页面 默认选中笔记本的id为第一个笔记本
@@ -396,16 +383,14 @@ $(function(){
 	}
 	
 	//点击笔记方法
-	var clickNote = function(){
+	var clickTitleNote = function(){
 		var noteId = $(this).children('span').eq(0).attr("value");
 		$("#selectedNoteId").attr("value",noteId);
+		$(".node-body-ul-li").removeClass("clickTitleNote");
+		$(this).addClass("clickTitleNote");
 		
 	}
-	
-	function noteClick(noteId){
-		
-	}
-	
+
 	
 	
 	//鼠标经过出现设置按钮
@@ -435,12 +420,13 @@ $(function(){
 			if(data.status != "200"){
 				$("#loading").removeClass("spinner");
 				layer.msg(data.msg);
+				refreshMenu();
 			}else{
 				var html="";
 				//为了防止有人点击笔记本太快出现请求两次 第二次先返回结果 第一次后返回结果 导致最终显示的笔记为第一次点击获取的笔记 加一个判断获取的笔记对应的笔记本是否是用户最终选择的笔记本 如果不是则不用运行
 				var isExect = true;
 				jQuery.each(data.data.list,function(i,item){
-					if(item.noteBookId != selectedBookId){
+					if(selectedBookId != null && item.noteBookId != selectedBookId){
 						isExect = false;
 						return false;
 					}
@@ -455,12 +441,13 @@ $(function(){
 					$("#noteCount").attr("value",data.data.count);
 					$("#noteLastPage").attr("value",data.data.lastPage);
 				}
-
+				refreshMenu();
 			}
 		});
+		
 	}
 	function getNoteHtml(item){
-		var lis = "<li class='node-body-ul-li'><div class='item-desc'><p class='item-title'> ";
+		var lis = "<li class='node-body-ul-li'><span class='noteId' value= " + item.id + "/><div class='item-desc'><p class='item-title'> ";
 		if(item.noteTitle != null){
 			lis += item.noteTitle;
 		}
@@ -797,13 +784,17 @@ $(function(){
 		  $('.showsetting').off('click')
 		  $('.showsetting').off('contextmenu');
 		  //关闭所有笔记设置按钮的点击事件 后面重新加上
-		  $('.booksetting').off('click')
+		  $('.booksetting').off('click');
+		  //关闭笔记本点击事件 后面重新加上
+		  $('.node-body-ul-li').off('click');
 		  //绑定点击笔记本按钮触发事件
 		  $('.showsetting').on('click',clickBookNote);
 		  //笔记本右键设置按钮
 		  $('.showsetting').on('contextmenu', onClick);
 		  //笔记本设置按钮
 		  $('.booksetting').on('click', onClick);
+		  //笔记本点击事件
+		  $('.node-body-ul-li').on('click',clickTitleNote);
 	}
 	
 

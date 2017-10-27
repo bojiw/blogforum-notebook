@@ -59,10 +59,6 @@ public class NoteTitle extends DataEntity<NoteTitle> {
 	 */
 	private String				pwdShareId;
 
-	/**
-	 * 图片文字
-	 */
-	private String				imageContext;
 
 	public String getId() {
 		return id;
@@ -152,12 +148,5 @@ public class NoteTitle extends DataEntity<NoteTitle> {
 		this.pwdShareId = pwdShareId;
 	}
 
-	public String getImageContext() {
-		return imageContext;
-	}
-
-	public void setImageContext(String imageContext) {
-		this.imageContext = imageContext;
-	}
 
 }

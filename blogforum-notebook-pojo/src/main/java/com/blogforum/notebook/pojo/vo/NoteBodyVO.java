@@ -50,6 +50,11 @@ public class NoteBodyVO extends DataEntity<NoteBodyVO> {
 	 */
 	private String				noteTitleId;
 
+	/**
+	 * 图片文字
+	 */
+	private String				imageContext;
+
 	public String getId() {
 		return id;
 	}
@@ -120,6 +125,14 @@ public class NoteBodyVO extends DataEntity<NoteBodyVO> {
 
 	public void setNoteTitleId(String noteTitleId) {
 		this.noteTitleId = noteTitleId;
+	}
+
+	public String getImageContext() {
+		return imageContext;
+	}
+
+	public void setImageContext(String imageContext) {
+		this.imageContext = imageContext;
 	}
 
 }

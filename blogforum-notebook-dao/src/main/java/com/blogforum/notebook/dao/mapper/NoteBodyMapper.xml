@@ -15,7 +15,8 @@
         nb.extjson	extjson,
         nb.label	label,
         nb.text_type	textType,
-        nb.note_title_id	 noteTitleId
+        nb.note_title_id	 noteTitleId,
+        nb.image_context		imageContext
     </sql>
 
     <resultMap type="com.blogforum.notebook.pojo.entity.NoteBody" id="noteBodyMap">
@@ -30,6 +31,7 @@
         <result property="label" column="label" />
         <result property="textType" column="textType" />
         <result property="noteTitleId" column="noteTitleId"/>
+        <result property="imageContext" column="imageContext"/>
     </resultMap>
 
         
@@ -37,10 +39,10 @@
 	<insert id="save" parameterType="com.blogforum.notebook.pojo.entity.NoteBody">
 		insert into 
 		note_body(
-			id,note_body,md_note_body,create_date,update_date,enclosure,del_flag,extjson,label,text_type,note_title_id
+			id,note_body,md_note_body,create_date,update_date,enclosure,del_flag,extjson,label,text_type,note_title_id,image_context
 		) 
 		values (
-			#{id},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{enclosure},#{delFlag},#{extjson},#{label},#{textType},#{noteTitleId}
+			#{id},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{enclosure},#{delFlag},#{extjson},#{label},#{textType},#{noteTitleId},#{imageContext}
 		)
 	</insert>
 	
@@ -59,7 +61,7 @@
 	    update 
 	    note_body 
 	    set note_body = #{noteBody},md_note_body = #{mdNoteBody},create_date = #{createDate},
-	    update_date = #{updateDate},enclosure = #{enclosure},del_flag = #{delFlag},extjson = #{extjson},label = #{label},text_type=#{textType},note_title_id=#{noteTitleId}
+	    update_date = #{updateDate},enclosure = #{enclosure},del_flag = #{delFlag},extjson = #{extjson},label = #{label},text_type=#{textType},note_title_id=#{noteTitleId},image_context=#{imageContext}
 	    where id=#{id}
 	    
 	</update>

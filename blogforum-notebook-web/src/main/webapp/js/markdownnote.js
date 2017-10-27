@@ -156,7 +156,7 @@ $(function() {
 			var loading = layer.load(1, {shade: [0.1,'#fff']}); //0.1透明度的白色背景
 			var md = editor.getMarkdown();       // 获取 Markdown 源码
 			var html = editor.getHTML();           // 获取 Textarea 保存的 HTML 源码
-			var context = $(html).text();
+			var context = $(html).text().substring(0,300);
 			var title  = $(".noteRightTitileText").val();
 			var label = $("#tags").attr("value");
 			var noteTitleId = $("#selectedNoteId").attr("value");
@@ -168,7 +168,6 @@ $(function() {
 				noteBody:html,
 				noteContext:context,
 		    	mdNoteBody:md,
-		    	type:type,
 		    	label:label,
 		    	noteBookId:noteBookId,
 		    	textType:textType
