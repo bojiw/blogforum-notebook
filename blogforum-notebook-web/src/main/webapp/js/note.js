@@ -1,7 +1,7 @@
 $(function(){
 
 	//标签
-	$('#tags').tagsInput({
+	var tag = $('#tags').tagsInput({
 		'autocomplete':{selectFirst:true,width:'10px',autoFill:true},
 		   'height':'100%',
 		   'width':'100%',
@@ -15,11 +15,47 @@ $(function(){
 		});
 	$(".tagsinput").css("border","0px");
 	$(".tagsinput").css("padding","0px 0px");
-	
 	//富文本编辑器
 	
 	var E = window.wangEditor;
 	var editor = new E('.noteEditer');
+	
+	
+    //判断如果是查看笔记不是新建 则从后台获取数据显示
+    if($("#noteId").attr("value") != null){
+    	$.get("/note/getNoteBody",{id:$("#noteId").attr("value")},function(data){
+			if(data.status != "200") {
+				layer.close(loading);
+				layer.msg(data.msg);
+			}else{
+				var noteBody = data.data;
+				if(noteBody.label != null){
+					var tags = noteBody.label.split(",,;");
+					$.each(tags, function(i,item){ 
+						tag.addTag(item);
+					});
+					
+				}
+				if(noteBody.noteTitle != null){
+					$("#noteTitle").val(noteBody.noteTitle);
+				}
+				if(noteBody.textType != null){
+					$("#textType").val(noteBody.textType);
+				}
+				//设置md内容
+				if(noteBody.noteBody != null){
+					editor.txt.html(noteBody.noteBody)
+				}
+
+				
+			}
+    	});
+    	
+    }
+	
+	
+	
+	
 	var overallInsert;
 	//上传图片时执行的命令
 	editor.customConfig.customUploadImg = function (files, insert) {
@@ -121,12 +157,23 @@ $(function(){
 	
 	
 	//保存笔记
-	$("#saveNote").click(function(){
+	function noteClick(){
+		//遍历tag 获取所有tag内容并且拼接 因为显示需要,,;这个符号所有已这个结尾
+		var label = "";
+		$(".tag").each(function(i,item){
+			var tagtext = $(item).children('span').eq(0).html();
+			var index = tagtext.indexOf("&");
+			tagtext = tagtext.substring(0,index);
+			label += tagtext;
+			label += ",,;";
+		});
+		if(label.length > 1){
+			label = label.substring(0,label.length - 3);
+		}
 		var loading = layer.load(1, {shade: [0.1,'#fff']}); //0.1透明度的白色背景
 		var html = editor.txt.html()           // 获取 Textarea 保存的 HTML 源码
 		var context = $(html).text().substring(0,300);
 		var title  = $(".noteRightTitileText").val();
-		var label = $("#tags").attr("value");
 		var noteTitleId = $("#selectedNoteId").attr("value");
 		var textType = $("#textType").val();
 		var noteBookId =$("#selectedBook").attr("value");
@@ -146,13 +193,46 @@ $(function(){
 				}else{
 					layer.close(loading);
 					layer.msg("保存成功")
+					$(".clickTitleNote").find(".item-title").eq(0).html(title);
+					$(".clickTitleNote").find(".updated-time").eq(0).html(dateToString(new Date()));
+					if(context.length > 80){
+						$(".clickTitleNote").find(".desc").eq(0).html(context.substring(0,80) + "...");
+					}else{
+						$(".clickTitleNote").find(".desc").eq(0).html(context);
+					}
 				}
 				
 	    });
-	});
+	};
 	
-	
-	
+	$('#saveNote').off('click');
+	$('#saveNote').on('click',noteClick)
+	//获取时间
+	  function dateToString(date){  
+		    var year = date.getFullYear();  
+		    var month =(date.getMonth() + 1).toString();  
+		    var day = (date.getDate()).toString();  
+		    var hour = (date.getHours()).toString();  
+		    var minute = (date.getMinutes()).toString();  
+		    var second = (date.getSeconds()).toString();  
+		    if (month.length == 1) {  
+		        month = "0" + month;  
+		    }  
+		    if (day.length == 1) {  
+		        day = "0" + day;  
+		    }  
+		    if (hour.length == 1) {  
+		        hour = "0" + hour;  
+		    }  
+		    if (minute.length == 1) {  
+		        minute = "0" + minute;  
+		    }  
+		    if (second.length == 1) {  
+		        second = "0" + second;  
+		    }  
+		     var dateTime = year + "-" + month + "-" + day +" "+ hour +":"+minute+":"+second;  
+		     return dateTime;  
+	  }  
 
 	
 });

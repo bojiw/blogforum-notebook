@@ -28,9 +28,11 @@
 		var type = "simplenote";
 		var noteId = addNote(selectedBookId,bookName,type);
 		if(noteId != "0"){
+			//先删除所有的选中样式 再增加当前选中的li选中样式
+			$(".node-body-ul-li").removeClass("clickTitleNote");
 			$("#selectedNoteId").attr("value",noteId);
 			//拼接第一次创建的html代码
-			var lis = initNoteHtml(bookName,noteId);
+			var lis = initNoteHtml(bookName,noteId,type);
 			//把新加的笔记html代码放到第一个位置
 			var html = $(".node-body-ul").html();
 			$(".node-body-ul").html(lis+html);
@@ -39,7 +41,7 @@
 			//设置选择笔记本id
 			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
-			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
+			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId});
 		}
 	});
 	$(".markdownnote1").click(function(){
@@ -53,9 +55,11 @@
 		var type = "markdownnote";
 		var noteId = addNote(selectedBookId,bookName,type);
 		if(noteId != "0"){
+			//先删除所有的选中样式 再增加当前选中的li选中样式
+			$(".node-body-ul-li").removeClass("clickTitleNote");
 			$("#selectedNoteId").attr("value",noteId);
 			//拼接第一次创建的html代码
-			var lis = initNoteHtml(bookName,noteId);
+			var lis = initNoteHtml(bookName,noteId,type);
 			//把新加的笔记html代码放到第一个位置
 			var html = $(".node-body-ul").html();
 			$(".node-body-ul").html(lis+html);
@@ -64,7 +68,7 @@
 			//设置选择笔记本id
 			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
-			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
+			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId});
 		}
 	});
 	//添加笔记
@@ -86,11 +90,13 @@
 		 return noteId;
 	}
 		//拼接note的html代码
-	function initNoteHtml(noteBookName,noteId){
-		var lis = "<li class='node-body-ul-li'>"
+	function initNoteHtml(noteBookName,noteId,type){
+		var lis = "<li class='node-body-ul-li clickTitleNote'>"
 		lis += "<span class='noteId' value=";
 		lis += noteId;
-		lis += "/><div class='item-desc'><p class='item-title'> ";
+		lis += " type=";
+		lis += type;
+		lis += " /><div class='item-desc'><p class='item-title'> ";
 		lis += "</p><p class='item-info'><i class='fa fa-book'></i><span class='note-notebook'> ";
 		if(noteBookName != null){
 			lis += noteBookName;

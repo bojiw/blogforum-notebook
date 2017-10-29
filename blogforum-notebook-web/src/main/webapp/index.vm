@@ -106,15 +106,15 @@
 					</div>
 					<div class="noteInfoListItem" style="height:99%">
 						<div class="node-body" id ="innerDiv" style="padding-bottom:30px;height:100%">
-							<hidden id = "notePageNo" value = $notes.pageNo/>
-							<hidden id = "notePageSize" value = $notes.pageSize/>
-							<hidden id = "noteCount" value = $notes.count/>
-							<hidden id = "noteLastPage" value = $notes.lastPage/>
-							<hidden id = "selectedNoteId"/>
+							<hidden id = "notePageNo" value = $notes.pageNo />
+							<hidden id = "notePageSize" value = $notes.pageSize />
+							<hidden id = "noteCount" value = $notes.count />
+							<hidden id = "noteLastPage" value = $notes.lastPage />
+							<hidden id = "selectedNoteId" />
 							<ul class="node-body-ul">
 								#foreach($note in $notes.list)
 								<li class="node-body-ul-li">
-									<span class="noteId" value=$note.id />
+									<span class="note" value=$note.id type=$note.type />
 									<div class="item-desc">
 										<p class="item-title">
 										#if($note.noteTitle)

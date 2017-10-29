@@ -307,8 +307,10 @@ $(function(){
 		var type = "simplenote";
 		var noteId = addNote(selectedBookId,bookName,type);
 		if(noteId != "0"){
+			//先删除所有的选中样式 再增加当前选中的li选中样式
+			$(".node-body-ul-li").removeClass("clickTitleNote");
 			//拼接第一次创建的html代码
-			var lis = initNoteHtml(bookName,noteId);
+			var lis = initNoteHtml(bookName,noteId,type);
 			//把新加的笔记html代码放到第一个位置
 			var html = $(".node-body-ul").html();
 			$(".node-body-ul").html(lis+html);
@@ -317,7 +319,7 @@ $(function(){
 			//设置选择笔记本id
 			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
-			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
+			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId});
 		}
 	});
 	//点击新建markdown笔记时建立新笔记
@@ -329,9 +331,11 @@ $(function(){
 		var type = "markdownnote";
 		var noteId = addNote(selectedBookId,bookName,type);
 		if(noteId != "0"){
+			//先删除所有的选中样式 再增加当前选中的li选中样式
+			$(".node-body-ul-li").removeClass("clickTitleNote");
 			$("#selectedNoteId").attr("value",noteId);
 			//拼接第一次创建的html代码
-			var lis = initNoteHtml(bookName,noteId);
+			var lis = initNoteHtml(bookName,noteId,type);
 			//把新加的笔记html代码放到第一个位置
 			var html = $(".node-body-ul").html();
 			$(".node-body-ul").html(lis+html);
@@ -340,7 +344,7 @@ $(function(){
 			//设置选择笔记本id
 			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
-			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
+			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId});
 		}
 	});
 	
@@ -365,11 +369,13 @@ $(function(){
 	}
 	
 	//拼接note的html代码
-	function initNoteHtml(noteBookName,noteId){
-		var lis = "<li class='node-body-ul-li'>"
+	function initNoteHtml(noteBookName,noteId,type){
+		var lis = "<li class='node-body-ul-li clickTitleNote'>"
 		lis += "<span class='noteId' value=";
 		lis += noteId;
-		lis += "/><div class='item-desc'><p class='item-title'> ";
+		lis += " type=";
+		lis += type;
+		lis += " /><div class='item-desc'><p class='item-title'> ";
 		lis += "</p><p class='item-info'><i class='fa fa-book'></i><span class='note-notebook'> ";
 		if(noteBookName != null){
 			lis += noteBookName;
@@ -384,13 +390,35 @@ $(function(){
 	
 	//点击笔记方法
 	var clickTitleNote = function(){
-		var noteId = $(this).children('span').eq(0).attr("value");
+		//获取笔记li中的.note元素
+		var note = $(this).children('span').eq(0);
+		//获取noteId
+		var noteId = note.attr("value");
+		//获取笔记类型
+		var type = note.attr("type");
+		//设置当前选中的笔记id
 		$("#selectedNoteId").attr("value",noteId);
+		//先删除所有的选中样式 再增加当前选中的li选中样式
 		$(".node-body-ul-li").removeClass("clickTitleNote");
 		$(this).addClass("clickTitleNote");
+		if(type == "markdownnote"){
+			showNote(type,noteId);
+		}else if(type == "simplenote"){
+			showNote(type,noteId);
+		}else{
+			layer.msg("系统错误!!!");
+		}
+		
 		
 	}
-
+	
+	//显示笔记
+	function showNote(type,noteId){
+	    $.ajaxSetup ({ 
+	        cache: false // AJAX cache 关闭ajax缓存 防止加载只内容页的js只加载一次
+	     }); 
+		$(".noteRightInfo").load(type,{noteId:noteId});
+	}
 	
 	
 	//鼠标经过出现设置按钮
@@ -447,7 +475,7 @@ $(function(){
 		
 	}
 	function getNoteHtml(item){
-		var lis = "<li class='node-body-ul-li'><span class='noteId' value= " + item.id + "/><div class='item-desc'><p class='item-title'> ";
+		var lis = "<li class='node-body-ul-li'><span class='note' value= " + item.id + " type=" + item.type + " /><div class='item-desc'><p class='item-title'> ";
 		if(item.noteTitle != null){
 			lis += item.noteTitle;
 		}

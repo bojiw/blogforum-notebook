@@ -13,6 +13,12 @@ public class NoteBodyVO extends DataEntity<NoteBodyVO> {
 	 * 编号
 	 */
 	private String				id;
+
+	/**
+	 * 笔记标题
+	 */
+	private String				noteTitle;
+
 	/**
 	 * 笔记内容
 	 */
@@ -133,6 +139,14 @@ public class NoteBodyVO extends DataEntity<NoteBodyVO> {
 
 	public void setImageContext(String imageContext) {
 		this.imageContext = imageContext;
+	}
+
+	public String getNoteTitle() {
+		return noteTitle;
+	}
+
+	public void setNoteTitle(String noteTitle) {
+		this.noteTitle = noteTitle;
 	}
 
 }

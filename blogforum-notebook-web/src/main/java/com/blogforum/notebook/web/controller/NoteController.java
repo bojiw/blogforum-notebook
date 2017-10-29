@@ -1,12 +1,10 @@
 package com.blogforum.notebook.web.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +19,7 @@ import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.notebook.common.page.Page;
 import com.blogforum.notebook.pojo.entity.NoteBody;
 import com.blogforum.notebook.pojo.entity.NoteTitle;
+import com.blogforum.notebook.pojo.vo.NoteBodyVO;
 import com.blogforum.notebook.pojo.vo.NoteTitleVO;
 import com.blogforum.notebook.pojo.vo.NoteVO;
 import com.blogforum.notebook.service.note.NoteBodyService;
@@ -62,12 +61,10 @@ public class NoteController {
 		noteTitle.setNoteTitle(note.getNoteTitle());
 		noteTitle.setNoteContext(note.getNoteContext());
 		noteTitleService.update(noteTitle);
-		List<NoteBody> oldNoteBody = noteBodyService.getByNoteTitleId(note.getNoteTitleId());
-		if (CollectionUtils.isEmpty(oldNoteBody)) {
+		NoteBody noteBody = noteBodyService.getByNoteTitleId(note.getNoteTitleId());
+		if (noteBody == null) {
 			return blogforumResult.build(BizError.SYS_EXCEPTION, "系统异常,没有对应的笔记内容!");
 		}
-		Iterator<NoteBody> iterator = oldNoteBody.iterator();
-		NoteBody noteBody = iterator.next();
 		noteBody.setNoteBody(note.getNoteBody());
 		noteBody.setMdNoteBody(note.getMdNoteBody());
 		noteBody.setTextType(note.getTextType());
@@ -89,5 +86,22 @@ public class NoteController {
 		pageNoteTitleVO.setList(noteVOs);
 		return blogforumResult.ok(pageNoteTitleVO);
 	}
+	
+	@RequestMapping(value = "/getNoteBody", method = RequestMethod.GET)
+	@ResponseBody
+	public blogforumResult getNoteBody(NoteTitle noteTitle, HttpServletRequest request,
+						HttpServletResponse response){
+		NoteBody noteBody = noteBodyService.getByNoteTitleId(noteTitle.getId());
+		if (noteBody == null) {
+			return blogforumResult.build(BizError.SYS_EXCEPTION, "系统异常,没有对应的笔记内容!");
+		}
+		BaseConverter<NoteBody, NoteBodyVO> noteConverter = new BaseConverter<>();
+		NoteBodyVO noteBodyVO = noteConverter.convert(noteBody, NoteBodyVO.class);
+		NoteTitle noteTitleDO = noteTitleService.getById(noteTitle.getId());
+		noteBodyVO.setNoteTitle(noteTitleDO.getNoteTitle());
+		return blogforumResult.ok(noteBodyVO);
+	}
+	
+	
 
 }
