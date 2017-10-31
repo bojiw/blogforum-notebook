@@ -233,6 +233,37 @@ $(function(){
 		     var dateTime = year + "-" + month + "-" + day +" "+ hour +":"+minute+":"+second;  
 		     return dateTime;  
 	  }  
+	
+	
+	$("#delete").click(function(){
+		var noteId = $("#selectedNoteId").attr("value");
+		var lay = layer.confirm('确定要删除该笔记吗!', {
+			  btn: ['确定','取消'] //按钮
+			}, function(index){
+					 $.ajax({  
+				         type : "post",  
+				          url : "/note/deleteNote",  
+				          data : {noteId:noteId},  
+				          async : false,  
+				          success : function(data){  
+								if(data.status != "200") {
+									layer.msg(data.msg);
+								}else{
+									$(".clickTitleNote").remove();
+									var li = $(".node-body-ul-li").eq(0);
+									li.addClass("clickTitleNote");
+									var id =li.find(".note").eq(0).attr("value");
+									$("#selectedNoteId").attr("value",id);
+									li.click();
+								}
+				          }  
+				     }); 
+					 layer.close(lay);
+				 });
+		
+	});
+	
+	
 
 	
 });

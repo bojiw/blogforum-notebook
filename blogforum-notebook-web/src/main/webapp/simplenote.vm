@@ -20,8 +20,8 @@
 					<div class="itemHistory">
 						<i class="glyphicon glyphicon-time" title="历史版本" style="float:left;margin-right:10px;margin-top:5px"></i>
 					</div>
-					<div class="itemDelete">
-						<i class="glyphicon glyphicon-trash" title="删除" style="margin-top:5px"></i>
+					<div class="itemDelete" >
+						<a id="delete" class="glyphicon glyphicon-trash" title="删除" style="margin-top:5px"></a>
 					</div>
 				</div>
 			</div><!--noteTitleTools-->

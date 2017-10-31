@@ -298,6 +298,34 @@ $(function(){
 	$("#selectedBook").attr("name",bookName);
 	
 	$(".noteRightInfo").load("nullnote");
+	
+	
+	//显示笔记
+	function showNote(type,noteId){
+	    $.ajaxSetup ({ 
+	        cache: false // AJAX cache 关闭ajax缓存 防止加载只内容页的js只加载一次
+	     }); 
+		$(".noteRightInfo").load(type,{noteId:noteId},function(){
+			if($("#selectedNoteId").attr("value") != noteId){
+				showNote(type,$("#selectedNoteId").attr("value"));
+			}
+		});
+		
+	}
+	
+	//第一次进入页面判断选中的笔记本里是否有笔记 有则显示第一个
+	var li = $(".node-body-ul-li").eq(0);
+	if(li != null){
+		var noteId = li.find(".note").eq(0).attr("value");
+		var type = li.find(".note").eq(0).attr("type");
+		$("#selectedNoteId").attr("value",noteId);
+		li.addClass("clickTitleNote");
+		showNote(type,noteId);
+		
+	}
+	
+	
+	
 	//点击新建普通笔记时建立新笔记
 	$(".simplenote").click(function(){
 		if(selectedBookId == null){
@@ -320,6 +348,7 @@ $(function(){
 			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
 			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId});
+			refreshMenu();
 		}
 	});
 	//点击新建markdown笔记时建立新笔记
@@ -345,6 +374,7 @@ $(function(){
 			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
 			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId});
+			refreshMenu();
 		}
 	});
 	
@@ -412,13 +442,6 @@ $(function(){
 		
 	}
 	
-	//显示笔记
-	function showNote(type,noteId){
-	    $.ajaxSetup ({ 
-	        cache: false // AJAX cache 关闭ajax缓存 防止加载只内容页的js只加载一次
-	     }); 
-		$(".noteRightInfo").load(type,{noteId:noteId});
-	}
 	
 	
 	//鼠标经过出现设置按钮
@@ -453,21 +476,36 @@ $(function(){
 				var html="";
 				//为了防止有人点击笔记本太快出现请求两次 第二次先返回结果 第一次后返回结果 导致最终显示的笔记为第一次点击获取的笔记 加一个判断获取的笔记对应的笔记本是否是用户最终选择的笔记本 如果不是则不用运行
 				var isExect = true;
+				var note = null;
 				jQuery.each(data.data.list,function(i,item){
 					if(selectedBookId != null && item.noteBookId != selectedBookId){
 						isExect = false;
 						return false;
 					}
+					if(i == 0){
+						note = item;
+					}
+					
 					var lis = getNoteHtml(item);
 					html += lis;
 				});
 				if(isExect){
 					$("#loading").removeClass("spinner");
 					$(".node-body-ul").html(html);
+					//设置第一个笔记为选中并且显示
+					$(".node-body-ul").find(".node-body-ul-li").eq(0).addClass("clickTitleNote");
+					if(note != null){
+						showNote(note.type,note.id);
+					}else{
+						showNote("nullnote","0");
+					}
+					
 					$("#notePageNo").attr("value",data.data.pageNo);
 					$("#notePageSize").attr("value",data.data.pageSize);
 					$("#noteCount").attr("value",data.data.count);
 					$("#noteLastPage").attr("value",data.data.lastPage);
+				}else{
+					showNote("nullnote","0");
 				}
 				refreshMenu();
 			}

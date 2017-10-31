@@ -102,6 +102,26 @@ public class NoteController {
 		return blogforumResult.ok(noteBodyVO);
 	}
 	
+	@RequestMapping(value = "/deleteNote", method = RequestMethod.POST)
+	@ResponseBody
+	public blogforumResult deleteNote(String noteId){
+		NoteBody noteBody = noteBodyService.getByNoteTitleId(noteId);
+		if (noteBody == null) {
+			blogforumResult.build(BizError.SYS_EXCEPTION, "找不到对应的内容笔记");
+		}
+		noteBody.setDelFlag("Y");
+		noteBodyService.update(noteBody);
+		NoteTitle noteTitle = noteTitleService.getById(noteId);
+		if (noteTitle == null) {
+			blogforumResult.build(BizError.SYS_EXCEPTION, "找不到对应的笔记");
+		}
+		noteTitle.setDelFlag("Y");
+		noteTitleService.update(noteTitle);
+		
+		return blogforumResult.ok();
+		
+	}
+	
 	
 
 }
