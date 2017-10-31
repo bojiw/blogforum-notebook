@@ -496,6 +496,7 @@ $(function(){
 					$(".node-body-ul").find(".node-body-ul-li").eq(0).addClass("clickTitleNote");
 					if(note != null){
 						showNote(note.type,note.id);
+						$("#selectedNoteId").attr("value",note.id);
 					}else{
 						showNote("nullnote","0");
 					}
