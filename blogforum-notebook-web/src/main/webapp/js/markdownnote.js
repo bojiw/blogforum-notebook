@@ -40,33 +40,41 @@ $(function() {
 
         //判断如果是查看笔记不是新建 则从后台获取数据显示
         if($("#noteId").attr("value") != null){
-        	$.get("/note/getNoteBody",{id:$("#noteId").attr("value")},function(data){
-				if(data.status != "200") {
-					layer.close(loading);
-					layer.msg(data.msg);
-				}else{
-					var noteBody = data.data;
-					if(noteBody.label != null){
-						var tags = noteBody.label.split(",,;");
-						$.each(tags, function(i,item){ 
-							tag.addTag(item);
-						});
-						
-					}
-					if(noteBody.noteTitle != null){
-						$("#noteTitle").val(noteBody.noteTitle);
-					}
-					if(noteBody.textType != null){
-						$("#textType").val(noteBody.textType);
-					}
-					//设置md内容
-					if(noteBody.mdNoteBody != null){
-						$("#editormdText").text(noteBody.mdNoteBody);
-					}
+        	
+	   		 $.ajax({  
+		         type : "get",  
+		          url : "/note/getNoteBody",  
+		          data : {id:$("#noteId").attr("value")},  
+		          async : false,  
+		          success : function(data){  
+						if(data.status != "200") {
+							layer.close(loading);
+							layer.msg(data.msg);
+						}else{
+							var noteBody = data.data;
+							if(noteBody.label != null){
+								var tags = noteBody.label.split(",,;");
+								$.each(tags, function(i,item){ 
+									tag.addTag(item);
+								});
+								
+							}
+							if(noteBody.noteTitle != null){
+								$("#noteTitle").val(noteBody.noteTitle);
+							}
+							if(noteBody.textType != null){
+								$("#textType").val(noteBody.textType);
+							}
+							//设置md内容
+							if(noteBody.mdNoteBody != null){
+								$("#editormdText").text(noteBody.mdNoteBody);
+							}
 
-					
-				}
-        	});
+							
+						}
+		          }  
+		     }); 
+        	
         	
         }
         

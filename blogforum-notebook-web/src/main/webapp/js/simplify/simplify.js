@@ -297,8 +297,6 @@ $(function(){
 	$("#selectedBook").attr("value",selectedBookId);
 	$("#selectedBook").attr("name",bookName);
 	
-	$(".noteRightInfo").load("nullnote");
-	
 	
 	//显示笔记
 	function showNote(type,noteId){
@@ -321,9 +319,9 @@ $(function(){
 		$("#selectedNoteId").attr("value",noteId);
 		li.addClass("clickTitleNote");
 		showNote(type,noteId);
-		
+	}else{
+		$(".noteRightInfo").load("nullnote");
 	}
-	
 	
 	
 	//点击新建普通笔记时建立新笔记
@@ -599,6 +597,7 @@ $(function(){
 						$("#noteCount").attr("value",data.data.count);
 						$("#noteLastPage").attr("value",data.data.lastPage);
 					}
+					refreshMenu();
 					$("#loading").removeClass("spinner");
 				});
 		   }
