@@ -4,3 +4,4 @@ com\blogforum\notebook\web\controller\NoteBookController.class
 com\blogforum\notebook\web\controller\IndexController.class
 com\blogforum\notebook\web\controller\NoteController.class
 com\blogforum\notebook\web\enums\IsDelFlag.class
+com\blogforum\notebook\web\controller\UserController.class

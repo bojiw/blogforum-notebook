@@ -11,14 +11,15 @@
 	  	<dependency>
 			<groupId>com.blogforum</groupId>
 			<artifactId>blogforum-notebook-service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 	  	</dependency>
 	  	<dependency>
 			<groupId>com.blogforum</groupId>
 			<artifactId>blogforum-notebook-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 	  	</dependency>
-			
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-notebook-interface</artifactId>
+		</dependency>
 		<!-- velocity相关 -->
 		<dependency>
 	         <groupId>org.apache.velocity</groupId>
@@ -32,6 +33,52 @@
 		  <groupId>com.qiniu</groupId>
 		  <artifactId>qiniu-java-sdk</artifactId>
 		</dependency>
-		
+	    <!--  dubbo-->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>dubbo</artifactId>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>log4j</groupId>
+		            <artifactId>log4j</artifactId>
+		        </exclusion>
+		        <exclusion>
+		           <groupId>commons-logging</groupId>
+		            <artifactId>commons-logging</artifactId>
+		        </exclusion>
+		        <exclusion>
+		            <groupId>org.springframework</groupId>
+		           <artifactId>spring</artifactId>
+		        </exclusion>
+		        <exclusion>
+		            <groupId>com.alibaba</groupId>
+		            <artifactId>fastjson</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+	    <dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.1</version>
+	        <exclusions>  
+	            <exclusion>  
+	                <artifactId>slf4j-api</artifactId>  
+	                <groupId>org.slf4j</groupId>  
+	            </exclusion>  
+	            <exclusion>  
+	                <artifactId>log4j</artifactId>  
+	                <groupId>log4j</groupId>  
+	            </exclusion>  
+	            <exclusion>  
+	                <artifactId>slf4j-log4j12</artifactId>  
+	                <groupId>org.slf4j</groupId>  
+	            </exclusion>  
+	        </exclusions>  
+	    </dependency>
+		<dependency>
+		  <groupId>org.apache.zookeeper</groupId>
+		  <artifactId>zookeeper</artifactId>
+		  <version>3.4.9</version>
+		</dependency>
 	  </dependencies>
 </project>

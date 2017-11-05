@@ -15,6 +15,8 @@
 		<module>blogforum-notebook-dao</module>
 		<module>blogforum-notebook-pojo</module>
 		<module>blogforum-notebook-common</module>
+		<module>blogforum-notebook-facade</module>
+		<module>blogforum-notebook-interface</module>
 	</modules>
 	<dependencyManagement>
  	 <dependencies>
@@ -23,7 +25,36 @@
 			<artifactId>blogforum-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 	  	</dependency>
-	  	
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-notebook-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-notebook-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-notebook-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	  	<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-notebook-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+	  	</dependency>
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-notebook-dao</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	  	<dependency>
+		    <groupId>com.blogforum</groupId>
+		    <artifactId>blogforum-sso-facade</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+	  	</dependency>
 	  	
 		<dependency>
 	         <groupId>org.apache.velocity</groupId>
@@ -54,6 +85,11 @@
 		  <version>[7.2.0, 7.2.99]</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>dubbo</artifactId>
+		    <version>2.5.2</version>
+		</dependency>
 	  </dependencies>
 	</dependencyManagement>
 

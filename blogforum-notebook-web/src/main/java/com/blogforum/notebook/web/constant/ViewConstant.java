@@ -1,5 +1,10 @@
 package com.blogforum.notebook.web.constant;
 
+/**
+ * 前端视图常量类
+ * @author wwd
+ *
+ */
 public class ViewConstant {
 	
 	/**首页*/

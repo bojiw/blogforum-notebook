@@ -19,6 +19,9 @@
         <dependent-module archiveName="blogforum-common-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/blogforum-common/blogforum-common">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="blogforum-notebook-interface-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/blogforum-notebook-interface/blogforum-notebook-interface">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/blogforum-notebook-web/target/classes"/>
         <property name="context-root" value="blogforum"/>
     </wb-module>

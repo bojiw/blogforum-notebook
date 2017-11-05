@@ -11,7 +11,10 @@
 		<dependency>
 			<groupId>com.blogforum</groupId>
 			<artifactId>blogforum-notebook-dao</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-notebook-interface</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
