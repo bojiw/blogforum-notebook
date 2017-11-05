@@ -1,16 +1,15 @@
 package blogforum.notebook.interfaces.sso.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import blogforum.notebook.interfaces.sso.UserClient;
-import blogforum.sso.facade.facade.user.UserServerFacade;
+import blogforum.sso.facade.model.UserTO;
+import blogforum.sso.facade.user.UserServerFacade;
+
 public class UserClientImpl implements UserClient {
 	
-	@Autowired
 	private UserServerFacade userServerFacade;
 	
 	@Override
-	public Boolean isLogin(String token) {
+	public UserTO isLogin(String token) {
 		return userServerFacade.isLogin(token);
 	}
 
@@ -18,7 +17,5 @@ public class UserClientImpl implements UserClient {
 	public void setUserServerFacade(UserServerFacade userServerFacade) {
 		this.userServerFacade = userServerFacade;
 	}
-	
-	
 
 }

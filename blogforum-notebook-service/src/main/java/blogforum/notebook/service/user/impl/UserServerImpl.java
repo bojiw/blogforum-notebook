@@ -5,21 +5,17 @@ import org.springframework.stereotype.Service;
 
 import blogforum.notebook.interfaces.sso.UserClient;
 import blogforum.notebook.service.user.UserServer;
+import blogforum.sso.facade.model.UserTO;
 
+@Service
 public class UserServerImpl implements UserServer {
 
-
+	@Autowired
 	private UserClient userClient;
 	
 	@Override
-	public Boolean isLogin(String token) {
+	public UserTO isLogin(String token) {
 		return userClient.isLogin(token);
 	}
-
-
-	public void setUserClient(UserClient userClient) {
-		this.userClient = userClient;
-	}
-	
 
 }

@@ -10,6 +10,7 @@
 
     <!-- 配置包扫描器 -->    
     <context:component-scan base-package="com.blogforum.notebook.web.controller"/>
+    
     <!-- 配置注解驱动 -->
     <mvc:annotation-driven/>
     <!-- 视图解析器 -->
@@ -42,5 +43,10 @@
 	<mvc:resources location="/bootstrap/" mapping="/bootstrap/**"/>
 	<mvc:resources location="/landing/" mapping="/landing/**"/>
 
+	
+	
+	<bean id="sessionFilter" class="com.blogforum.notebook.web.filter.SessionFilter">
+	    <property name="userServer" ref="userServer"></property>
+	</bean>
 	
 </beans>        

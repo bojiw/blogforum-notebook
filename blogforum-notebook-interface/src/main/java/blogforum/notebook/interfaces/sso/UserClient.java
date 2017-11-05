@@ -1,5 +1,7 @@
 package blogforum.notebook.interfaces.sso;
 
+import blogforum.sso.facade.model.UserTO;
+
 /**
  * user消费者接口类
  * @author wwd
@@ -14,6 +16,6 @@ public interface UserClient {
 	 * @author: wwd
 	 * @time: 2017年11月4日
 	 */
-	public Boolean isLogin (String token);
+	public UserTO isLogin (String token);
 	
 }

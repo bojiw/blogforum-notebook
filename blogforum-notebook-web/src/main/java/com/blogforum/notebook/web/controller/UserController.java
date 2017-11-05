@@ -8,21 +8,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.blogforum.common.tools.blogforumResult;
 
 import blogforum.notebook.service.user.UserServer;
+import blogforum.sso.facade.model.UserTO;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 	
-	@Autowired
-	private UserServer userServer;
-	
-	@RequestMapping("/get")
-	@ResponseBody
-	public blogforumResult get(){
-		//生成七牛云上传token
-		Boolean token = userServer.isLogin("1");
-		return blogforumResult.ok(token);
-	}
+//	@Autowired
+//	private UserServer userServer;
+//	
+//	@RequestMapping("/get")
+//	@ResponseBody
+//	public blogforumResult get(){
+//		//生成七牛云上传token
+//		UserTO token = userServer.isLogin("1");
+//		return blogforumResult.ok(token);
+//	}
 	
 
 }
