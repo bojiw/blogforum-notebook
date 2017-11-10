@@ -19,6 +19,12 @@
   	<dependency>
 	    <groupId>com.blogforum</groupId>
 	    <artifactId>blogforum-sso-facade</artifactId>
+	    <exclusions>
+	    	<exclusion>
+			    <groupId>com.blogforum</groupId>
+			    <artifactId>blogforum-sso-common</artifactId>
+	    	</exclusion>
+	    </exclusions>
   	</dependency>
 	    <!--  dubbo-->
 		<dependency>
