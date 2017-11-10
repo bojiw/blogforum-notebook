@@ -11,32 +11,42 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.blogforum.common.tools.CookieUtils;
-import com.blogforum.notebook.web.constant.CommonConstant;
+import com.blogforum.notebook.service.user.UserServer;
 
-import blogforum.notebook.service.user.UserServer;
-import blogforum.sso.facade.model.UserTO;
+import blogforum.sso.facade.model.UserVO;
 
 public class SessionFilter extends OncePerRequestFilter {
 
 	private UserServer userServer;
 	
+	/**登录地址*/
+	private String	ssoUrl;
+	
+
+	public void setSsoUrl(String ssoUrl) {
+		this.ssoUrl = ssoUrl;
+	}
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 						throws ServletException, IOException {
 		//获取cookie中的token
 		String token = CookieUtils.getCookie(request, "COOKIE_TOKEN");
 		//通过token获取登录的用户
-		UserTO user = userServer.isLogin(token);
+		UserVO user = userServer.getUserByToken(token);
 		//如果用户为空代表没有登录返回跳转页面
 		if (user == null) {
-			loginAgain(request,response);
+			loginAgain(request, response);
+			return ;
 		}
 		request.setAttribute("user", user);
+		filterChain.doFilter(request, response);
 		
 	}
 	
 	/**
 	 * 返回用戶為登錄提醒 跳轉到登錄頁面
+	 * 
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -44,8 +54,8 @@ public class SessionFilter extends OncePerRequestFilter {
 	 * @date 2017年3月12日上午12:50:39
 	 * @version V1.0
 	 */
-	private void loginAgain(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		String loginPage = CommonConstant.SSO_URL;
+	private void loginAgain(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String loginPage = ssoUrl;
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		StringBuilder builder = new StringBuilder();
@@ -55,7 +65,7 @@ public class SessionFilter extends OncePerRequestFilter {
 		builder.append("<title>Insert title here</title>");
 		builder.append("<script>");
 		builder.append("alert('网页过期，请重新登录！');");
-		builder.append("window.top.location.href='");
+		builder.append("window.location.href='http://");
 		builder.append(loginPage);
 		builder.append("';");
 		builder.append("</script>");
@@ -67,6 +77,7 @@ public class SessionFilter extends OncePerRequestFilter {
 	public void setUserServer(UserServer userServer) {
 		this.userServer = userServer;
 	}
-	
+
+
 
 }

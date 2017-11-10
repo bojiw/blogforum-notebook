@@ -1,0 +1,7 @@
+com\blogforum\notebook\interfaces\sso\impl\UserClientImpl$1.class
+com\blogforum\notebook\interfaces\utils\BaseInvocation.class
+com\blogforum\notebook\interfaces\sso\UserClient.class
+com\blogforum\notebook\interfaces\sso\impl\UserClientImpl.class
+com\blogforum\notebook\interfaces\sso\impl\UserClientImpl$2.class
+com\blogforum\notebook\interfaces\utils\ServiceTemplate.class
+com\blogforum\notebook\interfaces\utils\InvocationSupport.class

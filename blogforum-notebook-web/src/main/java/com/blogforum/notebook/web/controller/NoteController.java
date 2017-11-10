@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.blogforum.common.enums.BizError;
+import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.tools.BaseConverter;
 import com.blogforum.common.tools.UUIDCreateUtils;
 import com.blogforum.common.tools.blogforumResult;
@@ -56,14 +56,14 @@ public class NoteController {
 		NoteTitle noteTitle = noteTitleService.getById(note.getNoteTitleId());
 
 		if (noteTitle == null) {
-			return blogforumResult.build(BizError.ILLEGAL_PARAMETER, "没有该笔记!");
+			return blogforumResult.build(BizErrorEnum.ILLEGAL_PARAMETER, "没有该笔记!");
 		}
 		noteTitle.setNoteTitle(note.getNoteTitle());
 		noteTitle.setNoteContext(note.getNoteContext());
 		noteTitleService.update(noteTitle);
 		NoteBody noteBody = noteBodyService.getByNoteTitleId(note.getNoteTitleId());
 		if (noteBody == null) {
-			return blogforumResult.build(BizError.SYS_EXCEPTION, "系统异常,没有对应的笔记内容!");
+			return blogforumResult.build(BizErrorEnum.SYS_EXCEPTION, "系统异常,没有对应的笔记内容!");
 		}
 		noteBody.setNoteBody(note.getNoteBody());
 		noteBody.setMdNoteBody(note.getMdNoteBody());
@@ -93,7 +93,7 @@ public class NoteController {
 						HttpServletResponse response){
 		NoteBody noteBody = noteBodyService.getByNoteTitleId(noteTitle.getId());
 		if (noteBody == null) {
-			return blogforumResult.build(BizError.SYS_EXCEPTION, "系统异常,没有对应的笔记内容!");
+			return blogforumResult.build(BizErrorEnum.SYS_EXCEPTION, "系统异常,没有对应的笔记内容!");
 		}
 		BaseConverter<NoteBody, NoteBodyVO> noteConverter = new BaseConverter<>();
 		NoteBodyVO noteBodyVO = noteConverter.convert(noteBody, NoteBodyVO.class);
@@ -107,13 +107,13 @@ public class NoteController {
 	public blogforumResult deleteNote(String noteId){
 		NoteBody noteBody = noteBodyService.getByNoteTitleId(noteId);
 		if (noteBody == null) {
-			blogforumResult.build(BizError.SYS_EXCEPTION, "找不到对应的内容笔记");
+			blogforumResult.build(BizErrorEnum.SYS_EXCEPTION, "找不到对应的内容笔记");
 		}
 		noteBody.setDelFlag("Y");
 		noteBodyService.update(noteBody);
 		NoteTitle noteTitle = noteTitleService.getById(noteId);
 		if (noteTitle == null) {
-			blogforumResult.build(BizError.SYS_EXCEPTION, "找不到对应的笔记");
+			blogforumResult.build(BizErrorEnum.SYS_EXCEPTION, "找不到对应的笔记");
 		}
 		noteTitle.setDelFlag("Y");
 		noteTitleService.update(noteTitle);

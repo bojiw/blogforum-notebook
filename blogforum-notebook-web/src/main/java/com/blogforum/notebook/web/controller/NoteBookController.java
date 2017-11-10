@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.blogforum.common.enums.BizError;
+import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.tools.BaseConverter;
 import com.blogforum.common.tools.UUIDCreateUtils;
 import com.blogforum.common.tools.blogforumResult;
@@ -69,7 +69,7 @@ public class NoteBookController {
 	public blogforumResult updateNoteBooks(String id,String name){
 		NoteBook noteBook = noteBookService.getById(id);
 		if (null == noteBook) {
-			return blogforumResult.build(BizError.SYS_EXCEPTION, "系统异常请联系管理员!");
+			return blogforumResult.build(BizErrorEnum.SYS_EXCEPTION, "系统异常请联系管理员!");
 		}
 		noteBook.setName(name);
 		noteBookService.update(noteBook);
@@ -88,11 +88,11 @@ public class NoteBookController {
 		//删除笔记这里需要考虑子笔记本和笔记的删除
 		List<NoteBook> delnoteBooks = noteBookService.queryListByParentId(id);
 		if(CollectionUtils.isNotEmpty(delnoteBooks)){
-			blogforumResult.build(BizError.ILLEGAL_PARAMETER, "该笔记本下有笔记不可删除!!!");
+			blogforumResult.build(BizErrorEnum.ILLEGAL_PARAMETER, "该笔记本下有笔记不可删除!!!");
 		}
 		NoteBook noteBook = noteBookService.getById(id);
 		if (noteBook.getHaveNode()) {
-			blogforumResult.build(BizError.ILLEGAL_PARAMETER, "该笔记本下有子笔记不可删除!!!");
+			blogforumResult.build(BizErrorEnum.ILLEGAL_PARAMETER, "该笔记本下有子笔记不可删除!!!");
 		}
 		noteBookService.delete(id);
 		if (!StringUtils.equals(parentId, "0")) {

@@ -18,7 +18,7 @@
 	  	</dependency>
 		<dependency>
 			<groupId>com.blogforum</groupId>
-			<artifactId>blogforum-notebook-interface</artifactId>
+			<artifactId>blogforum-notebook-integration</artifactId>
 		</dependency>
 		<!-- velocity相关 -->
 		<dependency>

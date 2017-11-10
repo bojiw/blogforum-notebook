@@ -16,7 +16,7 @@
 		<module>blogforum-notebook-pojo</module>
 		<module>blogforum-notebook-common</module>
 		<module>blogforum-notebook-facade</module>
-		<module>blogforum-notebook-interface</module>
+		<module>blogforum-notebook-integration</module>
 	</modules>
 	<dependencyManagement>
  	 <dependencies>
@@ -27,7 +27,7 @@
 	  	</dependency>
 		<dependency>
 			<groupId>com.blogforum</groupId>
-			<artifactId>blogforum-notebook-interface</artifactId>
+			<artifactId>blogforum-notebook-integration</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -94,6 +94,27 @@
 	</dependencyManagement>
 
   
+  
+  <!-- 设置使用maven实现不同环境使用不同配置文件 -->
+ 	<profiles>
+          <profile>
+              <id>product</id>
+                  <properties>
+                       <package.environment>product</package.environment>
+                  </properties>
+                  <!-- 这个位置为默认使用product环境配置 -->
+                  <activation>
+                  	<activeByDefault>true</activeByDefault>
+                  </activation>
+          </profile>
+          <profile>
+              <id>dev</id>
+                  <properties>
+                       <package.environment>dev</package.environment>
+                  </properties>
+          </profile>
+	 </profiles>
+  
 	<!-- 添加tomcat插件 -->
 	<build>
 	<finalName>blogforum</finalName>
@@ -107,7 +128,36 @@
 					<uriEncoding>UTF-8</uriEncoding>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <warSourceExcludes>*/lib/jsp-api-2.2.jar</warSourceExcludes>
+                    <webResources>
+                        <resource>
+                        	<!-- 根据变量把想要的环境配置文件复制到properties中 默认是把product中的文件复制 也可以在打包的时候加-Dpackage.environment=dev把dev文件夹下的配置文件复制过去 -->
+                            <directory>src/main/resources/properties/${package.environment}</directory>
+                            <targetPath>WEB-INF/classes/properties</targetPath>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
 		</plugins>
+		
+		<!-- resources目录下的properties/productproperties/dev下的文件不拷贝到war包中 通过上面的配置来拷贝-->
+        <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>properties/product/*</exclude>
+                    <exclude>properties/dev/*</exclude>
+                </excludes>
+            </resource>
+        </resources>
+		
 	</build>
 
 </project>
