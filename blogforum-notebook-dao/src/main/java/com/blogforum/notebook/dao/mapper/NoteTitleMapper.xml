@@ -50,13 +50,16 @@
 	</insert>
 	
 	<!-- 删除笔记 -->
-	<update id="delete">
+	<update id="delete" parameterType="com.blogforum.notebook.pojo.entity.NoteTitle">
 	    update
 	    	note_title
 	    set 
 	    	del_flag = 'Y'
 	    where 
 	    	id=#{id}
+	    <if test="userId != null and userId != ''">
+			AND user_id=#{userId}
+		</if>
 	    
 	</update>
 	<!-- 修改笔记 -->
@@ -70,33 +73,35 @@
 		    extjson = #{extjson},note_book_name=#{noteBookName}
 	    where 
 	    	id=#{id}
+	    <if test="userId != null and userId != ''">
+			AND user_id=#{userId}
+		</if>
 	    
 	</update>
 	
 	
 	<!-- 通过ID查询笔记 -->
-	<select id="getById" resultType="com.blogforum.notebook.pojo.entity.NoteTitle" >
+	<select id="getById" parameterType="com.blogforum.notebook.pojo.entity.NoteTitle" resultType="com.blogforum.notebook.pojo.entity.NoteTitle" >
 	    SELECT 
 	    	<include refid="NoteTitleField"/>
 	    FROM 
 	    	note_title nt
 	    WHERE 
-	    	id=#{id} and del_flag='N'
-	    	
+	    	nt.id=#{id} and nt.del_flag='N'
+	    <if test="userId != null and userId != ''">
+			AND nt.user_id=#{userId}
+		</if>
 	    
 	</select>
 	
-	<select id="queryList" resultMap="noteTitleMap" >
+	<select id="queryList" parameterType="com.blogforum.notebook.pojo.entity.NoteTitle" resultMap="noteTitleMap" >
 	    SELECT 
 	    	<include refid="NoteTitleField"/>
 	    FROM note_title nt
 	    where 
-	    del_flag='N'
+	    nt.del_flag='N' AND nt.user_id = #{userId}
 	    <if test="noteBookId != null and noteBookId != ''">
-			AND note_book_id = #{noteBookId}
-		</if>
-	    <if test="userId != null and userId != ''">
-			AND user_id = #{userId}
+			AND nt.note_book_id = #{noteBookId}
 		</if>
 	    order by nt.update_date desc
 	</select>

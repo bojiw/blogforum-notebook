@@ -60,7 +60,8 @@ public class NoteBodyVO extends DataEntity<NoteBodyVO> {
 	 * 图片文字
 	 */
 	private String				imageContext;
-
+	
+	
 	public String getId() {
 		return id;
 	}

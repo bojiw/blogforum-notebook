@@ -47,13 +47,16 @@
 	</insert>
 	
 	<!-- 删除笔记 -->
-	<update id="delete">
+	<update id="delete" parameterType="com.blogforum.notebook.pojo.entity.NoteBody">
 	    update from
 	    	note_body
 	    set 
 	    	del_flag = 'Y'
 	    where 
-	    	note_title_id=#{id}
+	    	id=#{id}
+	    <if test="userId != null and userId != ''">
+			AND user_id=#{userId}
+		</if>
 	    
 	</update>
 	<!-- 修改笔记 -->
@@ -63,7 +66,9 @@
 	    set note_body = #{noteBody},md_note_body = #{mdNoteBody},create_date = #{createDate},
 	    update_date = #{updateDate},enclosure = #{enclosure},del_flag = #{delFlag},extjson = #{extjson},label = #{label},text_type=#{textType},note_title_id=#{noteTitleId},image_context=#{imageContext}
 	    where id=#{id}
-	    
+	    <if test="userId != null and userId != ''">
+			AND user_id=#{userId}
+		</if>
 	</update>
 	
 	
@@ -74,7 +79,10 @@
 	    FROM 
 	    	note_body nb
 	    WHERE 
-	    	id=#{id} and del_flag='N'
+	    	nb.id=#{id} and nb.del_flag='N'
+	    <if test="userId != null and userId != ''">
+			AND nb.user_id=#{userId}
+		</if>
 	</select>
 	
 	<!-- 通过笔记头部表ID查询笔记 -->
@@ -84,7 +92,10 @@
 	    FROM 
 	    	note_body nb
 	    WHERE 
-	    	note_title_id=#{id} and del_flag='N'
+	    	nb.note_title_id=#{id} and nb.del_flag='N'
+	    <if test="userId != null and userId != ''">
+			AND nb.user_id=#{userId}
+		</if>
 	</select>
 	
 

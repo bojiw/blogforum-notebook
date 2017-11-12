@@ -59,6 +59,26 @@ public class NoteTitle extends DataEntity<NoteTitle> {
 	 */
 	private String				pwdShareId;
 
+	
+	public NoteTitle() {
+	}
+	
+	public NoteTitle(String userId,String noteBookId) {
+		init(userId, null, noteBookId);
+	}
+	
+	
+	public NoteTitle(String userId,String id,String noteBookId) {
+		init(userId, id, noteBookId);
+	}
+	
+	
+	private void init(String userId,String id,String noteBookId){
+		this.userId = userId;
+		this.id = id;
+		this.noteBookId = noteBookId;
+	}
+	
 
 	public String getId() {
 		return id;

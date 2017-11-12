@@ -23,6 +23,8 @@ import com.blogforum.notebook.service.note.NoteTitleService;
 import com.blogforum.notebook.web.constant.ViewConstant;
 import com.google.common.collect.Lists;
 
+import blogforum.sso.facade.model.UserVO;
+
 /**
  * 首页
  * 
@@ -38,7 +40,10 @@ public class IndexController {
 
 	@RequestMapping("/")
 	public String index(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
-		List<NoteBook> books = noteBookService.queryListByParentId("0");
+		System.out.println("--------------------------------------");
+		UserVO user = (UserVO) request.getAttribute("user");
+		NoteBook noteBook = new NoteBook(user.getId(), "0");
+		List<NoteBook> books = noteBookService.queryListByParentId(noteBook);
 		BaseConverter<NoteBook, NoteBookVO> converter = new BaseConverter<>();
 		List<NoteBookVO> notebooks = converter.convertList(books, NoteBookVO.class);
 		for (NoteBookVO noteBookVO : notebooks) {
@@ -47,8 +52,7 @@ public class IndexController {
 		Page<NoteTitleVO> pageNoteVO = new Page<>();
 		List<NoteTitleVO> noteTitleVOs = Lists.newArrayList();
 		if (CollectionUtils.isNotEmpty(notebooks)) {
-			NoteTitle noteTitle = new NoteTitle();
-			noteTitle.setNoteBookId(notebooks.get(0).getId());
+			NoteTitle noteTitle = new NoteTitle(user.getId(), notebooks.get(0).getId());
 			Page<NoteTitle> page = noteTitleService.queryList(new Page<NoteTitle>(request, response), noteTitle);
 			BeanUtils.copyProperties(page, pageNoteVO, "list");
 			BaseConverter<NoteTitle, NoteTitleVO> noteConverter = new BaseConverter<>();

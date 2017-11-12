@@ -28,8 +28,8 @@ public abstract class CrudService<T extends DataEntity<T>> implements BaseServic
 	 * @param id
 	 * @return
 	 */
-	public T getById(String id) {
-		return mapper.getById(id);
+	public T getById(T t) {
+		return mapper.getById(t);
 	}
 
 	/**
@@ -42,14 +42,6 @@ public abstract class CrudService<T extends DataEntity<T>> implements BaseServic
 		return mapper.get(t);
 	}
 
-	/**
-	 * 查询全部记录
-	 * 
-	 * @return
-	 */
-	public List<T> queryList() {
-		return mapper.queryList();
-	}
 
 	/**
 	 * 查询全部记录
@@ -113,17 +105,8 @@ public abstract class CrudService<T extends DataEntity<T>> implements BaseServic
 	 * 
 	 * @param id
 	 */
-	public void delete(String id) {
-		mapper.delete(id);
-	}
-
-	/**
-	 * 删除多笔记录
-	 * 
-	 * @param ids
-	 */
-	public void delete(List<String> ids) {
-		mapper.delete(ids);
+	public void delete(T t) {
+		mapper.delete(t);
 	}
 
 }

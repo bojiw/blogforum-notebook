@@ -15,8 +15,8 @@ public class NoteBodyServiceImpl extends CrudService<NoteBody> implements NoteBo
 	private NoteBodyMapper noteBodyMapper;
 
 	@Override
-	public NoteBody getByNoteTitleId(String noteTitleId) {
-		return noteBodyMapper.getByNoteTitleId(noteTitleId);
+	public NoteBody getByNoteTitleId(NoteBody noteBody) {
+		return noteBodyMapper.getByNoteTitleId(noteBody);
 	}
 
 }

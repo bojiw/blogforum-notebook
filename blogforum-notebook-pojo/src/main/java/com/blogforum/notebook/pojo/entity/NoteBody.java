@@ -53,6 +53,33 @@ public class NoteBody extends DataEntity<NoteBody> {
 	 */
 	private String				imageContext;
 
+	/**
+	 * 用户id
+	 */
+	private String				userId;
+	
+	
+	public NoteBody() {
+	}
+
+	
+	public NoteBody(String userId,String noteTitleId) {
+		init(userId, null, noteTitleId);
+	}
+	
+	public NoteBody(String userId,String id,String noteTitleId) {
+		init(userId, id, noteTitleId);
+	}
+	
+	
+	private void init(String userId,String id,String noteTitleId){
+		this.userId = userId;
+		this.id = id;
+		this.noteTitleId = noteTitleId;
+	}
+	
+	
+
 	public String getId() {
 		return id;
 	}
@@ -131,6 +158,14 @@ public class NoteBody extends DataEntity<NoteBody> {
 
 	public void setImageContext(String imageContext) {
 		this.imageContext = imageContext;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 }

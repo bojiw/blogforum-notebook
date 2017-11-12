@@ -72,10 +72,13 @@
 	</insert>
 	
 	<!-- 删除笔记本 -->
-	<delete id="delete">
+	<delete id="delete" parameterType="com.blogforum.notebook.pojo.entity.NoteBook">
 	    delete from
 	    note_book
 	    where id=#{id}
+	    <if test="userId != null and userId != ''">
+			AND user_id=#{userId}
+		</if>
 	    
 	</delete>
 	<!-- 修改笔记本 -->
@@ -85,30 +88,44 @@
 	    set parent_id = #{parentId},name = #{name},user_id = #{userId},
 	    create_date = #{createDate},update_date = #{updateDate},have_node=#{haveNode}
 	    where id=#{id}
+	    <if test="userId != null and userId != ''">
+			AND user_id=#{userId}
+		</if>
 	</update>
 	
-	<select id="queryList" resultMap="noteBookMap">
+	<select id="queryList" parameterType="com.blogforum.notebook.pojo.entity.NoteBook" resultMap="noteBookMap">
 	    select 
 	    <include refid="NoteBookField"/>
-	    from note_book b
-	    order by b.name desc
+	    from 
+	    	note_book b
+	    where 
+	    	b.user_id=#{userId}
+	    order by 
+	    	b.name desc
 	</select>
-	<select id="getById" resultMap="noteBookMap">
+	<select id="getById" parameterType="com.blogforum.notebook.pojo.entity.NoteBook" resultMap="noteBookMap">
 	    select 
 	    <include refid="NoteBookField"/>
-		from note_book b
+		from 
+			note_book b
 		where
 		b.id = #{id}
+	    <if test="userId != null and userId != ''">
+			AND b.user_id=#{userId}
+		</if>
 	    
 	</select>
 	
-	<select id="queryListByParentId" resultMap="noteBookMap">
+	<select id="queryListByParentId" parameterType="com.blogforum.notebook.pojo.entity.NoteBook" resultMap="noteBookMap">
 	    select 
 	    	<include refid="NoteBookField"/>
 		from 
 			note_book b
 		where 
 			b.parent_id = #{parentId}
+	    <if test="userId != null and userId != ''">
+			AND b.user_id=#{userId}
+		</if>
 		ORDER BY
 			b.name DESC
 	</select>

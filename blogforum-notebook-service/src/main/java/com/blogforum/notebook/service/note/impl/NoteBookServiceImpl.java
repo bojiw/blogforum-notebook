@@ -14,8 +14,8 @@ public class NoteBookServiceImpl extends CrudService<NoteBook> implements NoteBo
 	@Autowired
 	protected NoteBookMapper noteBookMapper;
 	@Override
-	public List<NoteBook> queryListByParentId(String parentId) {
-		List<NoteBook> noteBooks = noteBookMapper.queryListByParentId(parentId);
+	public List<NoteBook> queryListByParentId(NoteBook noteBook) {
+		List<NoteBook> noteBooks = noteBookMapper.queryListByParentId(noteBook);
 		return noteBooks;
 	}
 

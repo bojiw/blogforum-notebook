@@ -32,7 +32,27 @@ public class NoteBook extends DataEntity<NoteBook> {
 	 * 判断是否有子节点
 	 */
 	private boolean				haveNode;
+	
+	
+	public NoteBook() {
+	}
 
+	public NoteBook(String userId,String parentId){
+		init(userId, null, parentId);
+	}
+	
+	public NoteBook(String userId,String id,String parentId){
+		init(userId, id, parentId);
+	}
+	
+	private void init(String userId,String id,String parentId){
+		this.userId = userId;
+		this.id = id;
+		this.parentId = parentId;
+	}
+	
+	
+	
 	public String getId() {
 		return id;
 	}

@@ -26,6 +26,8 @@ import com.blogforum.notebook.service.note.NoteBodyService;
 import com.blogforum.notebook.service.note.NoteTitleService;
 import com.blogforum.notebook.web.enums.IsDelFlag;
 
+import blogforum.sso.facade.model.UserVO;
+
 @Controller
 @RequestMapping("/note")
 public class NoteController {
@@ -36,24 +38,29 @@ public class NoteController {
 
 	@RequestMapping(value = "/addNote", method = RequestMethod.POST)
 	@ResponseBody
-	public blogforumResult addNote(NoteTitle noteTitle) {
+	public blogforumResult addNote(NoteTitle noteTitle,HttpServletRequest request) {
+		UserVO user = (UserVO) request.getAttribute("user");
 		noteTitle.setDelFlag(IsDelFlag.N.getValue());
 		//伪代码
-		noteTitle.setUserId("20170905C132BB4668E64566834B18B5BC0307DB57810067");
+		noteTitle.setUserId(user.getId());
 		noteTitle.setId(UUIDCreateUtils.getUUID());
 		noteTitleService.save(noteTitle);
 		NoteBody noteBody = new NoteBody();
 		noteBody.setId(UUIDCreateUtils.getUUID());
 		noteBody.setDelFlag(IsDelFlag.N.getValue());
 		noteBody.setNoteTitleId(noteTitle.getId());
+		noteBody.setLabel(noteTitle.getNoteBookName());
+		noteBody.setUserId(user.getId());
 		noteBodyService.save(noteBody);
 		return blogforumResult.ok(noteTitle);
 	}
 
 	@RequestMapping(value = "/updateNote", method = RequestMethod.POST)
 	@ResponseBody
-	public blogforumResult updateNote(NoteVO note) {
-		NoteTitle noteTitle = noteTitleService.getById(note.getNoteTitleId());
+	public blogforumResult updateNote(NoteVO note,HttpServletRequest request) {
+		UserVO user = (UserVO) request.getAttribute("user");
+		NoteTitle title = new NoteTitle(user.getId(), note.getNoteTitleId(), null);
+		NoteTitle noteTitle = noteTitleService.getById(title);
 
 		if (noteTitle == null) {
 			return blogforumResult.build(BizErrorEnum.ILLEGAL_PARAMETER, "没有该笔记!");
@@ -61,7 +68,8 @@ public class NoteController {
 		noteTitle.setNoteTitle(note.getNoteTitle());
 		noteTitle.setNoteContext(note.getNoteContext());
 		noteTitleService.update(noteTitle);
-		NoteBody noteBody = noteBodyService.getByNoteTitleId(note.getNoteTitleId());
+		NoteBody body = new NoteBody(user.getId(), note.getNoteTitleId());
+		NoteBody noteBody = noteBodyService.getByNoteTitleId(body);
 		if (noteBody == null) {
 			return blogforumResult.build(BizErrorEnum.SYS_EXCEPTION, "系统异常,没有对应的笔记内容!");
 		}
@@ -77,6 +85,8 @@ public class NoteController {
 	@ResponseBody
 	public blogforumResult getNoteTitleList(NoteTitle noteTitle, HttpServletRequest request,
 						HttpServletResponse response) {
+		UserVO user = (UserVO) request.getAttribute("user");
+		noteTitle.setUserId(user.getId());
 		Page<NoteTitle> page = noteTitleService.queryList(new Page<NoteTitle>(request, response), noteTitle);
 
 		Page<NoteTitleVO> pageNoteTitleVO = new Page<>();
@@ -91,27 +101,33 @@ public class NoteController {
 	@ResponseBody
 	public blogforumResult getNoteBody(NoteTitle noteTitle, HttpServletRequest request,
 						HttpServletResponse response){
-		NoteBody noteBody = noteBodyService.getByNoteTitleId(noteTitle.getId());
+		UserVO user = (UserVO) request.getAttribute("user");
+		NoteBody body = new NoteBody(user.getId(), noteTitle.getId());
+		NoteBody noteBody = noteBodyService.getByNoteTitleId(body);
 		if (noteBody == null) {
 			return blogforumResult.build(BizErrorEnum.SYS_EXCEPTION, "系统异常,没有对应的笔记内容!");
 		}
 		BaseConverter<NoteBody, NoteBodyVO> noteConverter = new BaseConverter<>();
 		NoteBodyVO noteBodyVO = noteConverter.convert(noteBody, NoteBodyVO.class);
-		NoteTitle noteTitleDO = noteTitleService.getById(noteTitle.getId());
+		noteTitle.setUserId(user.getId());
+		NoteTitle noteTitleDO = noteTitleService.getById(noteTitle);
 		noteBodyVO.setNoteTitle(noteTitleDO.getNoteTitle());
 		return blogforumResult.ok(noteBodyVO);
 	}
 	
 	@RequestMapping(value = "/deleteNote", method = RequestMethod.POST)
 	@ResponseBody
-	public blogforumResult deleteNote(String noteId){
-		NoteBody noteBody = noteBodyService.getByNoteTitleId(noteId);
+	public blogforumResult deleteNote(String noteId, HttpServletRequest request){
+		UserVO user = (UserVO) request.getAttribute("user");
+		NoteBody body = new NoteBody(user.getId(), noteId);
+		NoteBody noteBody = noteBodyService.getByNoteTitleId(body);
 		if (noteBody == null) {
 			blogforumResult.build(BizErrorEnum.SYS_EXCEPTION, "找不到对应的内容笔记");
 		}
 		noteBody.setDelFlag("Y");
 		noteBodyService.update(noteBody);
-		NoteTitle noteTitle = noteTitleService.getById(noteId);
+		NoteTitle title = new NoteTitle(user.getId(), noteId, null);
+		NoteTitle noteTitle = noteTitleService.getById(title);
 		if (noteTitle == null) {
 			blogforumResult.build(BizErrorEnum.SYS_EXCEPTION, "找不到对应的笔记");
 		}

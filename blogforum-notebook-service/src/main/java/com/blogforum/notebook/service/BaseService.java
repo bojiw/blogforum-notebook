@@ -15,11 +15,9 @@ import com.blogforum.notebook.common.page.Page;
 public interface BaseService<T> {
 	public void save(T t);
 
-	public T getById(String id);
+	public T getById(T t);
 	
 	public T get(T t);
-	
-	public List<T> queryList();
 	
 	public List<T> queryList(T t);
 	
@@ -27,8 +25,6 @@ public interface BaseService<T> {
 	
 	public void update(T t);
 
-	public void delete(String id);
+	public void delete(T t);
 	
-	public void delete(List<String> ids);
-
 }

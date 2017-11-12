@@ -51,7 +51,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>blogforum-notebook</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
 	<!-- 对所有请求进行过滤 判断用户是否登录 如果未登录直接返回提示 -->
@@ -69,7 +69,9 @@
     </filter>
     <filter-mapping>
         <filter-name>DelegatingFilterProxy</filter-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
 	
 	<!-- 配置错误跳转页面 -->

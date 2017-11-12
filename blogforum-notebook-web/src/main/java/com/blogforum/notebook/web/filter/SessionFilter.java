@@ -39,6 +39,7 @@ public class SessionFilter extends OncePerRequestFilter {
 			loginAgain(request, response);
 			return ;
 		}
+		//把查询到的用户保存到request中 方便后面获取
 		request.setAttribute("user", user);
 		filterChain.doFilter(request, response);
 		
