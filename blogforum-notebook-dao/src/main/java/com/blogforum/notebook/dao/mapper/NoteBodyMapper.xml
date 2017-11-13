@@ -16,7 +16,8 @@
         nb.label	label,
         nb.text_type	textType,
         nb.note_title_id	 noteTitleId,
-        nb.image_context		imageContext
+        nb.image_context		imageContext,
+        nb.user_id			userId
     </sql>
 
     <resultMap type="com.blogforum.notebook.pojo.entity.NoteBody" id="noteBodyMap">
@@ -32,6 +33,7 @@
         <result property="textType" column="textType" />
         <result property="noteTitleId" column="noteTitleId"/>
         <result property="imageContext" column="imageContext"/>
+        <result property="userId" column="userId"/>
     </resultMap>
 
         
@@ -39,10 +41,10 @@
 	<insert id="save" parameterType="com.blogforum.notebook.pojo.entity.NoteBody">
 		insert into 
 		note_body(
-			id,note_body,md_note_body,create_date,update_date,enclosure,del_flag,extjson,label,text_type,note_title_id,image_context
+			id,note_body,md_note_body,create_date,update_date,enclosure,del_flag,extjson,label,text_type,note_title_id,image_context,user_id
 		) 
 		values (
-			#{id},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{enclosure},#{delFlag},#{extjson},#{label},#{textType},#{noteTitleId},#{imageContext}
+			#{id},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{enclosure},#{delFlag},#{extjson},#{label},#{textType},#{noteTitleId},#{imageContext},#{userId}
 		)
 	</insert>
 	
@@ -92,7 +94,7 @@
 	    FROM 
 	    	note_body nb
 	    WHERE 
-	    	nb.note_title_id=#{id} and nb.del_flag='N'
+	    	nb.note_title_id=#{noteTitleId} and nb.del_flag='N'
 	    <if test="userId != null and userId != ''">
 			AND nb.user_id=#{userId}
 		</if>

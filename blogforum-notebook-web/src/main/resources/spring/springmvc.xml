@@ -32,8 +32,6 @@
           class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
         <property name="suffix" value=".vm"/>
         <property name="contentType" value="text/html;charset=utf-8"/>
-        <!-- 设置 velocity工具配置文件-->
-        <property name="toolboxConfigLocation" value="/WEB-INF/toolbox.xml"></property>
     </bean>
     
 		<!-- 静态资源映射 -->

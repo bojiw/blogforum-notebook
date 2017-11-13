@@ -112,37 +112,6 @@
 							<hidden id = "noteLastPage" value = $notes.lastPage />
 							<hidden id = "selectedNoteId" />
 							<ul class="node-body-ul">
-								#foreach($note in $notes.list)
-								<li class="node-body-ul-li">
-									<span class="note" value=$note.id type=$note.type />
-									<div class="item-desc">
-										<p class="item-title">
-										#if($note.noteTitle)
-										$note.noteTitle
-										#end
-										</p>
-										<p class="item-info">
-										<i class="fa fa-book"></i> 
-										<span class="note-notebook">
-										#if($note.noteBookName)
-										$note.noteBookName
-										#end
-										</span>
-										<i class="fa fa-clock-o"></i> 
-										<span class="updated-time">$date.format('yyyy-MM-dd HH:mm:ss ',$note.updateDate)</span>
-										</p><p class="desc">
-										#if($note.noteContext)
-											#if($note.noteContext.length()>80)
-											    #set($str=$note.noteContext.substring(0,80))
-											    $str ...
-											#else
-											    $note.noteContext
-											#end
-										#end
-										</p>
-									</div>
-								</li>
-								#end
 							</ul>
 							<div id = "loading" >
 							  <div class="bounce1"></div>

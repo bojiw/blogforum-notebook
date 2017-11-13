@@ -12,8 +12,6 @@
 	
     <!-- 提供方应用信息，用于计算依赖关系 -->  
     <dubbo:application name="${dubbo.application.name}" />  
-    <!-- 超时设置 -->
-    <dubbo:provider delay="-1" timeout="${dubbo.application.timeout}" retries="0"/>
     
     <!-- 注册中心暴露服务地址 -->  
    <dubbo:registry protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}" />  
@@ -21,6 +19,6 @@
    <dubbo:consumer check="false"/>
 
     <!-- 声明需要暴露的服务接口 -->
-    <dubbo:reference id="userServerFacade" interface="blogforum.sso.facade.user.UserServerFacade"/>
+    <dubbo:reference id="userServerFacade" timeout="6000" interface="blogforum.sso.facade.user.UserServerFacade"/>
     
 </beans>

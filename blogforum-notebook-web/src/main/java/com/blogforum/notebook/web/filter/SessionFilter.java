@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;   
+import org.slf4j.LoggerFactory;   
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.blogforum.common.tools.CookieUtils;
@@ -17,6 +19,8 @@ import blogforum.sso.facade.model.UserVO;
 
 public class SessionFilter extends OncePerRequestFilter {
 
+	private static final Logger logger = LoggerFactory.getLogger(SessionFilter.class);    
+	
 	private UserServer userServer;
 	
 	/**登录地址*/
@@ -30,17 +34,25 @@ public class SessionFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 						throws ServletException, IOException {
-		//获取cookie中的token
-		String token = CookieUtils.getCookie(request, "COOKIE_TOKEN");
-		//通过token获取登录的用户
-		UserVO user = userServer.getUserByToken(token);
-		//如果用户为空代表没有登录返回跳转页面
-		if (user == null) {
-			loginAgain(request, response);
-			return ;
+		try {
+			//获取cookie中的token
+			String token = CookieUtils.getCookie(request, "COOKIE_TOKEN");
+			//通过token获取登录的用户
+			UserVO user = userServer.getUserByToken(token);
+			//如果用户为空代表没有登录返回跳转页面
+			if (user == null) {
+				loginAgain(request, response);
+				return ;
+			}
+			if (logger.isInfoEnabled()) {
+				logger.info("成功获取到user:" + user.toString());
+			}
+			//把查询到的用户保存到request中 方便后面获取
+			request.setAttribute("user", user);
+		} catch (Exception e) {
+			logger.error("sessionFilter用户登录判断过滤器异常:",e);
 		}
-		//把查询到的用户保存到request中 方便后面获取
-		request.setAttribute("user", user);
+		//业务逻辑不包异常
 		filterChain.doFilter(request, response);
 		
 	}

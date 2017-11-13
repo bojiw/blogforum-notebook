@@ -68,6 +68,7 @@ $(function() {
 							//设置md内容
 							if(noteBody.mdNoteBody != null){
 								$("#editormdText").text(noteBody.mdNoteBody);
+								$(".markdown-body").html(noteBody.noteBody);
 							}
 
 							
