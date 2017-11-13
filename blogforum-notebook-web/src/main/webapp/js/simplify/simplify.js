@@ -296,9 +296,12 @@ $(function(){
 		noteBookClick(selectedBook);
 	}
 	refreshMenu();
+	var firstNoteBook = $("#listbooks").find(".showsetting").first();
+	if(firstNoteBook != null){
+		firstNoteBook.click();
+	}
 	//新建笔记
 	//第一次进入页面 默认选中笔记本的id为第一个笔记本
-	$("#listbooks").find(".showsetting").first().click();
 	console.info($("#listbooks").find(".showsetting").eq(0));
 	var selectedBook = $("#listbooks").find(".noteBookName").first();
 	var selectedBookId = selectedBook.attr("value");
