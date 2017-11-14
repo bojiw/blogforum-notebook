@@ -21,9 +21,9 @@ import com.blogforum.notebook.pojo.vo.NoteTitleVO;
 import com.blogforum.notebook.service.note.NoteBookService;
 import com.blogforum.notebook.service.note.NoteTitleService;
 import com.blogforum.notebook.web.constant.ViewConstant;
+import com.blogforum.sso.facade.model.UserVO;
 import com.google.common.collect.Lists;
 
-import blogforum.sso.facade.model.UserVO;
 
 /**
  * 首页

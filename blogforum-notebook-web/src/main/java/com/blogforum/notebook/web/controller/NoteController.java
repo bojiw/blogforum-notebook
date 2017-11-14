@@ -25,8 +25,8 @@ import com.blogforum.notebook.pojo.vo.NoteVO;
 import com.blogforum.notebook.service.note.NoteBodyService;
 import com.blogforum.notebook.service.note.NoteTitleService;
 import com.blogforum.notebook.web.enums.IsDelFlag;
+import com.blogforum.sso.facade.model.UserVO;
 
-import blogforum.sso.facade.model.UserVO;
 
 @Controller
 @RequestMapping("/note")

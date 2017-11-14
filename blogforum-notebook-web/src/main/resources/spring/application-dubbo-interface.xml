@@ -19,6 +19,10 @@
    <dubbo:consumer check="false"/>
 
     <!-- 声明需要暴露的服务接口 -->
-    <dubbo:reference id="userServerFacade" timeout="6000" interface="blogforum.sso.facade.user.UserServerFacade"/>
+    <!-- sso系统接口 -->
+    <!-- 用户接口 -->
+    <dubbo:reference id="userServerFacade" timeout="3000" interface="com.blogforum.sso.facade.user.UserServerFacade"/>
+    <!-- session相关接口 -->
+    <dubbo:reference id="sessionServerFacade" timeout="3000" interface="com.blogforum.sso.facade.session.SessionServerFacade"/>
     
 </beans>

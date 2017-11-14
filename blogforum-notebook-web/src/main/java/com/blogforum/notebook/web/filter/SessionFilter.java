@@ -8,20 +8,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;   
-import org.slf4j.LoggerFactory;   
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.blogforum.common.tools.CookieUtils;
-import com.blogforum.notebook.service.user.UserServer;
+import com.blogforum.notebook.service.session.SessionServer;
+import com.blogforum.sso.facade.model.UserVO;
 
-import blogforum.sso.facade.model.UserVO;
 
 public class SessionFilter extends OncePerRequestFilter {
 
 	private static final Logger logger = LoggerFactory.getLogger(SessionFilter.class);    
 	
-	private UserServer userServer;
+	private SessionServer sessionServer;
 	
 	/**登录地址*/
 	private String	ssoUrl;
@@ -38,7 +38,7 @@ public class SessionFilter extends OncePerRequestFilter {
 			//获取cookie中的token
 			String token = CookieUtils.getCookie(request, "COOKIE_TOKEN");
 			//通过token获取登录的用户
-			UserVO user = userServer.getUserByToken(token);
+			UserVO user = sessionServer.getUserByToken(token);
 			//如果用户为空代表没有登录返回跳转页面
 			if (user == null) {
 				loginAgain(request, response);
@@ -86,11 +86,8 @@ public class SessionFilter extends OncePerRequestFilter {
 		out.print(builder.toString());
 	}
 
-
-	public void setUserServer(UserServer userServer) {
-		this.userServer = userServer;
+	public void setSessionServer(SessionServer sessionServer) {
+		this.sessionServer = sessionServer;
 	}
-
-
 
 }

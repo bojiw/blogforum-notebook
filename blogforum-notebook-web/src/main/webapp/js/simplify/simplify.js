@@ -297,6 +297,7 @@ $(function(){
 	}
 	refreshMenu();
 	var firstNoteBook = $("#listbooks").find(".showsetting").first();
+	//如果有笔记本则执行笔记本点击按钮
 	if(firstNoteBook != null){
 		firstNoteBook.click();
 	}
@@ -695,10 +696,17 @@ $(function(){
 					  var text=getBookHtml(data.data);
 					  //把内容对象转换会jQuery对象
 					  var bookli = $(text);
-					  //获取ul
-					  var listbooks = $("#listbooks");
-					  //获取ul下的第一个li 在第一个li前加上text中的内容
-					  bookli.insertBefore(listbooks.children().first());
+					  //获取如果有笔记本 则把新加的笔记本加到第一个 如果没有 则把笔记本加到ul中
+					  if($("#listbooks").children("li").length != 0){
+						  //获取ul下的第一个li 在第一个li前加上text中的内容
+						  bookli.insertBefore($("#listbooks").children().first());
+					  }else{
+						  $("#listbooks").html(text);
+					  }
+					  //刷新笔记本右键和设置菜单
+					  refreshMenu();
+					  $("#listbooks").find(".showsetting").first().click();
+					  $("#listbooks").find(".showsetting").first().addClass("clickBookNote");
 					  showsetting();
 					  //刷新笔记本右键和设置菜单
 					  refreshMenu();
@@ -826,6 +834,12 @@ $(function(){
 												book.parent().parent().remove();
 											}
 										}
+										var firstNoteBook = $("#listbooks").find(".showsetting").first();
+										//如果有笔记本则执行笔记本点击按钮
+										if(firstNoteBook != null){
+											firstNoteBook.click();
+										}
+										refreshMenu();
 									}
 							 });
 							 layer.close(index);

@@ -24,8 +24,8 @@ import com.blogforum.notebook.pojo.entity.NoteTitle;
 import com.blogforum.notebook.pojo.vo.NoteBookVO;
 import com.blogforum.notebook.service.note.NoteBookService;
 import com.blogforum.notebook.service.note.NoteTitleService;
+import com.blogforum.sso.facade.model.UserVO;
 
-import blogforum.sso.facade.model.UserVO;
 
 @Controller
 @RequestMapping("/noteBook")
@@ -105,8 +105,11 @@ public class NoteBookController {
 		Boolean isNode = true;
 		//删除笔记这里需要考虑子笔记本和笔记的删除
 		UserVO user = (UserVO) request.getAttribute("user");
-		NoteBook book = new NoteBook(id, user.getId());
+		NoteBook book = new NoteBook(user.getId(), id,null);
 		NoteBook noteBook = noteBookService.getById(book);
+		if (noteBook == null) {
+			blogforumResult.build(BizErrorEnum.ILLEGAL_PARAMETER, "找不到该笔记本!!!");
+		}
 		if (noteBook.getHaveNode()) {
 			blogforumResult.build(BizErrorEnum.ILLEGAL_PARAMETER, "该笔记本下有子笔记不可删除!!!");
 		}
@@ -118,7 +121,7 @@ public class NoteBookController {
 
 		noteBookService.delete(book);
 		//如果笔记本的父id不是0代表有父笔记本 判断父笔记本下是否有子笔记本 如果没有则把父笔记本的有子节点设置为false
-		if (!StringUtils.equals(book.getParentId(), "0")) {
+		if (!StringUtils.equals(noteBook.getParentId(), "0")) {
 			//通过父笔记本id看看是否能获取笔记本 如果没有代表父笔记本已经没有子节点了 设置为false
 			NoteBook prevNoteBook = new NoteBook(user.getId(), book.getParentId());
 			List<NoteBook> noteBooks = noteBookService.queryListByParentId(prevNoteBook);

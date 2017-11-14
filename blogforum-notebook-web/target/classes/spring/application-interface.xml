@@ -9,4 +9,7 @@
     <bean id="userClient" class="com.blogforum.notebook.interfaces.sso.impl.UserClientImpl">
         <property name="userServerFacade" ref="userServerFacade"></property>
     </bean>
+    <bean id="sessionClient" class="com.blogforum.notebook.interfaces.sso.impl.SessionClientImpl">
+        <property name="sessionServerFacade" ref="sessionServerFacade"></property>
+    </bean>
 </beans>
