@@ -24,6 +24,10 @@
 	background-color:#192A40!important;
 }
 
+.itemDelete{
+	cursor:pointer;
+}
+
 
 
 .ibox-title {

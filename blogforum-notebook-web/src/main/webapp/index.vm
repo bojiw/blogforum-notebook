@@ -149,7 +149,7 @@
 	<!--markdown编辑器-->
 	<script src="js/md/editormd.min.js"></script>
 		<!-- 七牛云 -->
-	<script src="js/qiniu.min.js"></script>
+	<script src="https://cdn.bootcss.com/qiniu-js/1.0.17.1/qiniu.min.js"></script>
 
 </body>
 </html>

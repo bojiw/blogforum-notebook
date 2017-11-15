@@ -134,7 +134,7 @@ public class NoteController {
 		noteTitle.setDelFlag("Y");
 		noteTitleService.update(noteTitle);
 		
-		return blogforumResult.ok();
+		return blogforumResult.ok(noteTitle.getNoteBookId());
 		
 	}
 	

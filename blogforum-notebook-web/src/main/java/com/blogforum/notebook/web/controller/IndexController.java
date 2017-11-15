@@ -40,7 +40,6 @@ public class IndexController {
 
 	@RequestMapping("/")
 	public String index(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("--------------------------------------");
 		UserVO user = (UserVO) request.getAttribute("user");
 		NoteBook noteBook = new NoteBook(user.getId(), "0");
 		List<NoteBook> books = noteBookService.queryListByParentId(noteBook);

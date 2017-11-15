@@ -234,7 +234,7 @@ $(function(){
 		     return dateTime;  
 	  }  
 	
-	
+	//删除笔记
 	$("#delete").click(function(){
 		var noteId = $("#selectedNoteId").attr("value");
 		var lay = layer.confirm('确定要删除该笔记吗!', {
@@ -251,11 +251,26 @@ $(function(){
 								}else{
 									$(".clickTitleNote").remove();
 									var li = $(".node-body-ul-li").eq(0);
-									li.addClass("clickTitleNote");
-									var id =li.find(".note").eq(0).attr("value");
-									$("#selectedNoteId").attr("value",id);
-									li.click();
+									//如果笔记标题栏中有笔记则选择第一个笔记 并执行点击事件 如果没有则执行笔记本的点击事件
+									if(li.length > 0 ){
+										li.addClass("clickTitleNote");
+										var id =li.find(".note").eq(0).attr("value");
+										$("#selectedNoteId").attr("value",id);
+										li.click();
+									}else{
+										$(".clickBookNote").click();
+									}
+									//获取笔记对应笔记本
+									var noteBookId = data.data;
+									var noteBook = $("span[value$='" + noteBookId +"']");
+									//如果存在则减一 不存在代表是没有显示的子笔记本没关系
+									if(noteBook.length > 0){
+										//获取笔记本的剩余笔记 减1
+										var num = noteBook.next().next();
+										num.html(parseInt(num.html()) - 1);
+									}
 								}
+									
 				          }  
 				     }); 
 					 layer.close(lay);
