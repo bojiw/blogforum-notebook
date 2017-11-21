@@ -1,9 +1,0 @@
-127.0.0.1 - - [20/Nov/2017:00:58:46 +0800] "GET / HTTP/1.1" 200 7230 http-bio-8080-exec-1 1618
-127.0.0.1 - - [20/Nov/2017:00:58:46 +0800] "GET /js/simplify/simplify.js HTTP/1.1" 304 - http-bio-8080-exec-2 71
-127.0.0.1 - - [20/Nov/2017:00:58:46 +0800] "GET /note/getNoteTitleList?noteBookId=201711156D642EC712D345CF9E910DC8F000556701004091 HTTP/1.1" 200 140 http-bio-8080-exec-3 149
-127.0.0.1 - - [20/Nov/2017:00:58:46 +0800] "POST /nullnote HTTP/1.1" 200 4896 http-bio-8080-exec-4 27
-127.0.0.1 - - [20/Nov/2017:00:58:46 +0800] "POST /nullnote HTTP/1.1" 200 4896 http-bio-8080-exec-5 16
-127.0.0.1 - - [20/Nov/2017:00:59:47 +0800] "GET / HTTP/1.1" 200 7230 http-bio-8080-exec-7 432
-127.0.0.1 - - [20/Nov/2017:00:59:47 +0800] "GET /note/getNoteTitleList?noteBookId=201711156D642EC712D345CF9E910DC8F000556701004091 HTTP/1.1" 200 140 http-bio-8080-exec-8 49
-127.0.0.1 - - [20/Nov/2017:00:59:47 +0800] "POST /nullnote HTTP/1.1" 200 4896 http-bio-8080-exec-9 29
-127.0.0.1 - - [20/Nov/2017:00:59:47 +0800] "POST /nullnote HTTP/1.1" 200 4896 http-bio-8080-exec-10 24

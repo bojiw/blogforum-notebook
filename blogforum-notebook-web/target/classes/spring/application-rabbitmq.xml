@@ -35,6 +35,12 @@
 	    <rabbit:listener queues="sso_init_user_queue_key" ref="ssoMsgConsumerListenter"/>
 	</rabbit:listener-container>
 	
-	<bean id="ssoMsgConsumerListenter" class="com.blogforum.notebook.service.rabbitmq.consumer.SsoMsgConsumerListenter"></bean>
+	<bean id="ssoMsgConsumerListenter" class="com.blogforum.notebook.service.rabbitmq.consumer.SsoMsgConsumerListenter">
+	    <property name="msgHandler">
+	        <map>
+	            <entry key="initNoteHandler" value-ref="initNoteHandler"></entry>
+	        </map>
+	    </property>
+	</bean>
 	
 </beans>

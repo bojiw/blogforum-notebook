@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>博记笔记</title>
     <!--bootstrap-->
 	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -30,7 +29,7 @@
 						<i class="fa fa-database"></i><span class="brand-name">博记笔记</span>
 					</a>
 				</div><!--nav-header-->
-				<div class="nav-container">
+				<div class="">
 					<button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleLG">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
