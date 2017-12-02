@@ -17,6 +17,5 @@
         <property name="sessionServer" ref="sessionServer"></property>
         <property name="ssoUrl" value="${sso.url}"></property>
     </bean>
-	<bean id="initNoteHandler" class="com.blogforum.notebook.service.note.impl.InitNoteHandlerImpl"></bean>
     
 </beans>

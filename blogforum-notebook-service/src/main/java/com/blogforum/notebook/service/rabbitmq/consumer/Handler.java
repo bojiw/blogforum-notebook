@@ -5,11 +5,11 @@ import org.springframework.amqp.core.Message;
 public interface Handler {
 
 	/**
-	 * 用户注册时笔记系统一些初始化准备
+	 * 接收消息执行的handler
 	 * @param message
 	 * @author: wwd
 	 * @time: 2017年11月21日
 	 */
-	public void doHandler(Message message);
+	public void doHandler(Message message,String messageInfo);
 	
 }

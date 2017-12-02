@@ -116,6 +116,7 @@
 	    
 	</select>
 	
+	
 	<select id="queryListByParentId" parameterType="com.blogforum.notebook.pojo.entity.NoteBook" resultMap="noteBookMap">
 	    select 
 	    	<include refid="NoteBookField"/>

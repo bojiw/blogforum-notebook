@@ -1,6 +1,6 @@
-package com.blogforum.notebook.web.enums;
+package com.blogforum.notebook.service.enums;
 
-public enum IsDelFlag {
+public enum IsDelFlagEnum {
 	
 	/**删除标记*/
 	Y("Y","删除标记"),
@@ -9,7 +9,7 @@ public enum IsDelFlag {
 	private String	value;
 	private String	chinese;
 
-	private IsDelFlag(String value, String chinese) {
+	private IsDelFlagEnum(String value, String chinese) {
 		this.value = value;
 		this.chinese = chinese;
 	}

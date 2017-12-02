@@ -17,7 +17,8 @@
         nb.text_type	textType,
         nb.note_title_id	 noteTitleId,
         nb.image_context		imageContext,
-        nb.user_id			userId
+        nb.user_id			userId,
+        nb.note_title_name	noteTitleName
     </sql>
 
     <resultMap type="com.blogforum.notebook.pojo.entity.NoteBody" id="noteBodyMap">
@@ -34,6 +35,7 @@
         <result property="noteTitleId" column="noteTitleId"/>
         <result property="imageContext" column="imageContext"/>
         <result property="userId" column="userId"/>
+        <result property="noteTitleName" column="noteTitleName"/>
     </resultMap>
 
         
@@ -41,10 +43,10 @@
 	<insert id="save" parameterType="com.blogforum.notebook.pojo.entity.NoteBody">
 		insert into 
 		note_body(
-			id,note_body,md_note_body,create_date,update_date,enclosure,del_flag,extjson,label,text_type,note_title_id,image_context,user_id
+			id,note_body,md_note_body,create_date,update_date,enclosure,del_flag,extjson,label,text_type,note_title_id,image_context,user_id,note_title_name
 		) 
 		values (
-			#{id},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{enclosure},#{delFlag},#{extjson},#{label},#{textType},#{noteTitleId},#{imageContext},#{userId}
+			#{id},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{enclosure},#{delFlag},#{extjson},#{label},#{textType},#{noteTitleId},#{imageContext},#{userId},#{noteTitleName}
 		)
 	</insert>
 	
@@ -66,7 +68,7 @@
 	    update 
 	    note_body 
 	    set note_body = #{noteBody},md_note_body = #{mdNoteBody},create_date = #{createDate},
-	    update_date = #{updateDate},enclosure = #{enclosure},del_flag = #{delFlag},extjson = #{extjson},label = #{label},text_type=#{textType},note_title_id=#{noteTitleId},image_context=#{imageContext}
+	    update_date = #{updateDate},enclosure = #{enclosure},del_flag = #{delFlag},extjson = #{extjson},label = #{label},text_type=#{textType},note_title_id=#{noteTitleId},image_context=#{imageContext},user_id=#{userId},note_title_name=#{noteTitleName}
 	    where id=#{id}
 	    <if test="userId != null and userId != ''">
 			AND user_id=#{userId}

@@ -36,7 +36,7 @@ public class NoteTitle extends DataEntity<NoteTitle> {
 	private String				noteBookName;
 
 	/**
-	 * 笔记类型 普通笔记或者markdown笔记
+	 * 笔记类型 普通笔记或者markdown笔记NoteTypeEnum
 	 */
 	private String				type;
 	/**

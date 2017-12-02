@@ -14,6 +14,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-notebook-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.blogforum</groupId>
 			<artifactId>blogforum-notebook-integration</artifactId>
 		</dependency>
 		<dependency>
@@ -54,6 +58,10 @@
 	        <groupId>org.springframework.amqp</groupId>
 	        <artifactId>spring-rabbit</artifactId>
 	    </dependency>
-		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 </project>

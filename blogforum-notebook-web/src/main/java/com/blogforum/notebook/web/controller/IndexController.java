@@ -6,24 +6,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.blogforum.common.tools.BaseConverter;
 import com.blogforum.notebook.common.page.Page;
-import com.blogforum.notebook.pojo.entity.NoteBook;
 import com.blogforum.notebook.pojo.entity.NoteTitle;
 import com.blogforum.notebook.pojo.vo.NoteBookVO;
 import com.blogforum.notebook.pojo.vo.NoteTitleVO;
-import com.blogforum.notebook.service.note.NoteBookService;
-import com.blogforum.notebook.service.note.NoteTitleService;
+import com.blogforum.notebook.service.note.NoteQueryService;
 import com.blogforum.notebook.web.constant.ViewConstant;
 import com.blogforum.sso.facade.model.UserVO;
-import com.google.common.collect.Lists;
-
 
 /**
  * 首页
@@ -34,32 +28,20 @@ import com.google.common.collect.Lists;
 @Controller
 public class IndexController {
 	@Autowired
-	private NoteBookService		noteBookService;
-	@Autowired
-	private NoteTitleService	noteTitleService;
+	private NoteQueryService			noteQueryService;
 
 	@RequestMapping("/")
 	public String index(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
 		UserVO user = (UserVO) request.getAttribute("user");
-		NoteBook noteBook = new NoteBook(user.getId(), "0");
-		List<NoteBook> books = noteBookService.queryListByParentId(noteBook);
-		BaseConverter<NoteBook, NoteBookVO> converter = new BaseConverter<>();
-		List<NoteBookVO> notebooks = converter.convertList(books, NoteBookVO.class);
-		for (NoteBookVO noteBookVO : notebooks) {
-			noteBookVO.setNoteCount(noteTitleService.countByNoteBookId(noteBookVO.getId()));
+		//获取第一级笔记本
+		List<NoteBookVO> noteBooks = noteQueryService.queryNoteBook(user,"0");
+		Page<NoteTitleVO> notes = new Page<NoteTitleVO>();
+		//获取笔记本下的前20条笔记标题
+		if (CollectionUtils.isNotEmpty(noteBooks)) {
+			notes = noteQueryService.queryNoteTitle(new Page<NoteTitle>(request,response), user, noteBooks.get(0).getId());
 		}
-		Page<NoteTitleVO> pageNoteVO = new Page<>();
-		List<NoteTitleVO> noteTitleVOs = Lists.newArrayList();
-		if (CollectionUtils.isNotEmpty(notebooks)) {
-			NoteTitle noteTitle = new NoteTitle(user.getId(), notebooks.get(0).getId());
-			Page<NoteTitle> page = noteTitleService.queryList(new Page<NoteTitle>(request, response), noteTitle);
-			BeanUtils.copyProperties(page, pageNoteVO, "list");
-			BaseConverter<NoteTitle, NoteTitleVO> noteConverter = new BaseConverter<>();
-			noteTitleVOs = noteConverter.convertList(page.getList(), NoteTitleVO.class);
-		}
-		pageNoteVO.setList(noteTitleVOs);
-		map.put("noteBooks", notebooks);
-		map.put("notes", pageNoteVO);
+		map.put("noteBooks", noteBooks);
+		map.put("notes", notes);
 		return ViewConstant.INDEX;
 	}
 

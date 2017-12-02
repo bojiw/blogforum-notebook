@@ -22,9 +22,15 @@
     	 exclusive: 仅创建者可以使用的私有队列，断开后自动删除
     	 auto_delete: 当所有消费客户端连接断开后，是否自动删除队列
       -->
-	<rabbit:queue id="sso_init_user_queue_key" name="sso_init_user_queue_key" durable="true" auto-delete="false" exclusive="false" />
-
+	<rabbit:queue id="note_init_user_queue" name="note_init_user_queue" durable="true" auto-delete="false" exclusive="false" />
 	
+
+	<!-- 绑定sso的初始化用户交换机 -->
+	<rabbit:fanout-exchange  name="sso_fanout_init_user" durable="true" auto-delete="false">
+	    <rabbit:bindings>
+	        <rabbit:binding queue="note_init_user_queue"></rabbit:binding>
+	    </rabbit:bindings>
+	</rabbit:fanout-exchange>
 	
 	<!-- 监听配置
 		 queues：监听的队列，多个的话用逗号（,）分隔 
@@ -32,7 +38,7 @@
 		 acknowledge:manual 手动设置回调
 	 -->
 	<rabbit:listener-container connection-factory="connectionFactory"  acknowledge="manual">
-	    <rabbit:listener queues="sso_init_user_queue_key" ref="ssoMsgConsumerListenter"/>
+	    <rabbit:listener queues="note_init_user_queue" ref="ssoMsgConsumerListenter"/>
 	</rabbit:listener-container>
 	
 	<bean id="ssoMsgConsumerListenter" class="com.blogforum.notebook.service.rabbitmq.consumer.SsoMsgConsumerListenter">
@@ -42,5 +48,8 @@
 	        </map>
 	    </property>
 	</bean>
+	
+	
+	<bean id="initNoteHandler" class="com.blogforum.notebook.service.rabbitmq.consumer.impl.InitNoteHandlerImpl"></bean>
 	
 </beans>

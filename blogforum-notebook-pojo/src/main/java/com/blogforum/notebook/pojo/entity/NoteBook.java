@@ -36,7 +36,9 @@ public class NoteBook extends DataEntity<NoteBook> {
 	
 	public NoteBook() {
 	}
-
+	public NoteBook(String id){
+		init(null, id, null);
+	}
 	public NoteBook(String userId,String parentId){
 		init(userId, null, parentId);
 	}

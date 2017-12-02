@@ -36,8 +36,8 @@ $(function(){
 					});
 					
 				}
-				if(noteBody.noteTitle != null){
-					$("#noteTitle").val(noteBody.noteTitle);
+				if(noteBody.noteTitleName != null){
+					$("#noteTitle").val(noteBody.noteTitleName);
 				}
 				if(noteBody.textType != null){
 					$("#textType").val(noteBody.textType);

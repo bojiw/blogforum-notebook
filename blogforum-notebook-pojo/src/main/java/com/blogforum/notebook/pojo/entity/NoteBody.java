@@ -39,7 +39,7 @@ public class NoteBody extends DataEntity<NoteBody> {
 	 */
 	private String				label;
 	/**
-	 * 内容类型 是原创还是转载还是翻译
+	 * 内容类型 是原创还是转载还是翻译 NoteTextTypeEnum
 	 */
 	private String				textType;
 
@@ -57,28 +57,28 @@ public class NoteBody extends DataEntity<NoteBody> {
 	 * 用户id
 	 */
 	private String				userId;
-	
-	
+
+	/**
+	 * 笔记标题名
+	 */
+	private String				noteTitleName;
+
 	public NoteBody() {
 	}
 
-	
-	public NoteBody(String userId,String noteTitleId) {
+	public NoteBody(String userId, String noteTitleId) {
 		init(userId, null, noteTitleId);
 	}
-	
-	public NoteBody(String userId,String id,String noteTitleId) {
+
+	public NoteBody(String userId, String id, String noteTitleId) {
 		init(userId, id, noteTitleId);
 	}
-	
-	
-	private void init(String userId,String id,String noteTitleId){
+
+	private void init(String userId, String id, String noteTitleId) {
 		this.userId = userId;
 		this.id = id;
 		this.noteTitleId = noteTitleId;
 	}
-	
-	
 
 	public String getId() {
 		return id;
@@ -168,4 +168,13 @@ public class NoteBody extends DataEntity<NoteBody> {
 		this.userId = userId;
 	}
 
+	public String getNoteTitleName() {
+		return noteTitleName;
+	}
+
+	public void setNoteTitleName(String noteTitleName) {
+		this.noteTitleName = noteTitleName;
+	}
+
+	
 }

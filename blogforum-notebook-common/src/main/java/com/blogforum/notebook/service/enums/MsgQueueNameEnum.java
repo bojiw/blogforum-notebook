@@ -2,7 +2,7 @@ package com.blogforum.notebook.service.enums;
 
 public enum MsgQueueNameEnum {
 
-	SSO_INIT_USER_QUEUE_KEY("sso_init_user_queue_key", "initNoteHandler", "用户注册时创建初始笔记本和笔记");
+	SSO_FANOUT_INIT_USER("sso_fanout_init_user", "initNoteHandler", "用户注册时创建初始笔记本和笔记");
 
 	/** 消息队列名称 */
 	private String	queueName;

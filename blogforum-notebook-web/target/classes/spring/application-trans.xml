@@ -26,6 +26,7 @@
 			<tx:method name="create*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="doHandler" propagation="REQUIRED" />
 			<!-- SUPPORTS当前有事务就在当前事务中运行 如果没有不开启新的事务 -->
 			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
 			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />

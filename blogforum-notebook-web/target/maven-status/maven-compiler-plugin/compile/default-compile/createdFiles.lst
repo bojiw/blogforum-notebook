@@ -5,4 +5,3 @@ com\blogforum\notebook\web\controller\NoteBookController.class
 com\blogforum\notebook\web\constant\CommonConstant.class
 com\blogforum\notebook\web\controller\IndexController.class
 com\blogforum\notebook\web\controller\NoteController.class
-com\blogforum\notebook\web\enums\IsDelFlag.class
