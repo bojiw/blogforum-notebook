@@ -34,6 +34,8 @@ public class InitNoteHandlerImpl implements Handler {
 	@Autowired
 	private NoteBodyService		noteBodyService;
 
+	private static String		noteTitleName	= "欢迎来到博记系统";
+
 	@Override
 	public void doHandler(Message message, String messageInfo) {
 
@@ -57,7 +59,7 @@ public class InitNoteHandlerImpl implements Handler {
 	private String createNoteBook(String userId) {
 		NoteBook noteBook = new NoteBook();
 		String id = UUIDCreateUtils.getUUID();
-		noteBook.setId(UUIDCreateUtils.getUUID());
+		noteBook.setId(id);
 		noteBook.setUserId(userId);
 		noteBook.setParentId("0");
 		noteBook.setName("默认笔记");
@@ -83,9 +85,9 @@ public class InitNoteHandlerImpl implements Handler {
 		noteTitle.setDelFlag(IsDelFlagEnum.N.getValue());
 		noteTitle.setNoteBookId(noteBookId);
 		noteTitle.setNoteBookName("默认笔记");
-		noteTitle.setNoteTitle("欢迎来到博记系统");
+		noteTitle.setNoteTitle(noteTitleName);
 		noteTitle.setType(NoteTypeEnum.SIMPLENOTE.getValue());
-		noteTitle.setNoteContext("接下来开始介绍下系统的使用");
+		noteTitle.setNoteContext("<p>接下来开始介绍下系统的使用</p>");
 		noteTitleService.save(noteTitle);
 		return id;
 	}
@@ -96,6 +98,7 @@ public class InitNoteHandlerImpl implements Handler {
 		noteBody.setId(id);
 		noteBody.setUserId(userId);
 		noteBody.setNoteTitleId(noteTitleId);
+		noteBody.setNoteTitleName(noteTitleName);
 		noteBody.setLabel("默认笔记");
 		noteBody.setDelFlag(IsDelFlagEnum.N.getValue());
 		noteBody.setTextType(NoteTextTypeEnum.ORIGINAL.getMemo());
