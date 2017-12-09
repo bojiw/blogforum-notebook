@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
 
-import com.blogforum.notebook.service.enums.MsgQueueNameEnum;
+import com.blogforum.notebook.common.enums.MsgExchangeNameEnum;
 import com.rabbitmq.client.Channel;
 
 /**
@@ -29,7 +29,7 @@ public class SsoMsgConsumerListenter implements ChannelAwareMessageListener  {
 		try {
 			//获取消息名 通过消息名找到对应的执行bean
 			String msgName = message.getMessageProperties().getReceivedExchange();
-			String beanName = MsgQueueNameEnum.getBeanNameByQueueName(msgName);
+			String beanName = MsgExchangeNameEnum.getBeanNameByExchangeName(msgName);
 			//获取消息内容
 			String messageinfo = new String(message.getBody());
 			

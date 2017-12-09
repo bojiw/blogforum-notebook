@@ -1,20 +1,15 @@
-package com.blogforum.notebook.service.enums;
+package com.blogforum.notebook.common.enums;
 
-public enum NoteTextTypeEnum {
+public enum NoteTypeEnum {
 
-	/** 原创 */
-	ORIGINAL("original", "原创"),
-	
-	/** 翻译*/
-	TRANSLATE("translate","翻译"),
-	
-	/** 转载 */
-	REPRINT("reprint", "转载");
-	
+	/** 普通富文本笔记 */
+	SIMPLENOTE("simplenote", "普通富文本笔记"),
+	/** markdown格式笔记 */
+	MARKDOWNNOTE("markdownnote", "markdown格式笔记");
 	private String	value;
 	private String	memo;
 
-	private NoteTextTypeEnum(String	value,String memo) {
+	private NoteTypeEnum(String	value,String memo) {
 		this.value = value;
 		this.memo = memo;
 	}
@@ -34,7 +29,5 @@ public enum NoteTextTypeEnum {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-
-
 
 }

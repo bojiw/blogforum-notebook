@@ -1,6 +1,6 @@
-package com.blogforum.notebook.service.enums;
+package com.blogforum.notebook.common.enums;
 
-public enum MsgQueueNameEnum {
+public enum MsgExchangeNameEnum {
 
 	SSO_FANOUT_INIT_USER("sso_fanout_init_user", "initNoteHandler", "用户注册时创建初始笔记本和笔记");
 
@@ -11,14 +11,14 @@ public enum MsgQueueNameEnum {
 	/** 描述 */
 	private String	memo;
 
-	private MsgQueueNameEnum(String queueName, String beanName, String memo) {
+	private MsgExchangeNameEnum(String queueName, String beanName, String memo) {
 		this.queueName = queueName;
 		this.beanName = beanName;
 		this.memo = memo;
 	}
 
-	public static String getBeanNameByQueueName(String queueName){
-		for (MsgQueueNameEnum msg : values()) {
+	public static String getBeanNameByExchangeName(String queueName){
+		for (MsgExchangeNameEnum msg : values()) {
 			if (msg.getQueueName().equals(queueName)) {
 				return msg.getBeanName();
 			}

@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.blogforum.common.tools.UUIDCreateUtils;
+import com.blogforum.notebook.common.enums.IsDelFlagEnum;
+import com.blogforum.notebook.common.enums.NoteTextTypeEnum;
+import com.blogforum.notebook.common.enums.NoteTypeEnum;
 import com.blogforum.notebook.pojo.entity.NoteBody;
 import com.blogforum.notebook.pojo.entity.NoteBook;
 import com.blogforum.notebook.pojo.entity.NoteTitle;
-import com.blogforum.notebook.service.enums.IsDelFlagEnum;
-import com.blogforum.notebook.service.enums.NoteTextTypeEnum;
-import com.blogforum.notebook.service.enums.NoteTypeEnum;
 import com.blogforum.notebook.service.note.NoteBodyService;
 import com.blogforum.notebook.service.note.NoteBookService;
 import com.blogforum.notebook.service.note.NoteTitleService;

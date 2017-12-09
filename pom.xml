@@ -37,7 +37,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.blogforum</groupId>
-			<artifactId>blogforum-notebook-common</artifactId>
+			<artifactId>blogforum-notebook-pojo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	  	<dependency>
@@ -55,7 +55,6 @@
 		    <artifactId>blogforum-sso-facade</artifactId>
 		    <version>0.0.1-SNAPSHOT</version>
 	  	</dependency>
-	  	
 		<dependency>
 	         <groupId>org.apache.velocity</groupId>
 	         <artifactId>velocity</artifactId>
@@ -108,6 +107,12 @@
 		  <artifactId>commons-collections</artifactId>
 		  <version>3.2</version>
 		</dependency>
+		<dependency>
+		  <groupId>org.apache.zookeeper</groupId>
+		  <artifactId>zookeeper</artifactId>
+		  <version>3.4.9</version>
+		</dependency>
+		
 	  </dependencies>
 	</dependencyManagement>
 

@@ -1,4 +1,4 @@
-package com.blogforum.notebook.service.enums;
+package com.blogforum.notebook.common.enums;
 
 public enum NoteErrorEnum {
 	

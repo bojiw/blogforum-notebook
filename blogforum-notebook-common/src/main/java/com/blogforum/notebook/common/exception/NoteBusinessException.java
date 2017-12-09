@@ -1,7 +1,7 @@
 package com.blogforum.notebook.common.exception;
 
 import com.blogforum.common.enums.BizErrorEnum;
-import com.blogforum.notebook.service.enums.NoteErrorEnum;
+import com.blogforum.notebook.common.enums.NoteErrorEnum;
 
 public class NoteBusinessException extends RuntimeException {
 

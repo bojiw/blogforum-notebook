@@ -11,12 +11,10 @@
 	  	<dependency>
 		    <groupId>com.blogforum</groupId>
 		    <artifactId>blogforum-notebook-pojo</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
 	  	</dependency>
 	  	<dependency>
 		    <groupId>com.blogforum</groupId>
 		    <artifactId>blogforum-notebook-common</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
 	  	</dependency>
 	  	
  				<!-- Mybatis -->
