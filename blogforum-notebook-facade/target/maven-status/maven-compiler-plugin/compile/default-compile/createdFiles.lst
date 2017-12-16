@@ -1,0 +1,8 @@
+com\blogforum\notebook\facade\model\Location.class
+com\blogforum\notebook\facade\model\BaseSO.class
+com\blogforum\notebook\facade\model\SuperVO.class
+com\blogforum\notebook\facade\model\ImageString.class
+com\blogforum\notebook\facade\model\ImageContextVO.class
+com\blogforum\notebook\facade\note\NoteBodyServerFacade.class
+com\blogforum\notebook\facade\enums\NoteMsgRouterKeyEnum.class
+com\blogforum\notebook\facade\enums\NoteMsgExchangeNameEnum.class

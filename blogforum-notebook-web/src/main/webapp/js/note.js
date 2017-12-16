@@ -68,6 +68,7 @@ $(function(){
 	    var formData = new FormData();
 	    formData.append('file', files[0]);
 	    formData.append('key', currentTime() + files[0].name);
+	    console.info("组件上传图片");
 	    //上传图片到七牛云
 	    updateqiniu(formData,loading);
 	}
@@ -76,6 +77,7 @@ $(function(){
 	
 	//上传图片到七牛云
 	function updateqiniu(formData,loading){
+		console.info("上传七牛云");
 	    $.get('/qiniuyun/upload',null,function(data){
 		   	 formData.append('token',data.data);
 		   	 $.ajax({
@@ -134,6 +136,7 @@ $(function(){
 			    	file.name = Math.random().toString(36).substr(2);
 			    }
 			    formData.append('key', currentTime() + file.name);
+			    console.info("粘贴上传七牛云");
 			    updateqiniu(formData,loading); 
 
        		}

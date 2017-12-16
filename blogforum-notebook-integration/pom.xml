@@ -12,20 +12,24 @@
 			<groupId>com.blogforum</groupId>
 			<artifactId>blogforum-notebook-dao</artifactId>
 		</dependency>
-	<dependency>
-		<groupId>com.blogforum</groupId>
-		<artifactId>blogforum-notebook-common</artifactId>
-	</dependency>
-  	<dependency>
-	    <groupId>com.blogforum</groupId>
-	    <artifactId>blogforum-sso-facade</artifactId>
-	    <exclusions>
-	    	<exclusion>
-			    <groupId>com.blogforum</groupId>
-			    <artifactId>blogforum-sso-common</artifactId>
-	    	</exclusion>
-	    </exclusions>
-  	</dependency>
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-notebook-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-docking-facade</artifactId>
+		</dependency>
+	  	<dependency>
+		    <groupId>com.blogforum</groupId>
+		    <artifactId>blogforum-sso-facade</artifactId>
+		    <exclusions>
+		    	<exclusion>
+				    <groupId>com.blogforum</groupId>
+				    <artifactId>blogforum-sso-common</artifactId>
+		    	</exclusion>
+		    </exclusions>
+	  	</dependency>
 	    <!--  dubbo-->
 		<dependency>
 		    <groupId>com.alibaba</groupId>

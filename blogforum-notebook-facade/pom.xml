@@ -6,4 +6,12 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>blogforum-notebook-facade</artifactId>
+  
+  <dependencies>
+      <dependency>
+      	<groupId>com.blogforum</groupId>
+      	<artifactId>blogforum-notebook-common</artifactId>
+      </dependency>
+  </dependencies>
+  
 </project>

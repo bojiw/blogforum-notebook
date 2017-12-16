@@ -29,6 +29,7 @@ public class NoteBookServiceImpl extends CrudService<NoteBook> implements NoteBo
 
 	@Autowired
 	private NoteTitleService	noteTitleService;
+	
 
 	@Override
 	public List<NoteBook> queryListByParentId(NoteBook noteBook) {

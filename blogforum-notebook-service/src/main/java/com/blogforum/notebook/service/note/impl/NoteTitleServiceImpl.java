@@ -16,8 +16,8 @@ import com.blogforum.notebook.pojo.entity.NoteTitle;
 import com.blogforum.notebook.pojo.vo.NoteTitleVO;
 import com.blogforum.notebook.pojo.vo.NoteVO;
 import com.blogforum.notebook.service.CrudService;
+import com.blogforum.notebook.service.image.ImageConver;
 import com.blogforum.notebook.service.note.NoteBodyService;
-import com.blogforum.notebook.service.note.NoteBookService;
 import com.blogforum.notebook.service.note.NoteTitleService;
 import com.blogforum.sso.facade.model.UserVO;
 
@@ -30,7 +30,10 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 	@Autowired
 	private NoteBodyService	noteBodyService;
 	
-
+	/**发送图片转文字消息*/
+	@Autowired
+	private ImageConver			imageConver;
+	
 	@Override
 	public int countByNoteBookId(String noteBookId) {
 		return noteTitleMapper.countByNoteBookId(noteBookId);
@@ -108,6 +111,7 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 		noteBody.setLabel(note.getLabel());
 		noteBody.setNoteTitleName(note.getNoteTitle());
 		noteBodyService.update(noteBody);
+		imageConver.sendImageConver(noteBody);
 	}
 
 	@Override

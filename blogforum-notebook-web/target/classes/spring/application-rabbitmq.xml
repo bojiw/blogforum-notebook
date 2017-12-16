@@ -12,11 +12,13 @@
     <rabbit:admin connection-factory="connectionFactory"/>
 
     <!-- spring template声明-->
-    <rabbit:template exchange="amqpExchange" id="amqpTemplate" mandatory="true"  connection-factory="connectionFactory"  message-converter="jsonMessageConverter" />
+    <rabbit:template exchange="rabbitTemplate" id="rabbitTemplate" mandatory="true"  connection-factory="connectionFactory"  message-converter="jsonMessageConverter" />
 
     <!-- 消息对象json转换类 -->
     <bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter" />  
-	
+	<bean class="org.springframework.amqp.rabbit.core.RabbitTemplate">  
+	    <property name="connectionFactory" ref="connectionFactory"/>  
+	</bean>  
     <!-- 申明一个消息队列Queue
     	 durable:是否持久化 
     	 exclusive: 仅创建者可以使用的私有队列，断开后自动删除
@@ -25,6 +27,15 @@
 	<rabbit:queue id="note_init_user_queue" name="note_init_user_queue" durable="true" auto-delete="false" exclusive="false" />
 	
 
+	<rabbit:queue id="docking_image_conver_string" name="docking_image_conver_string" durable="true" auto-delete="false" exclusive="false" />
+	
+	<!-- 绑定docking交换机转换图片交换机 -->
+	<rabbit:direct-exchange  name="direct_image_conver_string_docking" durable="true" auto-delete="false">
+	    <rabbit:bindings>
+	        <rabbit:binding queue="docking_image_conver_string" key="key_image_conver_string_docking"></rabbit:binding>
+	    </rabbit:bindings>
+	</rabbit:direct-exchange>
+	
 	<!-- 绑定sso的初始化用户交换机 -->
 	<rabbit:fanout-exchange  name="sso_fanout_init_user" durable="true" auto-delete="false">
 	    <rabbit:bindings>
@@ -38,10 +49,10 @@
 		 acknowledge:manual 手动设置回调
 	 -->
 	<rabbit:listener-container connection-factory="connectionFactory"  acknowledge="manual">
-	    <rabbit:listener queues="note_init_user_queue" ref="ssoMsgConsumerListenter"/>
+	    <rabbit:listener queues="note_init_user_queue" ref="noteMsgConsumerListenter"/>
 	</rabbit:listener-container>
 	
-	<bean id="ssoMsgConsumerListenter" class="com.blogforum.notebook.service.rabbitmq.consumer.SsoMsgConsumerListenter">
+	<bean id="noteMsgConsumerListenter" class="com.blogforum.notebook.service.rabbitmq.consumer.NoteMsgConsumerListenter">
 	    <property name="msgHandler">
 	        <map>
 	            <entry key="initNoteHandler" value-ref="initNoteHandler"></entry>
