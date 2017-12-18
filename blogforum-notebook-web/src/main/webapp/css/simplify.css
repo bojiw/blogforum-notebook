@@ -608,7 +608,7 @@ a.list-group-item.active:focus {
 @media (max-width: 991px) {
   .top-nav .nav-header {
     display: block !important;
-    width: 100%;
+    width: 100px;
     text-align: center;
   }
   .top-nav .nav-header .brand {
@@ -1650,7 +1650,7 @@ a.list-group-item.active:focus {
 @media (max-width: 991px) {
   .sidebar-menu,
   .sidebar-menu.sidbar-mini {
-    left: -240px;
+
   }
 }
 .sidebar-right {
