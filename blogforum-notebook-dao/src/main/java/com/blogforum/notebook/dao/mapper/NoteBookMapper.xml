@@ -100,8 +100,6 @@
 	    	note_book b
 	    where 
 	    	b.user_id=#{userId}
-	    order by 
-	    	b.name desc
 	</select>
 	<select id="getById" parameterType="com.blogforum.notebook.pojo.entity.NoteBook" resultMap="noteBookMap">
 	    select 
@@ -127,8 +125,6 @@
 	    <if test="userId != null and userId != ''">
 			AND b.user_id=#{userId}
 		</if>
-		ORDER BY
-			b.name DESC
 	</select>
 	
 	
