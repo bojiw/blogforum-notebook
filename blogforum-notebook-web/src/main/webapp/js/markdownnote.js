@@ -207,7 +207,7 @@ $(function() {
 			$(".tag").each(function(i,item){
 				var tagtext = $(item).children('span').eq(0).html();
 				if(tagtext == null){
-					break;
+					return false;
 				}
 				var index = tagtext.indexOf("&");
 				tagtext = tagtext.substring(0,index);
