@@ -9,7 +9,7 @@
 		#else
 			<hidden id = "noteId" />
 		#end
-		<div class="noteRightTop" style="height:80px;width:100%;margin-top:2%">
+		<div class="noteRightTop" style="height:80px;width:100%">
 			<div class="noteTitleTools" style="height:40%;width:100%">
 				<div class="noteRightTitle" style="float:left;width:70%;height:100%;margin:5px">
 					<input type="text" id="noteTitle" class="noteRightTitileText" placeholder="标题" >
