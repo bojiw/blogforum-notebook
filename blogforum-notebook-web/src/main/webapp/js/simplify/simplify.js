@@ -539,10 +539,11 @@ $(function(){
 		lis += "</p><p class='desc'>";
 		if(item.noteContext != null){
 			if(item.noteContext.length > 80){
-				lis += item.noteContext.substring(0,80);
+				//清除所有的html字符 防止显示问题
+				lis += item.noteContext.substring(0,80).replace(/<[^<>]+?>/g,'');
 				lis += "...";
 			}else{
-				lis += item.noteContext;
+				lis += item.noteContext.replace(/<[^<>]+?>/g,'');
 			}
 		}
 		lis += "</p></div></li>";

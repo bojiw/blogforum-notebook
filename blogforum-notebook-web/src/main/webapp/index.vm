@@ -51,7 +51,7 @@
 			</div><!--top-nav-inner-->
 		</header>
 		<!--下面内容主体-->
-		<div id="boxBody" style="width:100%;height:95%">
+		<div id="boxBody" style="width:100%;height:97%">
 			<!--左侧菜单栏-->
 			<aside class="sidebar-menu fixed" id="noteLeft" >
 				<div class="sidebar-inner scrollable-sidebar" >
@@ -120,7 +120,7 @@
 						</div><!--node-body-->
 					</div><!--noteInfoListItem-->
 				</div><!--noteInfoList-->
-				<div class="noteRightInfo" style="margin-left:278px;border:0px;width:auto;height:100%">
+				<div class="noteRightInfo" style="margin-left:278px;border:0px;width:auto;height:100%;overflow:auto">
 
 				</div><!--noteRightInfo-->
 			</div><!--noteRight-->
