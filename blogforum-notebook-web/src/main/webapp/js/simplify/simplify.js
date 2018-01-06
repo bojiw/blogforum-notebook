@@ -539,11 +539,11 @@ $(function(){
 		lis += "</p><p class='desc'>";
 		if(item.noteContext != null){
 			if(item.noteContext.length > 80){
-				//清除所有的html字符 防止显示问题
-				lis += item.noteContext.substring(0,80).replace(/<[^<>]+?>/g,'');
+				//对html字符转义 防止显示问题
+				lis += item.noteContext.substring(0,80).replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
 				lis += "...";
 			}else{
-				lis += item.noteContext.replace(/<[^<>]+?>/g,'');
+				lis += item.noteContext.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
 			}
 		}
 		lis += "</p></div></li>";
