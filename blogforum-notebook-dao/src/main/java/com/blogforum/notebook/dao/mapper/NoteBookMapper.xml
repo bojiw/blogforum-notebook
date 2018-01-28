@@ -66,10 +66,10 @@
 	<insert id="save" parameterType="com.blogforum.notebook.pojo.entity.NoteBook">
 		insert into
 		note_book(
-			id,parent_id,name,user_id,create_date,update_date,have_node
+			id,parent_id,name,user_id,create_date,update_date,have_node,del_flag
 		)
 		values(
-			#{id},#{parentId},#{name},#{userId},#{createDate},#{updateDate},#{haveNode}
+			#{id},#{parentId},#{name},#{userId},#{createDate},#{updateDate},#{haveNode},#{delFlag}
 		)
 	</insert>
 	
@@ -78,7 +78,7 @@
 	    update
 	    	note_book
 	    set 
-	    	del_flag = 'Y',updateDate=#{updateDate}
+	    	del_flag = #{delFlag},update_date=#{updateDate}
 	    where 
 	    	id=#{id}
 	    <if test="userId != null and userId != ''">
