@@ -122,9 +122,9 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 		NoteBody noteBody = checkValue(noteTitle, user, noteTitleId);
 		//设置笔记为删除标记
 		noteTitle.setDelFlag(IsDelFlagEnum.Y.getValue());
-		super.update(noteTitle);
+		super.delete(noteTitle);
 		noteBody.setDelFlag(IsDelFlagEnum.Y.getValue());
-		noteBodyService.update(noteBody);
+		noteBodyService.delete(noteBody);
 		NoteTitle noteTitleCondition = new NoteTitle(user.getId(), noteTitle.getNoteBookId());
 		Page<NoteTitle> noteTitles = super.queryList(new Page<NoteTitle>(), noteTitleCondition);
 		if (CollectionUtils.isEmpty(noteTitles.getList())) {

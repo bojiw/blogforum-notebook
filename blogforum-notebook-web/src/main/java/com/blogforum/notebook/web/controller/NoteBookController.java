@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.notebook.pojo.vo.NoteBookVO;
 import com.blogforum.notebook.service.note.NoteBookService;
-import com.blogforum.notebook.service.note.NoteQueryService;
+import com.blogforum.notebook.service.note.NoteQueryManager;
 import com.blogforum.sso.facade.model.UserVO;
 
 @Controller
@@ -25,15 +25,24 @@ public class NoteBookController {
 	private NoteBookService		noteBookService;
 
 	@Autowired
-	private NoteQueryService			noteQueryService;
+	private NoteQueryManager			noteQueryManager;
 
 	@RequestMapping("/getNoteBook/{parentId}")
 	@ResponseBody
 	public blogforumResult getNoteBooks(@PathVariable String parentId, HttpServletRequest request) {
 		UserVO user = (UserVO) request.getAttribute("user");
-		List<NoteBookVO> noteBooks = noteQueryService.queryNoteBook(user, parentId);
+		List<NoteBookVO> noteBooks = noteQueryManager.queryNoteBook(user, parentId);
 		return blogforumResult.ok(noteBooks);
 	}
+	
+	@RequestMapping("/getSearchNoteBook")
+	@ResponseBody
+	public blogforumResult getNoteBooks(HttpServletRequest request) {
+		UserVO user = (UserVO) request.getAttribute("user");
+		List<NoteBookVO> noteBooks = noteQueryManager.getSearchNoteBook(user);
+		return blogforumResult.ok(noteBooks);
+	}
+	
 
 	@RequestMapping(value = "/addNoteBook", method = RequestMethod.POST)
 	@ResponseBody

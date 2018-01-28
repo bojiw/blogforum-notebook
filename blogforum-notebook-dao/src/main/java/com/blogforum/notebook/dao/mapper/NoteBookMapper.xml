@@ -11,7 +11,8 @@
         b.parent_id bparent_id,
         b.create_date bcreate_date,
         b.update_date bupdate_date,
-        b.have_node bhave_node
+        b.have_node bhave_node,
+        b.del_flag bdel_flag
         
         <!-- 
         COUNT(n.id) noteNum
@@ -39,6 +40,7 @@
         <result property="createDate" column="bcreate_date"/>
         <result property="updateDate" column="bupdate_date"/>
         <result property="haveNode" column="bhave_node"/>
+        <result property="delFlag" column="bdel_flag"/>
         <!-- 
         
         <collection property="notes" ofType="com.blogforum.notebook.pojo.entity.Note">
@@ -72,21 +74,23 @@
 	</insert>
 	
 	<!-- 删除笔记本 -->
-	<delete id="delete" parameterType="com.blogforum.notebook.pojo.entity.NoteBook">
-	    delete from
-	    note_book
-	    where id=#{id}
+	<update id="delete" parameterType="com.blogforum.notebook.pojo.entity.NoteBook">
+	    update
+	    	note_book
+	    set 
+	    	del_flag = 'Y',updateDate=#{updateDate}
+	    where 
+	    	id=#{id}
 	    <if test="userId != null and userId != ''">
 			AND user_id=#{userId}
 		</if>
-	    
-	</delete>
+	</update>
 	<!-- 修改笔记本 -->
 	<update id="update" parameterType="com.blogforum.notebook.pojo.entity.NoteBook">
 	    update 
 	    note_book 
 	    set parent_id = #{parentId},name = #{name},user_id = #{userId},
-	    create_date = #{createDate},update_date = #{updateDate},have_node=#{haveNode}
+	    create_date = #{createDate},update_date = #{updateDate},have_node=#{haveNode},del_flag=#{delFlag}
 	    where id=#{id}
 	    <if test="userId != null and userId != ''">
 			AND user_id=#{userId}
@@ -99,7 +103,7 @@
 	    from 
 	    	note_book b
 	    where 
-	    	b.user_id=#{userId}
+	    	b.user_id=#{userId} and b.del_flag = 'N'
 	</select>
 	<select id="getById" parameterType="com.blogforum.notebook.pojo.entity.NoteBook" resultMap="noteBookMap">
 	    select 
@@ -107,7 +111,7 @@
 		from 
 			note_book b
 		where
-		b.id = #{id}
+		b.id = #{id} and b.del_flag = 'N'
 	    <if test="userId != null and userId != ''">
 			AND b.user_id=#{userId}
 		</if>
@@ -121,11 +125,13 @@
 		from 
 			note_book b
 		where 
-			b.parent_id = #{parentId}
+			b.parent_id = #{parentId} 
+			and b.del_flag = 'N'
 	    <if test="userId != null and userId != ''">
 			AND b.user_id=#{userId}
 		</if>
 	</select>
+	
 	
 	
 	<!--  left join获取对应笔记数量 因全部改为单表查询 注释掉不用

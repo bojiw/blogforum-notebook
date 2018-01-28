@@ -3,6 +3,11 @@ package com.blogforum.notebook.common.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 正则工具类
+ * @author wwd
+ *
+ */
 public  class ExpressionUtil {
 
 	public static Matcher getMatching(String content,String exp){

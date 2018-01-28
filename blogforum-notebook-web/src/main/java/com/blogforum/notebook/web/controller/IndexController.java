@@ -15,7 +15,7 @@ import com.blogforum.notebook.common.page.Page;
 import com.blogforum.notebook.pojo.entity.NoteTitle;
 import com.blogforum.notebook.pojo.vo.NoteBookVO;
 import com.blogforum.notebook.pojo.vo.NoteTitleVO;
-import com.blogforum.notebook.service.note.NoteQueryService;
+import com.blogforum.notebook.service.note.NoteQueryManager;
 import com.blogforum.notebook.web.constant.ViewConstant;
 import com.blogforum.sso.facade.model.UserVO;
 
@@ -28,7 +28,7 @@ import com.blogforum.sso.facade.model.UserVO;
 @Controller
 public class IndexController {
 	@Autowired
-	private NoteQueryService			noteQueryService;
+	private NoteQueryManager			noteQueryService;
 
 	@RequestMapping("/")
 	public String index(ModelMap map, HttpServletRequest request, HttpServletResponse response) {

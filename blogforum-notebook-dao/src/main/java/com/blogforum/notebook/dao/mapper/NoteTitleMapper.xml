@@ -54,7 +54,7 @@
 	    update
 	    	note_title
 	    set 
-	    	del_flag = 'Y'
+	    	update_date=#{updateDate},del_flag = 'Y'
 	    where 
 	    	id=#{id}
 	    <if test="userId != null and userId != ''">

@@ -20,6 +20,11 @@
 			<groupId>com.blogforum</groupId>
 			<artifactId>blogforum-docking-facade</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-search-facade</artifactId>
+		</dependency>
 	  	<dependency>
 		    <groupId>com.blogforum</groupId>
 		    <artifactId>blogforum-sso-facade</artifactId>

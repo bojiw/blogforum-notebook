@@ -1761,7 +1761,10 @@ a.list-group-item.active:focus {
 }
 .dropdown-menu {
   font-size: 12px;
+  margin-left: 20px;
+  width: 200px;
 }
+
 .dropdown-menu > li > a {
   padding: 4px 20px;
 }

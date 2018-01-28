@@ -106,6 +106,7 @@ public abstract class CrudService<T extends DataEntity<T>> implements BaseServic
 	 * @param id
 	 */
 	public void delete(T t) {
+		t.setUpdateDate(new Date());
 		mapper.delete(t);
 	}
 

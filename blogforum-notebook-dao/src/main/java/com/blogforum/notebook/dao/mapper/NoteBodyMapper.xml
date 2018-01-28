@@ -52,9 +52,10 @@
 	
 	<!-- 删除笔记 -->
 	<update id="delete" parameterType="com.blogforum.notebook.pojo.entity.NoteBody">
-	    update from
+	    update 
 	    	note_body
 	    set 
+	    	update_date = #{updateDate},
 	    	del_flag = 'Y'
 	    where 
 	    	id=#{id}

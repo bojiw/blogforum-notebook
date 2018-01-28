@@ -7,9 +7,13 @@
 
     
     <bean id="userClient" class="com.blogforum.notebook.interfaces.sso.impl.UserClientImpl">
-        <property name="userServerFacade" ref="userServerFacade"></property>
+        <property name="userServerFacade" ref="userServerFacade"/>
     </bean>
     <bean id="sessionClient" class="com.blogforum.notebook.interfaces.sso.impl.SessionClientImpl">
-        <property name="sessionServerFacade" ref="sessionServerFacade"></property>
+        <property name="sessionServerFacade" ref="sessionServerFacade"/>
+    </bean>
+    
+    <bean id="solrServiceFacadeClient" class="com.blogforum.notebook.interfaces.search.impl.SolrServiceFacadeClientImpl">
+        <property name="solrServiceFacade" ref="solrServiceFacade"/>
     </bean>
 </beans>

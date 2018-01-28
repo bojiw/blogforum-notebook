@@ -149,8 +149,19 @@ public class Page<T> {
 		this.setPageNo(pageNo);
 		this.pageSize = pageSize;
 		this.list = list;
+		initialize();
 	}
 
+	/**
+	 * 添加list数据
+	 * @param t
+	 * @author: wwd
+	 * @time: 2018年1月21日
+	 */
+	public void add(T t){
+		this.list.add(t);
+	}
+	
 	/**
 	 * 初始化参数
 	 */

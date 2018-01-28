@@ -15,7 +15,9 @@ import com.blogforum.notebook.pojo.entity.NoteTitle;
 import com.blogforum.notebook.pojo.vo.NoteBodyVO;
 import com.blogforum.notebook.pojo.vo.NoteTitleVO;
 import com.blogforum.notebook.pojo.vo.NoteVO;
-import com.blogforum.notebook.service.note.NoteQueryService;
+import com.blogforum.notebook.pojo.vo.SearchNoteRequestVO;
+import com.blogforum.notebook.service.manager.search.SearchManager;
+import com.blogforum.notebook.service.note.NoteQueryManager;
 import com.blogforum.notebook.service.note.NoteTitleService;
 import com.blogforum.sso.facade.model.UserVO;
 
@@ -25,7 +27,9 @@ public class NoteController {
 	@Autowired
 	private NoteTitleService	noteTitleService;
 	@Autowired
-	private NoteQueryService	noteQueryService;
+	private NoteQueryManager	noteQueryService;
+	@Autowired
+	private SearchManager		searchManager;
 
 	@RequestMapping(value = "/addNote", method = RequestMethod.POST)
 	@ResponseBody
@@ -71,4 +75,13 @@ public class NoteController {
 
 	}
 
+	@RequestMapping(value = "/searchNote", method = RequestMethod.GET)
+	@ResponseBody
+	public blogforumResult searchNote(SearchNoteRequestVO requestVO, HttpServletRequest request,
+						HttpServletResponse response) {
+		UserVO user = (UserVO) request.getAttribute("user");
+		requestVO.setUserId(user.getId());
+		Page<NoteTitleVO> searchNote = searchManager.searchNote(requestVO);
+		return blogforumResult.ok(searchNote);
+	}
 }

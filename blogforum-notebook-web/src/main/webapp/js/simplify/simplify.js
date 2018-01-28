@@ -51,7 +51,9 @@ $(function	()	{
 			$('.wrapper').removeClass('display-right');
 			$('.sidebar-right').removeClass('active');
 		}
-		else	{
+		else{
+			//点击菜单栏隐藏和显示的时候 搜索框也进行相应的隐藏和显示
+			$("#noteBookSearch").toggle();
 			//$('.nav-header').toggleClass('hide');
 			$('.top-nav').toggleClass('sidebar-mini');
 			$("#noteLeft").css("width","");
@@ -288,6 +290,20 @@ var oBoxBody = document.getElementById("boxBody"), oNoteLeft = document.getEleme
 
 
 $(function(){
+	
+	//全局变量
+	//选择的笔记本  笔记本名和id
+	var selectedBook;
+	var bookName;
+	var selectedBookId
+	//目前显示的笔记列表是否是搜索以后的结果
+	var searchFlag = false;
+	//搜索的关键字
+	var keyword = "";
+	//默认的分页大小
+	var pageSize = 20;
+	
+	
 	//设置笔记本点击事件
 	var clickBookNote = function(){
 		$(".showsetting").removeClass("clickBookNote");
@@ -304,9 +320,9 @@ $(function(){
 	//新建笔记
 	//第一次进入页面 默认选中笔记本的id为第一个笔记本
 	console.info($("#listbooks").find(".showsetting").eq(0));
-	var selectedBook = $("#listbooks").find(".noteBookName").first();
-	var selectedBookId = selectedBook.attr("value");
-	var bookName = selectedBook.html();
+	selectedBook = $("#listbooks").find(".noteBookName").first();
+	selectedBookId = selectedBook.attr("value");
+	bookName = selectedBook.html();
 	//设置当前选中的笔记本的id和name 方便其他地方获取
 	$("#selectedBook").attr("value",selectedBookId);
 	$("#selectedBook").attr("name",bookName);
@@ -351,7 +367,7 @@ $(function(){
 			//先删除所有的选中样式 再增加当前选中的li选中样式
 			$(".node-body-ul-li").removeClass("clickTitleNote");
 			//拼接第一次创建的html代码
-			var lis = initNoteHtml(bookName,noteId,type);
+			var lis = initNoteHtml(bookName,noteId,type,selectedBookId);
 			//把新加的笔记html代码放到第一个位置
 			var html = $(".node-body-ul").html();
 			$(".node-body-ul").html(lis+html);
@@ -377,7 +393,7 @@ $(function(){
 			$(".node-body-ul-li").removeClass("clickTitleNote");
 			$("#selectedNoteId").attr("value",noteId);
 			//拼接第一次创建的html代码
-			var lis = initNoteHtml(bookName,noteId,type);
+			var lis = initNoteHtml(bookName,noteId,type,selectedBookId);
 			//把新加的笔记html代码放到第一个位置
 			var html = $(".node-body-ul").html();
 			$(".node-body-ul").html(lis+html);
@@ -412,13 +428,15 @@ $(function(){
 	}
 	
 	//拼接note的html代码
-	function initNoteHtml(noteBookName,noteId,type){
+	function initNoteHtml(noteBookName,noteId,type,bookId){
 		var lis = "<li class='node-body-ul-li clickTitleNote'>"
-		lis += "<span class='noteId' value=";
+		lis += "<span class='note' value=";
 		lis += noteId;
 		lis += " type=";
 		lis += type;
-		lis += " /><div class='item-desc'><p class='item-title'> ";
+		lis += " />"
+		lis += "<span class='noteBookId' value=" + bookId + "/>";
+		lis +=	"<div class='item-desc'><p class='item-title'> ";
 		lis += "</p><p class='item-info'><i class='fa fa-book'></i><span class='note-notebook'> ";
 		if(noteBookName != null){
 			lis += noteBookName;
@@ -441,6 +459,13 @@ $(function(){
 		var type = note.attr("type");
 		//设置当前选中的笔记id
 		$("#selectedNoteId").attr("value",noteId);
+		
+		//获取笔记li中的.noteBookId元素
+		var noteBook = $(this).children('span').eq(1);
+		var noteBookId = noteBook.attr("value");
+		//设置当前选中的笔记本id
+		$("#selectedBook").attr("value",noteBookId);
+		
 		//先删除所有的选中样式 再增加当前选中的li选中样式
 		$(".node-body-ul-li").removeClass("clickTitleNote");
 		$(this).addClass("clickTitleNote");
@@ -464,12 +489,17 @@ $(function(){
 	//设置第一个笔记本为默认选中
 	$("#listbooks").find(".showsetting").first().addClass("clickBookNote");
 
+	//笔记本点击执行的代码
 	function noteBookClick(selectedBook){
 		selectedBookId = selectedBook.attr("value");
 		bookName = selectedBook.html();
-		//设置当前选中的笔记本的id和name 方便其他地方获取
-		$("#selectedBook").attr("value",selectedBook.attr("value"));
-		$("#selectedBook").attr("name",selectedBook.html());
+		//设置当前选中的笔记本的id和name 方便其他地方获取 如果获取的value也就是id为空 代表当前点击的是所有笔记 设置全局选择笔记本id为空
+		if(selectedBook.html() == "所有笔记"){
+			$("#selectedBook").attr("value","");
+		}else{
+			$("#selectedBook").attr("value",selectedBookId);
+		}
+		$("#selectedBook").attr("name",bookName);
 		$(".node-body-ul").html("");
 		$("#loading").addClass("spinner");
 		
@@ -526,7 +556,9 @@ $(function(){
 		
 	}
 	function getNoteHtml(item){
-		var lis = "<li class='node-body-ul-li'><span class='note' value= " + item.id + " type=" + item.type + " /><div class='item-desc'><p class='item-title'> ";
+		var lis = "<li class='node-body-ul-li'><span class='note' value= " + item.id + " type=" + item.type + " />";
+		lis += "<span class='noteBookId' value=" + item.noteBookId + "/>";
+		lis += "<div class='item-desc'><p class='item-title'>";
 		if(item.noteTitle != null){
 			lis += item.noteTitle;
 		}
@@ -579,6 +611,68 @@ $(function(){
 	  }  
 	refreshMenu();
 	
+	//搜索笔记
+	$('#searchnote').click(function(){
+		searchNote();
+	});
+	
+	$("#searchnotetext").keyup(function(event){
+        if (event.keyCode == 13) { 
+        	searchNote();
+        }  
+		
+    });
+	
+	
+	function searchNote(){
+		keyword = $.trim($('#searchnotetext').val());
+		if(keyword == ''){
+			layer.msg("请输入搜索关键字");
+			return;
+		}
+		//点击搜索默认搜索第一页前20个
+		var pageNo = 1;
+		var noteBookId;
+		//如果目前笔记列表是搜索所有笔记的内容 则noteBookId为空 因为在其他地方设置了选择笔记以后 selectedBook为选中笔记的笔记本 再搜索就会只搜索这个笔记本下的笔记了
+		if($("#selectedBook").attr("name") == "所有笔记"){
+			noteBookId = null;
+		}else{
+			noteBookId = $("#selectedBook").attr("value");
+		}
+		 
+		var html = "";
+		 $.ajax({  
+	          type : "get",  
+	          url : "/note/searchNote",  
+	          data : {keyword: keyword,pageNo:pageNo,pageSize:pageSize,noteBookId:noteBookId},  
+	          async : false,  
+	          success : function(data){  
+				if(data.status != "200"){
+					layer.msg(data.msg);
+				}else{
+					if(data.data.list.length == 0){
+						layer.msg("无搜索结果");
+					}else{
+						jQuery.each(data.data.list,function(i,item){
+							var lis = getNoteHtml(item);
+							html += lis;
+						});
+						$(".node-body-ul").html(html);
+						
+						searchFlag = true;
+						$("#notePageNo").attr("value",data.data.pageNo);
+						$("#notePageSize").attr("value",data.data.pageSize);
+						$("#noteCount").attr("value",data.data.count);
+						$("#noteLastPage").attr("value",data.data.lastPage);
+					}
+				}
+				refreshMenu();
+	          }  
+	     }); 
+	}
+	
+	
+	
 	
 	//笔记滚动条
 	$('#innerDiv').slimScroll({  
@@ -594,32 +688,56 @@ $(function(){
 			   var html = $(".node-body-ul").html();
 			   $("#loading").addClass("spinner");
 			   var pageNo = parseInt($("#notePageNo").attr("value")) + 1;
-				$.get("note/getNoteTitleList", {
-					noteBookId: selectedBookId,
-					pageNo: pageNo
-					
-					},function(data){
-					if(data.status != "200"){
-						layer.msg(data.msg);
-					}else{
-						jQuery.each(data.data.list,function(i,item){
-							var lis = getNoteHtml(item);
-							html += lis;
-						});
-						$(".node-body-ul").html(html);
-						$("#notePageNo").attr("value",data.data.pageNo);
-						$("#notePageSize").attr("value",data.data.pageSize);
-						$("#noteCount").attr("value",data.data.count);
-						$("#noteLastPage").attr("value",data.data.lastPage);
-					}
-					refreshMenu();
-					$("#loading").removeClass("spinner");
-				});
+			   //如果目前是分页的搜索结果
+			   if(searchFlag){
+				   $.get("note/searchNote",{
+						noteBookId: selectedBookId,
+						pageNo: pageNo,
+						pageSize: pageSize,
+						keyword: keyword
+				   },function(data){
+						if(data.status != "200"){
+							layer.msg(data.msg);
+						}else{
+							setPageDate(data,html);
+						}
+						refreshMenu();
+						$("#loading").removeClass("spinner");
+				   })
+				   
+			   }else{
+					$.get("note/getNoteTitleList", {
+						noteBookId: selectedBookId,
+						pageNo: pageNo
+						
+						},function(data){
+						if(data.status != "200"){
+							layer.msg(data.msg);
+						}else{
+							setPageDate(data,html);
+						}
+						refreshMenu();
+						$("#loading").removeClass("spinner");
+					});
+			   }
+
+
 		   }
 		   
 		}
 	});  
 	
+	function setPageDate(data,html){
+		jQuery.each(data.data.list,function(i,item){
+			var lis = getNoteHtml(item);
+			html += lis;
+		});
+		$(".node-body-ul").html(html);
+		$("#notePageNo").attr("value",data.data.pageNo);
+		$("#notePageSize").attr("value",data.data.pageSize);
+		$("#noteCount").attr("value",data.data.count);
+		$("#noteLastPage").attr("value",data.data.lastPage);
+	}
 	
 	//左侧获取笔记本方法
 	function getBooks(){
@@ -725,6 +843,70 @@ $(function(){
 			$(this).find(".booksetting").eq(0).css("opacity","0");
 		});
 	}
+	
+	//typeahead搜索笔记本功能   https://www.cnblogs.com/shiyu404/p/6344591.html
+	$('#noteBookSearch').typeahead({
+		source: function(query, process){
+			//ajax请求当前用户下所有的笔记
+            return $.ajax({
+                url: '/noteBook/getSearchNoteBook',
+                type: 'post',
+                data: {name: query},
+                success: function (result) {
+    				if(result.status != "200") {
+    					layer.msg(data.msg);
+    				}else{
+                    	//对返回的结果进行处理 只需要id和name
+                        var resultList = result.data.map(function (item) {
+                            var aItem = {id: item.id, name: item.name};
+                            //转换成json
+                            return JSON.stringify(aItem);
+                        });
+                        return process(resultList);
+    				}
+
+                },
+            });
+		},
+		items : 15,
+		//只对name进行匹配
+	    matcher: function (obj) {
+	        var item = JSON.parse(obj);
+	        return ~item.name.toLowerCase().indexOf(this.query.toLowerCase())
+	    },
+		//只对name进行高亮显示
+        highlighter: function (obj) {
+            var item = JSON.parse(obj);
+            var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+            return item.name.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
+                return '<strong>' + match + '</strong>'
+            });
+        },
+        //选择要搜索的笔记 只设置input框的内容为name  并且设置当前选中的笔记本id和name  然后加载当前笔记本下的笔记
+        updater: function (obj) {
+            var item = JSON.parse(obj);
+    		$(".showsetting").removeClass("clickBookNote");
+    		//循环遍历笔记本 判断已经显示的笔记本是否和搜索的笔记本id一样 如果一样则设置笔记本为点击状态
+    		$(".noteBookName").each(function(){
+    			if(item.id ==$(this).attr("value")){
+    				$(this).parent().addClass("clickBookNote");
+    				return false;
+    			}
+    		});
+    		
+    		$("#selectedBook").attr("value",item.id);
+    		//设置全局的笔记本id和笔记本name
+    		selectedBookId = item.id;
+    		bookName = item.name;
+    		var selectedBook = $("#selectedBook");
+    		noteBookClick(selectedBook);
+    		selectedBook.attr("name",item.name);
+            return item.name;
+        }
+	})
+	
+	
+	
 	var book;
 	var onClick = function(e) {
 		//获取notebook这个元素
@@ -867,6 +1049,7 @@ $(function(){
 					});
 				}
 	}
+	
 	//笔记本右键设置按钮
 	$('.showsetting').on('contextmenu', onClick);
 	//笔记本设置按钮

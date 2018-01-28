@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.tools.BaseConverter;
 import com.blogforum.common.tools.UUIDCreateUtils;
+import com.blogforum.notebook.common.enums.IsDelFlagEnum;
 import com.blogforum.notebook.common.enums.NoteErrorEnum;
 import com.blogforum.notebook.common.exception.NoteBusinessException;
 import com.blogforum.notebook.common.page.Page;
@@ -48,6 +49,7 @@ public class NoteBookServiceImpl extends CrudService<NoteBook> implements NoteBo
 		noteBook.setUserId(user.getId());
 		noteBook.setParentId(parentId);
 		noteBook.setHaveNode(false);
+		noteBook.setDelFlag(IsDelFlagEnum.N.getValue());
 		//执行保存
 		super.save(noteBook);
 		//如果父节点不是0代表是有父节点 更新父节点有子节点状态
@@ -128,6 +130,7 @@ public class NoteBookServiceImpl extends CrudService<NoteBook> implements NoteBo
 	 * @time: 2017年12月2日
 	 */
 	private Boolean delNoteBookAndUpdate(NoteBook noteBook,UserVO user){
+		noteBook.setDelFlag(IsDelFlagEnum.Y.getValue());
 		super.delete(noteBook);
 		//父笔记本是否有子笔记本
 		Boolean isNode = true;
