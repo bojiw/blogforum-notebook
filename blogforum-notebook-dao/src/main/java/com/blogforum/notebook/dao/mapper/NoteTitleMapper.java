@@ -11,6 +11,6 @@ public interface NoteTitleMapper extends CrudMapper<NoteTitle> {
 	 * @author: wwd
 	 * @time: 2017年10月25日
 	 */
-	public int countByNoteBookId(String noteBookId);
+	int countByNoteBookId(String noteBookId);
 
 }

@@ -10,6 +10,6 @@ public interface ImageConver {
 	 * @author: wwd
 	 * @time: 2017年12月10日
 	 */
-	public void sendImageConver(NoteBody noteBody);
+	void sendImageConver(NoteBody noteBody);
 	
 }

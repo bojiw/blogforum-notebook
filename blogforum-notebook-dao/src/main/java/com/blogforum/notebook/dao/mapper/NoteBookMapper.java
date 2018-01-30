@@ -13,6 +13,6 @@ public interface NoteBookMapper extends CrudMapper<NoteBook> {
 	 * @author: wwd
 	 * @time: 2017年11月12日
 	 */
-	public List<NoteBook> queryListByParentId(NoteBook	noteBook);
+	List<NoteBook> queryListByParentId(NoteBook	noteBook);
 
 }

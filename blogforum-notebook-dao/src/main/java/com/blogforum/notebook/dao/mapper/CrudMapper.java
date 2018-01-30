@@ -7,15 +7,15 @@ import com.blogforum.notebook.pojo.entity.DataEntity;
 
 
 public interface CrudMapper<T extends DataEntity<T>> extends BaseMapper {
-	public void save(T t);
+	void save(T t);
 
-	public void delete(T t);
+	void delete(T t);
 
-	public void update(T t);
+	void update(T t);
 
-	public T getById(T t);
+	T getById(T t);
 
-	public T get(T t);
+	T get(T t);
 
-	public List<T> queryList(T t);
+	List<T> queryList(T t);
 }

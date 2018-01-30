@@ -31,7 +31,7 @@ public interface NoteQueryManager {
 	 * @author: wwd
 	 * @time: 2017年12月2日
 	 */
-	public List<NoteBookVO> queryNoteBook(UserVO user, String parentId);
+	List<NoteBookVO> queryNoteBook(UserVO user, String parentId);
 	
 	
 	/**
@@ -42,7 +42,7 @@ public interface NoteQueryManager {
 	 * @author: wwd
 	 * @time: 2017年12月2日
 	 */
-	public List<NoteBookVO> getSearchNoteBook(UserVO user);
+	List<NoteBookVO> getSearchNoteBook(UserVO user);
 
 	/**
 	 * 查询笔记内容
@@ -52,6 +52,6 @@ public interface NoteQueryManager {
 	 * @author: wwd
 	 * @time: 2017年12月2日
 	 */
-	public NoteBodyVO queryNoteBody(UserVO user, NoteTitle noteTitle);
+	NoteBodyVO queryNoteBody(UserVO user, NoteTitle noteTitle);
 
 }

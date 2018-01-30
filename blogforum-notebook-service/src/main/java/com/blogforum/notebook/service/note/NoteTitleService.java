@@ -16,7 +16,7 @@ public interface NoteTitleService extends BaseService<NoteTitle> {
 	 * @author: wwd
 	 * @time: 2017年10月25日
 	 */
-	public int countByNoteBookId(String noteBookId);
+	int countByNoteBookId(String noteBookId);
 
 	/**
 	 * 添加笔记内容
@@ -27,7 +27,7 @@ public interface NoteTitleService extends BaseService<NoteTitle> {
 	 * @author: wwd
 	 * @time: 2017年12月2日
 	 */
-	public NoteTitleVO addNote(UserVO user, NoteTitle noteTitle);
+	NoteTitleVO addNote(UserVO user, NoteTitle noteTitle);
 
 	
 	/**
@@ -37,7 +37,7 @@ public interface NoteTitleService extends BaseService<NoteTitle> {
 	 * @author: wwd
 	 * @time: 2017年12月2日
 	 */
-	public void updateNote(UserVO user, NoteVO note);
+	void updateNote(UserVO user, NoteVO note);
 	
 	
 	/**
@@ -47,6 +47,6 @@ public interface NoteTitleService extends BaseService<NoteTitle> {
 	 * @author: wwd
 	 * @time: 2017年12月2日
 	 */
-	public NoteTitle deleteNote(UserVO user,String noteTitleId);
+	NoteTitle deleteNote(UserVO user,String noteTitleId);
 
 }

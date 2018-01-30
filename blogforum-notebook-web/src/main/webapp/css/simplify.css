@@ -182,10 +182,26 @@ select.m-wrap {
 }
 
 
+.typeahead {
+	background-color: #fff !important;
+	position: absolute !important;
+	z-index: 1000 !important;
+}
 
+.typeahead li{
+	background: #fff !important;
+	border-bottom: #fff !important;
+}
 
+.typeahead .active a{
+	background-color: #337ab7 !important;
+	color: #fff !important;
+}
 
-
+.typeahead  a{
+	background-color: #fff !important;
+	color: #333 !important;
+}
 
 .spinner {
   margin: 100px auto 0;

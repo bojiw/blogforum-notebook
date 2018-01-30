@@ -11,5 +11,5 @@ public interface NoteBodyMapper extends CrudMapper<NoteBody> {
 	 * @author: wwd
 	 * @time: 2017年11月12日
 	 */
-	public NoteBody getByNoteTitleId(NoteBody noteBody);
+	NoteBody getByNoteTitleId(NoteBody noteBody);
 }

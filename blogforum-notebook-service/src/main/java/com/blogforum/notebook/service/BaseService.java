@@ -13,17 +13,17 @@ import com.blogforum.notebook.common.page.Page;
  * @param <ID>
  */
 public interface BaseService<T> {
-	public void save(T t);
+	void save(T t);
 
-	public T getById(T t);
+	T getById(T t);
 	
-	public T get(T t);
+	T get(T t);
 	
-	public List<T> queryList(T t);
+	List<T> queryList(T t);
 	
-	public Page<T> queryList(Page<T> page, T t);
+	Page<T> queryList(Page<T> page, T t);
 	
-	public void update(T t);
+	void update(T t);
 
 	public void delete(T t);
 	

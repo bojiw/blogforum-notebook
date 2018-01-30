@@ -6,6 +6,6 @@ import com.blogforum.sso.facade.model.UserVO;
 
 public interface CheckService {
 
-	public NoteBody checkNote(NoteTitle noteTitle, UserVO user, String noteTitleId);
+	NoteBody checkNote(NoteTitle noteTitle, UserVO user, String noteTitleId);
 	
 }

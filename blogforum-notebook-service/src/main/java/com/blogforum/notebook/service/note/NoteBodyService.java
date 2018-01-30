@@ -5,5 +5,5 @@ import com.blogforum.notebook.service.BaseService;
 
 public interface NoteBodyService extends BaseService<NoteBody> {
 
-	public NoteBody getByNoteTitleId(NoteBody noteBody);
+	NoteBody getByNoteTitleId(NoteBody noteBody);
 }

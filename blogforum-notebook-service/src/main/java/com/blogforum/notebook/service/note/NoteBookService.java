@@ -16,7 +16,7 @@ public interface NoteBookService extends BaseService<NoteBook> {
 	 * @author: wwd
 	 * @time: 2017年11月11日
 	 */
-	public List<NoteBook> queryListByParentId(NoteBook noteBook);
+	List<NoteBook> queryListByParentId(NoteBook noteBook);
 	
 	
 	/**
@@ -27,7 +27,7 @@ public interface NoteBookService extends BaseService<NoteBook> {
 	 * @author: wwd
 	 * @time: 2017年12月2日
 	 */
-	public NoteBookVO addBook(UserVO user,String parentId,String name);
+	NoteBookVO addBook(UserVO user,String parentId,String name);
 	
 	
 	/**
@@ -36,7 +36,7 @@ public interface NoteBookService extends BaseService<NoteBook> {
 	 * @author: wwd
 	 * @time: 2017年12月2日
 	 */
-	public NoteBookVO updateBook(String id,UserVO user,String name);
+	NoteBookVO updateBook(String id,UserVO user,String name);
 	
 	/**
 	 * 删除笔记本
@@ -45,7 +45,7 @@ public interface NoteBookService extends BaseService<NoteBook> {
 	 * @author: wwd
 	 * @time: 2017年12月2日
 	 */
-	public Boolean deleteBook(String noteBookId, String parentId,UserVO user);
+	Boolean deleteBook(String noteBookId, String parentId,UserVO user);
 	
 
 }

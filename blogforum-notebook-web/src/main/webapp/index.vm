@@ -50,9 +50,7 @@
 				</div><!--nav-container-->
 			</div><!--top-nav-inner-->
 		</header>
-		<div style="width: 240px;height: 26px;position: fixed;z-index: 100;margin-top: 43px;">
-		<input type="text" class="form-control" id="noteBookSearch" autocomplete="off" data-provide="typeahead" style="width: 210px;height: 26px;position:absolute;margin-left: 6%;"  placeholder="搜索笔记本" / >
-		</div>
+
 		<!--下面内容主体-->
 		<div id="boxBody" style="width:100%;height:97%">
 		
@@ -72,10 +70,12 @@
 								<ul  class="submenu bg-palette4">
 								<div>
 									<li></li>
+									<input type="text" class="form-control" id="noteBookSearch" autocomplete="off" data-provide="typeahead" style="width: 210px;height: 30px;margin-left: 10px;margin-top: 3px"  placeholder="搜索笔记本" / >
+									
 									</div>
 									<div class="tree-view-menu-list font-16">
 										<hidden id = "selectedBook"/>
-										<li class="openable"><a style="margin-top: 13%;" class="showsetting" href="#" ><span class="noteBookName">所有笔记</span></a></li>
+										<li class="openable"><a style="" class="showsetting" href="#" ><span class="noteBookName">所有笔记</span></a></li>
 										<ul class="font-15" id="listbooks" style="width:auto">
 											#foreach($noteBook in $noteBooks)
 											<li class="openable">
