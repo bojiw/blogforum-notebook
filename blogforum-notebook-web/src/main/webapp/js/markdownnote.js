@@ -1,5 +1,9 @@
 
 $(function() {
+	
+		var noteId ;
+		var noteBodyId;
+	
 		//标签
 		var tag = $('#tags').tagsInput({
 			'autocomplete':{selectFirst:true,width:'10px',autoFill:true},
@@ -40,11 +44,11 @@ $(function() {
 
         //判断如果是查看笔记不是新建 则从后台获取数据显示
         if($("#noteId").attr("value") != null){
-        	
+        	noteId = $("#noteId").attr("value");
 	   		 $.ajax({  
 		         type : "get",  
 		          url : "/note/getNoteBody",  
-		          data : {id:$("#noteId").attr("value")},  
+		          data : {id:noteId},  
 		          async : false,  
 		          success : function(data){  
 						if(data.status != "200") {
@@ -70,7 +74,7 @@ $(function() {
 								$("#editormdText").text(noteBody.mdNoteBody);
 								$(".markdown-body").html(noteBody.noteBody);
 							}
-
+							noteBodyId=noteBody.id;
 							
 						}
 		          }  
@@ -80,6 +84,18 @@ $(function() {
         }
         
         
+        refresh();
+    	//历史记录功能
+    	function clickHistory(){
+    		layer.open({
+    			  type: 2,
+    			  title: '历史记录',
+    			  shadeClose: true,
+    			  shade: 0.8,
+    			  area: ['900px', '600px'],
+    			  content: 'historynote?noteBodyId=' + noteBodyId
+    		}); 
+    	}
         
         
         
@@ -328,4 +344,12 @@ $(function() {
 					 });
 			
 		});
+		
+		
+		function refresh(){
+			  $('.glyphicon-time').off('click',clickHistory);
+			  $('.glyphicon-time').on('click',clickHistory);
+		}
+
+		
 });

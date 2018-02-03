@@ -20,7 +20,11 @@
         hb.user_id			userId,
         hb.note_title_name	noteTitleName,
         hb.note_body_id		noteBodyId,
-        hb.last_date		lastDate
+        hb.last_date		lastDate,
+        hb.note_context		noteContext,
+        hb.type				type,
+        hb.note_book_id		noteBookId,
+        hb.note_book_name		noteBookName
     </sql>
 
     <resultMap type="com.blogforum.notebook.pojo.entity.HistoryNote" id="historyNoteMap">
@@ -40,6 +44,10 @@
         <result property="noteTitleName" column="noteTitleName"/>
         <result property="noteBodyId" column="noteBodyId"/>
         <result property="lastDate" column="lastDate"/>
+        <result property="noteContext" column="noteContext"/>
+        <result property="type" column="type"/>
+        <result property="noteBookId" column="noteBookId"/>
+        <result property="noteBookName" column="noteBookName"/>
     </resultMap>
 
         
@@ -47,10 +55,10 @@
 	<insert id="save" parameterType="com.blogforum.notebook.pojo.entity.HistoryNote">
 		insert into 
 		historynote(
-			id,note_body,md_note_body,create_date,update_date,enclosure,del_flag,extjson,label,text_type,note_title_id,image_context,user_id,note_title_name,note_body_id,last_date
+			id,note_body,md_note_body,create_date,update_date,enclosure,del_flag,extjson,label,text_type,note_title_id,image_context,user_id,note_title_name,note_body_id,last_date,note_context,type,note_book_id,note_book_name
 		) 
 		values (
-			#{id},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{enclosure},#{delFlag},#{extjson},#{label},#{textType},#{noteTitleId},#{imageContext},#{userId},#{noteTitleName},#{noteBodyId},#{lastDate}
+			#{id},#{noteBody},#{mdNoteBody},#{createDate},#{updateDate},#{enclosure},#{delFlag},#{extjson},#{label},#{textType},#{noteTitleId},#{imageContext},#{userId},#{noteTitleName},#{noteBodyId},#{lastDate},#{noteContext},#{type},#{noteBookId},#{noteBookName}
 		)
 	</insert>
 	
@@ -74,7 +82,10 @@
 	    update 
 	    historynote 
 	    set note_body = #{noteBody},md_note_body = #{mdNoteBody},create_date = #{createDate},
-	    update_date = #{updateDate},enclosure = #{enclosure},del_flag = #{delFlag},extjson = #{extjson},label = #{label},text_type=#{textType},note_title_id=#{noteTitleId},image_context=#{imageContext},user_id=#{userId},note_title_name=#{noteTitleName},note_body_id=#{noteBodyId},last_date=#{lastDate}
+	    update_date = #{updateDate},enclosure = #{enclosure},del_flag = #{delFlag},extjson = #{extjson},
+	    label = #{label},text_type=#{textType},note_title_id=#{noteTitleId},image_context=#{imageContext},
+	    user_id=#{userId},note_title_name=#{noteTitleName},note_body_id=#{noteBodyId},last_date=#{lastDate},
+	    note_context=#{noteContext},type=#{type},note_book_id=#{noteBookId},note_book_name=#{noteBookName}
 	    where id=#{id}
 	    <if test="userId != null and userId != ''">
 			AND user_id=#{userId}
@@ -91,12 +102,12 @@
 	    WHERE 
 	    	hb.id=#{id} and hb.del_flag='N'
 	    <if test="userId != null and userId != ''">
-			AND nb.user_id=#{userId}
+			AND hb.user_id=#{userId}
 		</if>
 	</select>
 	
 	<!-- 通过笔记id查询笔记历史记录 -->
-	<select id="getByNoteBodyId" resultMap="historyNoteMap">
+	<select id="queryByNoteBodyId" resultMap="historyNoteMap">
 	    SELECT 
 	    	<include refid="HistoryNoteField"/>
 	    FROM 
@@ -104,8 +115,9 @@
 	    WHERE 
 	    	hb.note_body_id=#{noteBodyId} and hb.del_flag='N'
 	    <if test="userId != null and userId != ''">
-			AND nb.user_id=#{userId}
+			AND hb.user_id=#{userId}
 		</if>
+		order by hb.last_date desc
 	</select>
 	
 

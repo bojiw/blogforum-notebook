@@ -338,6 +338,11 @@ $(function(){
 				showNote(type,$("#selectedNoteId").attr("value"));
 			}
 		});
+		//延迟1秒刷新 防止历史异步加载的笔记内容页还没加载完
+		setTimeout(function(){
+			refreshMenu();
+		},1000);
+		
 		
 	}
 	
@@ -376,7 +381,7 @@ $(function(){
 			//设置选择笔记本id
 			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
-			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId});
+			$(".noteRightInfo").load("simplenote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 			refreshMenu();
 		}
 	});
@@ -402,7 +407,7 @@ $(function(){
 			//设置选择笔记本id
 			$("#selectedNoteId").attr("value",noteId);
 			$(".clickBookNote").children('span').eq(3).html(parseInt(count) + 1);
-			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId});
+			$(".noteRightInfo").load("markdownnote",{noteBookName:bookName,noteBookId:selectedBookId,noteId:noteId});
 			refreshMenu();
 		}
 	});
@@ -1072,6 +1077,7 @@ $(function(){
 		  $('.booksetting').on('click', onClick);
 		  //笔记本点击事件
 		  $('.node-body-ul-li').on('click',clickTitleNote);
+
 	}
 	
 

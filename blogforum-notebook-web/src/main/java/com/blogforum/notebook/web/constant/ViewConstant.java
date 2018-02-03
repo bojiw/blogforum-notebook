@@ -21,4 +21,7 @@ public class ViewConstant {
 	/**空笔记页面*/
 	public static final String NULLNOTE = "nullnote";
 	
+	/**历史笔记页面*/
+	public static final String HISTORY = "history";
+	
 }

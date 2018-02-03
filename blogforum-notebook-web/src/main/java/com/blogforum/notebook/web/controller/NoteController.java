@@ -30,6 +30,7 @@ public class NoteController {
 	private NoteQueryManager	noteQueryService;
 	@Autowired
 	private SearchManager		searchManager;
+	
 
 	@RequestMapping(value = "/addNote", method = RequestMethod.POST)
 	@ResponseBody
@@ -84,4 +85,7 @@ public class NoteController {
 		Page<NoteTitleVO> searchNote = searchManager.searchNote(requestVO);
 		return blogforumResult.ok(searchNote);
 	}
+	
+	
+	
 }

@@ -1,5 +1,7 @@
 $(function(){
 
+	var noteId;
+	var noteBodyId;
 	//标签
 	var tag = $('#tags').tagsInput({
 		'autocomplete':{selectFirst:true,width:'10px',autoFill:true},
@@ -23,7 +25,8 @@ $(function(){
 	
     //判断如果是查看笔记不是新建 则从后台获取数据显示
     if($("#noteId").attr("value") != null){
-    	$.get("/note/getNoteBody",{id:$("#noteId").attr("value")},function(data){
+    	noteId= $("#noteId").attr("value");
+    	$.get("/note/getNoteBody",{id:noteId},function(data){
 			if(data.status != "200") {
 				layer.close(loading);
 				layer.msg(data.msg);
@@ -46,14 +49,28 @@ $(function(){
 				if(noteBody.noteBody != null){
 					editor.txt.html(noteBody.noteBody)
 				}
-
 				
+				noteBodyId=noteBody.id;
 			}
     	});
     	
     }
 	
-	
+    refresh();
+	//历史记录功能
+	function clickHistory(){
+		
+		layer.open({
+			  type: 2,
+			  title: '历史记录',
+			  shadeClose: true,
+			  shade: 0.8,
+			  area: ['900px', '600px'],
+			  content: 'historynote?noteBodyId=' + noteBodyId
+		}); 
+	}
+    
+    
 	
 	
 	var overallInsert;
@@ -284,7 +301,10 @@ $(function(){
 		
 	});
 	
-	
+	function refresh(){
+		  $('.glyphicon-time').off('click',clickHistory);
+		  $('.glyphicon-time').on('click',clickHistory);
+	}
 
 	
 });

@@ -1,5 +1,7 @@
 package com.blogforum.notebook.dao.mapper;
 
+import java.util.List;
+
 import com.blogforum.notebook.pojo.entity.HistoryNote;
 
 public interface HistoryNoteMapper extends CrudMapper<HistoryNote> {
@@ -11,7 +13,7 @@ public interface HistoryNoteMapper extends CrudMapper<HistoryNote> {
 	 * @author: wwd
 	 * @time: 2018年1月29日
 	 */
-	HistoryNote getByNoteBodyId(HistoryNote historyNote);
+	List<HistoryNote> queryByNoteBodyId(HistoryNote historyNote);
 	
 	
 }

@@ -1,8 +1,10 @@
-package com.blogforum.notebook.pojo.entity;
+package com.blogforum.notebook.pojo.vo;
 
 import java.util.Date;
 
-public class HistoryNote extends DataEntity<HistoryNote> {
+import com.blogforum.notebook.pojo.entity.DataEntity;
+
+public class HistoryNoteVO extends DataEntity<HistoryNoteVO> {
 
 	/**
 	 * 
@@ -32,7 +34,7 @@ public class HistoryNote extends DataEntity<HistoryNote> {
 	private String				delFlag;
 
 	/**
-	 * noteBody的扩展参数
+	 * 扩展参数
 	 */
 	private String				extjson;
 
@@ -92,14 +94,14 @@ public class HistoryNote extends DataEntity<HistoryNote> {
 	 */
 	private String				noteBookName;
 
-	public HistoryNote() {
+	public HistoryNoteVO() {
 	}
 
-	public HistoryNote(String userId, String noteBodyId) {
+	public HistoryNoteVO(String userId, String noteBodyId) {
 		init(userId, null, noteBodyId);
 	}
 
-	public HistoryNote(String userId, String id, String noteBodyId) {
+	public HistoryNoteVO(String userId, String id, String noteBodyId) {
 		init(userId, id, noteBodyId);
 	}
 

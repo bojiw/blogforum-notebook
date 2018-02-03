@@ -28,17 +28,20 @@ import com.blogforum.sso.facade.model.UserVO;
 @Controller
 public class IndexController {
 	@Autowired
-	private NoteQueryManager			noteQueryService;
+	private NoteQueryManager	noteQueryService;
+
+
 
 	@RequestMapping("/")
 	public String index(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
 		UserVO user = (UserVO) request.getAttribute("user");
 		//获取第一级笔记本
-		List<NoteBookVO> noteBooks = noteQueryService.queryNoteBook(user,"0");
+		List<NoteBookVO> noteBooks = noteQueryService.queryNoteBook(user, "0");
 		Page<NoteTitleVO> notes = new Page<NoteTitleVO>();
 		//获取笔记本下的前20条笔记标题
 		if (CollectionUtils.isNotEmpty(noteBooks)) {
-			notes = noteQueryService.queryNoteTitle(new Page<NoteTitle>(request,response), user, noteBooks.get(0).getId());
+			notes = noteQueryService.queryNoteTitle(new Page<NoteTitle>(request, response), user,
+								noteBooks.get(0).getId());
 		}
 		map.put("noteBooks", noteBooks);
 		map.put("notes", notes);
@@ -64,6 +67,12 @@ public class IndexController {
 		map.put("noteBookName", noteBookName);
 		map.put("noteId", noteId);
 		return ViewConstant.MARKDOWNNOTE;
+	}
+
+	@RequestMapping("/historynote")
+	public String historyNote(HttpServletRequest request, ModelMap map, String noteBodyId) {
+		map.put("noteBodyId", noteBodyId);
+		return ViewConstant.HISTORY;
 	}
 
 }

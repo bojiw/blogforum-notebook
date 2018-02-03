@@ -1,6 +1,7 @@
 package com.blogforum.notebook.service.note.impl;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +12,14 @@ import com.blogforum.notebook.common.enums.IsDelFlagEnum;
 import com.blogforum.notebook.common.exception.NoteBusinessException;
 import com.blogforum.notebook.common.page.Page;
 import com.blogforum.notebook.dao.mapper.NoteTitleMapper;
+import com.blogforum.notebook.pojo.entity.HistoryNote;
 import com.blogforum.notebook.pojo.entity.NoteBody;
 import com.blogforum.notebook.pojo.entity.NoteTitle;
 import com.blogforum.notebook.pojo.vo.NoteTitleVO;
 import com.blogforum.notebook.pojo.vo.NoteVO;
 import com.blogforum.notebook.service.CrudService;
 import com.blogforum.notebook.service.image.ImageConver;
+import com.blogforum.notebook.service.note.HistoryNoteService;
 import com.blogforum.notebook.service.note.NoteBodyService;
 import com.blogforum.notebook.service.note.NoteTitleService;
 import com.blogforum.sso.facade.model.UserVO;
@@ -29,6 +32,9 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 
 	@Autowired
 	private NoteBodyService	noteBodyService;
+	
+	@Autowired
+	private HistoryNoteService historyNoteService;
 	
 	/**发送图片转文字消息*/
 	@Autowired
@@ -62,9 +68,12 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 	@Override
 	public void updateNote(UserVO user, NoteVO note) {
 		NoteTitle title = new NoteTitle(user.getId(), note.getNoteTitleId(), null);
+		//获取笔记
 		NoteTitle noteTitle = super.getById(title);
 		//效验参数
 		NoteBody noteBody = checkValue(noteTitle, user, note.getNoteTitleId());
+		//保存历史记录
+		addHistory(noteBody,noteTitle);
 		//保存内容
 		updateTitleAndBody(note, noteTitle, noteBody);
 	}
@@ -93,6 +102,23 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 		return noteBody;
 	}
 
+	/**
+	 * 保存历史笔记
+	 * @param noteBody
+	 * @author: wwd
+	 * @time: 2018年2月3日
+	 */
+	private void addHistory(NoteBody noteBody,NoteTitle noteTitle){
+		//如果笔记内容为空则不保存
+		if (StringUtils.isBlank(noteBody.getNoteBody())) {
+			return;
+		}
+		HistoryNote historyNote = historyNoteService.buildHistoryNote(noteBody,noteTitle);
+		historyNoteService.save(historyNote);
+	}
+	
+	
+	
 	/**
 	 * 更新笔记标题内容和笔记内容
 	 * 
