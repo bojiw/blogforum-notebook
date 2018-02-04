@@ -71,6 +71,8 @@
 			<div class="notecontext">
 
 			</div>
+			<hr style="margin:10px;"></hr>
+			
 			<div class="save" style="margin-left:70%;margin-top:2%">
 				<button type="button" id="restoreNote" class="btn btn-info" style="background-color:#89CCD2;border-color:#89CCD2">还原笔记</button>
 			</div>
