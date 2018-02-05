@@ -678,6 +678,11 @@ $(function(){
 	
 	
 	
+	//笔记本滚动条   http://www.jq22.com/jquery-info1425
+	$('#booklist').slimScroll({
+		width: 'auto', //可滚动区域宽度
+		height: '98%', //可滚动区域高度
+	});
 	
 	//笔记滚动条
 	$('#innerDiv').slimScroll({  

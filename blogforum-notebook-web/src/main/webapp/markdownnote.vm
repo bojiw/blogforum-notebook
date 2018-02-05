@@ -46,7 +46,7 @@
 				</div>
 			</div><!--noteTags-->
 		</div><!--noteRightTop-->
-		<div class="noteRightBottom" style="height:90%;width:95%;margin-top:5px" >
+		<div class="noteRightBottom" style="height:90%;width:98%;margin-top:5px" >
 		<input type='file' style='display:none' id='updateimage'>
 		    <div class="editormd" id="editormd">
 		    <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc" id="editormdText"></textarea>
