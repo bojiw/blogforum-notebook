@@ -73,7 +73,7 @@
 									<input type="text" class="form-control" id="noteBookSearch" autocomplete="off" data-provide="typeahead" style="width: 210px;height: 30px;margin-left: 10px;margin-top: 3px"  placeholder="搜索笔记本" / >
 									
 									</div>
-									<div id="booklist" class="tree-view-menu-list font-16 " >
+									<div  class="tree-view-menu-list font-16 " >
 										<hidden id = "selectedBook"/>
 										<li class="openable"><a style="" class="showsetting" href="#" ><span class="noteBookName">所有笔记</span></a></li>
 										<ul class="font-15" id="listbooks" style="width:auto">
