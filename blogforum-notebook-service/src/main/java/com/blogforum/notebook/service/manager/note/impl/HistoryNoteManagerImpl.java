@@ -59,8 +59,8 @@ public class HistoryNoteManagerImpl implements HistoryNoteManager {
 		NoteBody noteBody = noteBodyService.getById(noteBodyContion);
 		NoteTitle noteTitleContion = new NoteTitle(user.getId(), noteTitleId, null);
 		NoteTitle noteTitle = noteTitleService.getById(noteTitleContion);
-		//通过noteBody拼装成历史笔记 保存到历史笔记中
-		HistoryNote buildHistoryNote = historyNoteService.buildHistoryNote(noteBody,noteTitle);
+		//通过noteBody和notetitle拼装成历史笔记 保存到历史笔记中
+		HistoryNote buildHistoryNote = new HistoryNote(noteBody,noteTitle);
 		historyNoteService.save(buildHistoryNote);
 		//再把要还原的历史笔记内容更新到笔记表中
 		buildNoteBody(noteBody, historyNote);

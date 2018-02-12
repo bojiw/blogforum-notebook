@@ -32,12 +32,23 @@ public class SessionClientImpl implements SessionClient {
 			}
 		});
 	}
+	@Override
+	public Boolean userLoginOut(final String token) {
+		return ServiceTemplate.invoke(new BaseInvocation<Boolean>() {
 
+			@Override
+			public Result<Boolean> execute() {
+				return sessionServerFacade.loginOut(token);
+			}
+			
+		});
+		
+	}
 
 	public void setSessionServerFacade(SessionServerFacade sessionServerFacade) {
 		this.sessionServerFacade = sessionServerFacade;
 	}
-	
+
 	
 
 }

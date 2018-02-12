@@ -684,6 +684,7 @@ $(function(){
 		height: '100%', //可滚动区域高度
 	});
 	
+	
 	//笔记滚动条
 	$('#innerDiv').slimScroll({  
 		width: 'auto', //可滚动区域宽度
@@ -807,6 +808,23 @@ $(function(){
 		lis += "</a><ul class='subtree'></ul></li>";
 		return lis;
 	}
+	
+	
+	
+	//退出登录
+	$("#loginout").click(function(){
+		  $.post("/user/loginout",
+				function(data) {
+				if(data.status != "200") {
+				layer.msg(data.msg);
+				} else {
+					location.href=data.data;
+				}
+				
+			});
+		
+		
+	});
 	
 	
 	

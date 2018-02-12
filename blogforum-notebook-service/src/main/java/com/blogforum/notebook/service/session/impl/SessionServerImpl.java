@@ -16,4 +16,10 @@ public class SessionServerImpl implements SessionServer {
 		return sessionClient.getUserByToken(token);
 	}
 
+	@Override
+	public void userLoginOut(String token) {
+		sessionClient.userLoginOut(token);
+	}
+	
+
 }

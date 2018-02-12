@@ -45,6 +45,9 @@ public class IndexController {
 		}
 		map.put("noteBooks", noteBooks);
 		map.put("notes", notes);
+		map.put("username", user.getUsername());
+		map.put("userid", user.getId());
+		map.put("userimage", user.getImage());
 		return ViewConstant.INDEX;
 	}
 

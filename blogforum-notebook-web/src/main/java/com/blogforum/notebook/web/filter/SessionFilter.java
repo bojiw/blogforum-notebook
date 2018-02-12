@@ -78,7 +78,7 @@ public class SessionFilter extends OncePerRequestFilter {
 		builder.append("<title>Insert title here</title>");
 		builder.append("<script>");
 		builder.append("alert('网页过期，请重新登录！');");
-		builder.append("window.location.href='http://");
+		builder.append("window.location.href='");
 		builder.append(loginPage);
 		builder.append("';");
 		builder.append("</script>");

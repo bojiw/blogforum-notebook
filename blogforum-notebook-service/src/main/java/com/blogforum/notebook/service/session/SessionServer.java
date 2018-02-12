@@ -17,5 +17,14 @@ public interface SessionServer {
 	 * @time: 2017年11月4日
 	 */
 	public UserVO getUserByToken (String token);
+	
+	
+	/**
+	 * 用户退出
+	 * @param token
+	 * @author: wwd
+	 * @time: 2018年2月7日
+	 */
+	public void userLoginOut(String token);
 
 }

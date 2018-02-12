@@ -113,7 +113,7 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 		if (StringUtils.isBlank(noteBody.getNoteBody())) {
 			return;
 		}
-		HistoryNote historyNote = historyNoteService.buildHistoryNote(noteBody,noteTitle);
+		HistoryNote historyNote = new HistoryNote(noteBody,noteTitle);
 		historyNoteService.save(historyNote);
 	}
 	

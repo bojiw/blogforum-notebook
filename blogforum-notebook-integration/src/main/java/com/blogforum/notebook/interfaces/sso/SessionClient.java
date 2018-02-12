@@ -22,4 +22,12 @@ public interface SessionClient {
 	 * @time: 2017年11月14日
 	 */
 	public UserVO getUserByToken(String token);
+	
+	/**
+	 * 用户退出登录
+	 * @param token
+	 * @author: wwd
+	 * @time: 2018年2月7日
+	 */
+	public Boolean userLoginOut(String token);
 }

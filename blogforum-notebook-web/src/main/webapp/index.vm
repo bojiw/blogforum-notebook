@@ -47,6 +47,36 @@
 					</ul>
 					<button type="button" class="btn btn-info btn-sm simplenote" data-toggle="tooltip" style="margin-left:2%;margin-top:0.6%">新建普通笔记</button>
 					<button type="button" class="btn btn-info btn-sm markdownnote" data-toggle="tooltip" style="margin-left:1%;margin-top:0.6%">新建markdown笔记</button>
+					<div class="pull-right m-right-sm">
+							<div class="user-block hidden-xs">
+								<a href="#" id="userToggle" data-toggle="dropdown">
+									<img src="$userimage" alt="" class="img-circle inline-block user-profile-pic">
+									<div class="user-detail inline-block">
+										$username
+										<i class="fa fa-angle-down"></i>
+									</div>
+								</a>
+								<div class="panel border dropdown-menu user-panel">
+									<div class="panel-body paddingTB-sm">
+										<ul>
+											<li>
+												<a id="usersetting">
+													<i class="fa fa-edit fa-lg"></i><span class="m-left-xs">个人设置</span>
+												</a>
+											</li>
+											<li>
+												<a id="loginout">
+													<i class="fa fa-power-off fa-lg"></i><span class="m-left-xs">退出</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<ul class="nav-notification" style="margin-left:20px">
+
+							</ul>
+						</div>
 				</div><!--nav-container-->
 			</div><!--top-nav-inner-->
 		</header>

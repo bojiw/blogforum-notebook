@@ -2,6 +2,9 @@ package com.blogforum.notebook.pojo.entity;
 
 import java.util.Date;
 
+import com.blogforum.common.tools.UUIDCreateUtils;
+import com.blogforum.notebook.common.enums.IsDelFlagEnum;
+
 public class HistoryNote extends DataEntity<HistoryNote> {
 
 	/**
@@ -108,6 +111,35 @@ public class HistoryNote extends DataEntity<HistoryNote> {
 		this.id = id;
 		this.noteBodyId = noteBodyId;
 	}
+	
+	public HistoryNote(NoteBody noteBody,NoteTitle noteTitle){
+		build(noteBody, noteTitle);
+	}
+	
+	private void build(NoteBody noteBody,NoteTitle noteTitle){
+
+		this.id = UUIDCreateUtils.getUUID();
+		this.delFlag = IsDelFlagEnum.N.getValue();
+		this.enclosure = noteBody.getEnclosure();
+		this.extjson = noteBody.getExtjson();
+		this.imageContext = noteBody.getImageContext();
+		this.label = noteBody.getLabel();
+		this.mdNoteBody = noteBody.getMdNoteBody();
+		this.noteBody = noteBody.getNoteBody();
+		this.noteBodyId = noteBody.getId();
+		this.noteTitleId = noteBody.getNoteTitleId();
+		this.noteTitleName = noteBody.getNoteTitleName();
+		this.textType = noteBody.getTextType();
+		this.lastDate = noteBody.getUpdateDate();
+		this.userId = noteBody.getUserId();
+		this.noteContext = noteTitle.getNoteContext();
+		this.type = noteTitle.getType();
+		this.noteBookId = noteTitle.getNoteBookId();
+		this.noteTitleName = noteTitle.getNoteTitle();
+		
+	}
+	
+	
 
 	public String getId() {
 		return id;
