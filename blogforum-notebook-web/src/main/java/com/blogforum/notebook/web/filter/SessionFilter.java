@@ -51,6 +51,8 @@ public class SessionFilter extends OncePerRequestFilter {
 			request.setAttribute("user", user);
 		} catch (Exception e) {
 			logger.error("sessionFilter用户登录判断过滤器异常:",e);
+			loginAgain(request, response);
+			return ;
 		}
 		//业务逻辑不包异常
 		filterChain.doFilter(request, response);

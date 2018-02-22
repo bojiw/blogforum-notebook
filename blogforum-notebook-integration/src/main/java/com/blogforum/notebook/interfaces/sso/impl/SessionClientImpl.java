@@ -1,9 +1,9 @@
 package com.blogforum.notebook.interfaces.sso.impl;
 
 import com.blogforum.common.model.Result;
+import com.blogforum.common.tools.rpc.BaseInvocation;
+import com.blogforum.common.tools.rpc.ServiceTemplate;
 import com.blogforum.notebook.interfaces.sso.SessionClient;
-import com.blogforum.notebook.interfaces.utils.BaseInvocation;
-import com.blogforum.notebook.interfaces.utils.ServiceTemplate;
 import com.blogforum.sso.facade.model.UserVO;
 import com.blogforum.sso.facade.session.SessionServerFacade;
 

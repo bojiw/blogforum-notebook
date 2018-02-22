@@ -1,9 +1,9 @@
 package com.blogforum.notebook.interfaces.search.impl;
 
 import com.blogforum.common.model.Result;
+import com.blogforum.common.tools.rpc.BaseInvocation;
+import com.blogforum.common.tools.rpc.ServiceTemplate;
 import com.blogforum.notebook.interfaces.search.SolrServiceFacadeClient;
-import com.blogforum.notebook.interfaces.utils.BaseInvocation;
-import com.blogforum.notebook.interfaces.utils.ServiceTemplate;
 import com.blogforum.search.facade.model.RequestQuerySearch;
 import com.blogforum.search.facade.model.SearchPage;
 import com.blogforum.search.facade.service.SolrServiceFacade;

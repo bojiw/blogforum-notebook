@@ -827,6 +827,20 @@ $(function(){
 	});
 	
 	
+	//个人设置
+	$("#usersetting").click(function(){
+		
+		layer.open({
+			  type: 2,
+			  title: '',
+			  shadeClose: true,
+			  shade: 0.8,
+			  area: ['1200px', '650px'],
+			  content: $("#usersetting").attr("value") + "/setting.html"
+		}); 
+	});
+	
+	
 	
 	//添加笔记本
 	$('#addnotebook').click(function(){

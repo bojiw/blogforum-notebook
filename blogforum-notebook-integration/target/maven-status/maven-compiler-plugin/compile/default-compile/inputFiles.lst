@@ -1,9 +1,6 @@
 E:\BlogForum\blogforum-notebook\blogforum-notebook-integration\src\main\java\com\blogforum\notebook\interfaces\search\impl\SolrServiceFacadeClientImpl.java
 E:\BlogForum\blogforum-notebook\blogforum-notebook-integration\src\main\java\com\blogforum\notebook\interfaces\sso\SessionClient.java
-E:\BlogForum\blogforum-notebook\blogforum-notebook-integration\src\main\java\com\blogforum\notebook\interfaces\utils\ServiceTemplate.java
 E:\BlogForum\blogforum-notebook\blogforum-notebook-integration\src\main\java\com\blogforum\notebook\interfaces\sso\impl\SessionClientImpl.java
-E:\BlogForum\blogforum-notebook\blogforum-notebook-integration\src\main\java\com\blogforum\notebook\interfaces\utils\BaseInvocation.java
-E:\BlogForum\blogforum-notebook\blogforum-notebook-integration\src\main\java\com\blogforum\notebook\interfaces\utils\InvocationSupport.java
 E:\BlogForum\blogforum-notebook\blogforum-notebook-integration\src\main\java\com\blogforum\notebook\interfaces\sso\impl\UserClientImpl.java
 E:\BlogForum\blogforum-notebook\blogforum-notebook-integration\src\main\java\com\blogforum\notebook\interfaces\search\SolrServiceFacadeClient.java
 E:\BlogForum\blogforum-notebook\blogforum-notebook-integration\src\main\java\com\blogforum\notebook\interfaces\sso\UserClient.java

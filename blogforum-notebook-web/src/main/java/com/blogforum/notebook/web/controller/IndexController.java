@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,10 @@ public class IndexController {
 	@Autowired
 	private NoteQueryManager	noteQueryService;
 
+	
+	/**sso地址*/
+	@Value("${sso.url}")
+	private String	ssoUrl;
 
 
 	@RequestMapping("/")
@@ -48,6 +53,7 @@ public class IndexController {
 		map.put("username", user.getUsername());
 		map.put("userid", user.getId());
 		map.put("userimage", user.getImage());
+		map.put("ssourl", ssoUrl);
 		return ViewConstant.INDEX;
 	}
 
