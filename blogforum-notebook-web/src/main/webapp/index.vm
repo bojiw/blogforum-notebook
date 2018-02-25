@@ -65,6 +65,11 @@
 												</a>
 											</li>
 											<li>
+												<a id="modifypassword" value="$ssourl">
+													<i class="fa fa-edit fa-lg"></i><span class="m-left-xs">修改密码</span>
+												</a>
+											</li>
+											<li>
 												<a id="loginout">
 													<i class="fa fa-power-off fa-lg"></i><span class="m-left-xs">退出</span>
 												</a>

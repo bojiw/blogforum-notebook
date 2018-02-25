@@ -841,6 +841,20 @@ $(function(){
 	});
 	
 	
+	//修改密码
+	$("#modifypassword").click(function(){
+		
+		layer.open({
+			  type: 2,
+			  title: '',
+			  shadeClose: true,
+			  shade: 0.8,
+			  area: ['600px', '450px'],
+			  content: $("#modifypassword").attr("value") + "/modifypassword.html"
+		}); 
+	});
+	
+	
 	
 	//添加笔记本
 	$('#addnotebook').click(function(){
