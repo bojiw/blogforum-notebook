@@ -64,6 +64,7 @@ public class InitNoteHandlerImpl implements Handler {
 		noteBook.setParentId("0");
 		noteBook.setName("默认笔记");
 		noteBook.setHaveNode(false);
+		noteBook.setDelFlag(IsDelFlagEnum.N.getValue());
 		noteBookService.save(noteBook);
 		return id;
 	}

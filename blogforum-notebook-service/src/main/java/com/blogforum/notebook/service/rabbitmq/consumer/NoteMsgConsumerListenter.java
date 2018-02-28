@@ -44,7 +44,7 @@ public class NoteMsgConsumerListenter implements ChannelAwareMessageListener  {
 			}
 			Handler handler = msgHandler.get(beanName);
 			if (logger.isInfoEnabled()) {
-				logger.info("开始处理消息:" + handler.getClass().getName() + ",消息内容:" + message.toString());
+				logger.info("开始处理消息:{0},消息内容:消息体:{1},消息框:{2}",beanName ,messageinfo ,message.toString());
 			}
 			handler.doHandler(message,messageinfo);
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
