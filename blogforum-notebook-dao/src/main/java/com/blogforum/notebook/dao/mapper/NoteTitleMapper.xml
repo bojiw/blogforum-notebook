@@ -117,5 +117,32 @@
 	</select>
 	
 	
+	<select id="countNote" parameterType="java.lang.String" resultType="java.lang.Integer">
+	    
+	    select
+	    	count(1) 
+	    FROM 
+	    	note_title
+	    <if test="_parameter != null and _parameter != ''">
+	    where
+	    	del_flag = #{delFlag}
+	    </if>
+	</select>
+	
+	<select id="countDateInNote" parameterType="com.blogforum.notebook.pojo.vo.NoteDateIn" resultType="java.lang.Integer">
+	    select
+	    	count(1) 
+	    FROM 
+	    	note_title
+	    where
+			del_flag = #{delFlag} 
+			<if test="startDate != null">
+			    AND create_date <![CDATA[>=]]> #{startDate}
+			</if>
+ 			<if test="endDate != null">
+ 			    AND create_date <![CDATA[<=]]>#{endDate}
+ 			</if>
+	</select>
+	
 
 </mapper>

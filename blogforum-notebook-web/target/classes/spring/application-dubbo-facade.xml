@@ -10,7 +10,13 @@
     <!-- 声明需要暴露的服务接口 -->
     <!-- 接收图片文字信息 -->
     <dubbo:service interface="com.blogforum.notebook.facade.note.NoteBodyServerFacade"  
-        ref="noteBodyServerFacade" retries="0" timeout="3000" />  
+        ref="noteBodyServerFacade" retries="3" timeout="3000" />  
     
     <bean id="noteBodyServerFacade" class="com.blogforum.notebook.service.facade.note.impl.NoteBodyServerFacadeImpl"></bean>
+
+    
+    <dubbo:service interface="com.blogforum.notebook.facade.note.NoteServerFacade"
+        ref="noteServerFacade" retries="3" timeout="3000"/>
+	<bean id="noteServerFacade" class="com.blogforum.notebook.service.facade.note.impl.NoteServerFacadeImpl"></bean>
+
 </beans>

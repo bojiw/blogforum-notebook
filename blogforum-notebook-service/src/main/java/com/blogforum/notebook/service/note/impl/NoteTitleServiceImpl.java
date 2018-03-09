@@ -15,6 +15,7 @@ import com.blogforum.notebook.dao.mapper.NoteTitleMapper;
 import com.blogforum.notebook.pojo.entity.HistoryNote;
 import com.blogforum.notebook.pojo.entity.NoteBody;
 import com.blogforum.notebook.pojo.entity.NoteTitle;
+import com.blogforum.notebook.pojo.vo.NoteDateIn;
 import com.blogforum.notebook.pojo.vo.NoteTitleVO;
 import com.blogforum.notebook.pojo.vo.NoteVO;
 import com.blogforum.notebook.service.CrudService;
@@ -157,6 +158,18 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 			
 		}
 		return noteTitle;
+	}
+
+	@Override
+	public Integer countNote(String delFlag) {
+		Integer count = noteTitleMapper.countNote(delFlag);
+		return count;
+	}
+
+	@Override
+	public Integer countDateInNote(NoteDateIn noteDateIn) {
+		Integer count = noteTitleMapper.countDateInNote(noteDateIn);
+		return count;
 	}
 
 }

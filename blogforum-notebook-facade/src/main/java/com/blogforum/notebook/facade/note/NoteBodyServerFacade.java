@@ -3,6 +3,11 @@ package com.blogforum.notebook.facade.note;
 import com.blogforum.common.model.Result;
 import com.blogforum.notebook.facade.model.ImageContextVO;
 
+/**
+ * 笔记内容服务
+ * @author wwd
+ *
+ */
 public interface NoteBodyServerFacade {
 
 	
