@@ -18,4 +18,5 @@
         <property name="ssoUrl" value="${sso.url}"></property>
     </bean>
     
+    
 </beans>

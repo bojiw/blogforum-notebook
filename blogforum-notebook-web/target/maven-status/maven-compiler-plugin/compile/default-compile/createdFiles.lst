@@ -1,9 +1,11 @@
-com\blogforum\notebook\web\controller\QiNiuYunController.class
-com\blogforum\notebook\web\filter\SessionFilter.class
 com\blogforum\notebook\web\constant\ViewConstant.class
 com\blogforum\notebook\web\controller\NoteBookController.class
 com\blogforum\notebook\web\controller\HistoryController.class
 com\blogforum\notebook\web\constant\CommonConstant.class
-com\blogforum\notebook\web\controller\IndexController.class
 com\blogforum\notebook\web\controller\NoteController.class
+com\blogforum\notebook\web\aspect\DaoTimeLog.class
 com\blogforum\notebook\web\controller\UserController.class
+com\blogforum\notebook\web\controller\QiNiuYunController.class
+com\blogforum\notebook\web\filter\SessionFilter.class
+com\blogforum\notebook\web\controller\IndexController.class
+com\blogforum\notebook\web\aspect\ControllerTimeLog.class
