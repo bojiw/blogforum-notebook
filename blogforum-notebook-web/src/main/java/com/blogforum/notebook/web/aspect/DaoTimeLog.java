@@ -8,7 +8,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSON;
 import com.blogforum.common.tools.LoggerUtil;
 
 /**
@@ -30,9 +29,13 @@ public class DaoTimeLog {
 	 */
 	@Before("log()")
 	public void doBefore(JoinPoint point) {
-		LoggerUtil.info(LOGGER, "开始查询数据库目标方法为:{0}.{1},入参为{2}",
-							point.getSignature().getDeclaringTypeName(), point.getSignature().getName(),
-							JSON.toJSONString(point.getArgs()));
+		
+//		LoggerUtil.info(LOGGER, "开始查询数据库目标方法为:{0}.{1},入参为{2}",
+//							point.getSignature().getDeclaringTypeName(), point.getSignature().getName(),
+//							JSON.toJSONString(point.getArgs()));
+		LoggerUtil.info(LOGGER, "开始查询数据库目标方法为:{0}.{1}",
+							point.getSignature().getDeclaringTypeName(), point.getSignature().getName());
+		
 	}
 
 	/**
@@ -40,7 +43,7 @@ public class DaoTimeLog {
 	 */
 	@AfterReturning(returning = "object", pointcut = "log()")
 	public void doAfterReturning(Object object) {
-		LoggerUtil.info(LOGGER, "返回参数为：{0}", JSON.toJSONString(object));
+		LoggerUtil.info(LOGGER, "调用数据库成功返回结果");
 	}
 
 }

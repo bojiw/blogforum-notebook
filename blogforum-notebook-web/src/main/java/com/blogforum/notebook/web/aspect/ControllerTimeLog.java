@@ -40,7 +40,8 @@ public class ControllerTimeLog {
 		//获取真实ip
 		String ip = IpUtils.getIp(request);
 		LoggerUtil.info(LOGGER, "请求ip地址为：{0}",ip);
-		LoggerUtil.info(LOGGER, "入参为：{0}",JSON.toJSONString(request.getParameterMap()));
+		//LoggerUtil.info(LOGGER, "入参为：{0}",JSON.toJSONString(request.getParameterMap()));
+		LoggerUtil.info(LOGGER, "请求路径为：{0}",request.getPathInfo());
 	}
 	
 
@@ -49,7 +50,8 @@ public class ControllerTimeLog {
 	 */
 	@AfterReturning(returning = "object",pointcut = "log()")
 	public void doAfterReturning(Object object){
-		LoggerUtil.info(LOGGER, "返回参数为：{0}",JSON.toJSONString(object));
+		//LoggerUtil.info(LOGGER, "返回参数为：{0}",JSON.toJSONString(object));
+		LoggerUtil.info(LOGGER, "调用成功",JSON.toJSONString(object));
 	}
 	
 
