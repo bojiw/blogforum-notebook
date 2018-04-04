@@ -74,7 +74,7 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 		//效验参数
 		NoteBody noteBody = checkValue(noteTitle, user, note.getNoteTitleId());
 		//保存历史记录
-		addHistory(noteBody,noteTitle);
+		addHistory(noteBody,noteTitle,note);
 		//保存内容
 		updateTitleAndBody(note, noteTitle, noteBody);
 	}
@@ -109,9 +109,13 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 	 * @author: wwd
 	 * @time: 2018年2月3日
 	 */
-	private void addHistory(NoteBody noteBody,NoteTitle noteTitle){
+	private void addHistory(NoteBody noteBody,NoteTitle noteTitle,NoteVO note){
 		//如果笔记内容为空则不保存
 		if (StringUtils.isBlank(noteBody.getNoteBody())) {
+			return;
+		}
+		//如果最新的和上一笔笔记内容一样则不保存
+		if (StringUtils.equals(noteBody.getNoteBody(), note.getNoteBody())) {
 			return;
 		}
 		HistoryNote historyNote = new HistoryNote(noteBody,noteTitle);
