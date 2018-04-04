@@ -29,6 +29,9 @@
         </property>
     </bean>
     
+    <!-- 异常捕捉拦截器 -->
+    <bean id="myCustomExceptionResolver" class="com.blogforum.notebook.web.exception.MyCustomExceptionResolver"></bean>
+    
     
     
     <!--配置附加工具，以及将后缀为vm的文件交给下面的Resolver处理-->
