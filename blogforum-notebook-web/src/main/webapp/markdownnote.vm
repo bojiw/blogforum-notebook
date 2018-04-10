@@ -28,11 +28,7 @@
 			</div><!--noteTitleTools-->
 			<div class="noteTags" >
 				<div style="float:left;width:70%;height:50%;margin:2px">
-					#if($noteBookName)
-						<input type="text" class="noteRightTitileText" name="tags" id="tags" value=$noteBookName />
-					#else
-						<input type="text" class="noteRightTitileText" name="tags" id="tags"  />
-					#end
+					<input type="text" class="noteRightTitileText" name="tags" id="tags"  />
 				</div>
 				<div class="posirelative select-out-div" style="width:80px;margin-top:10px">
 					<select id="textType" class="m-wrap" style="margin-left:20px">
