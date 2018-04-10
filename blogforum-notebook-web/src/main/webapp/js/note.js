@@ -1,5 +1,6 @@
 $(function(){
 
+	console.info("note.js");
 	var noteId;
 	var noteBodyId;
 	//标签

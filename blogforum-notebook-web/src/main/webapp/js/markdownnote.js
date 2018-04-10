@@ -1,6 +1,7 @@
 
 $(function() {
 	
+		console.info("markdownnote.js");
 		var noteId ;
 		var noteBodyId;
 	

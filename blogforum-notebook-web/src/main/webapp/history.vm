@@ -86,6 +86,7 @@
 	
 <script type="text/javascript"> 
 	$(function() {
+		 console.info("history.vm");
 		 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 		 var noteBodyId = $("#noteBodyId").attr("value");
 		 if(noteBodyId == null || noteBodyId== ""){
