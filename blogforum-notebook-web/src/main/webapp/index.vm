@@ -45,8 +45,8 @@
 							</div>
 						</li>
 					</ul>
-					<button type="button" class="btn btn-info btn-sm simplenote" data-toggle="tooltip" style="margin-left:2%;margin-top:0.6%">新建普通笔记</button>
-					<button type="button" class="btn btn-info btn-sm markdownnote" data-toggle="tooltip" style="margin-left:1%;margin-top:0.6%">新建markdown笔记</button>
+					<button type="button" class="btn btn-info btn-sm simplenote note-btn" data-toggle="tooltip" style="margin-left:2%;margin-top:0.6%">新建普通笔记</button>
+					<button type="button" class="btn btn-info btn-sm markdownnote note-btn" data-toggle="tooltip" style="margin-left:1%;margin-top:0.6%">新建markdown笔记</button>
 					<div class="pull-right m-right-sm">
 							<div class="user-block hidden-xs">
 								<a href="#" id="userToggle" data-toggle="dropdown">

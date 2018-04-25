@@ -575,9 +575,9 @@ $(function(){
 		lis += dateToString(new Date(item.updateDate));
 		lis += "</p><p class='desc'>";
 		if(item.noteContext != null){
-			if(item.noteContext.length > 80){
+			if(item.noteContext.length > 60){
 				//对html字符转义 防止显示问题
-				lis += item.noteContext.substring(0,80).replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
+				lis += item.noteContext.substring(0,60).replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
 				lis += "...";
 			}else{
 				lis += item.noteContext.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});

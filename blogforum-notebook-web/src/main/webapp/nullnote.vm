@@ -20,7 +20,7 @@
 	$(".simplenote1").click(function(){
 		//获取当前选中的笔记本id和name
 		var selectedBookId = $("#selectedBook").attr("value");
-		if(selectedBookId == null){
+		if(!selectedBookId){
 			layer.msg("没有选中笔记本   无法创建笔记");
 			return;
 		}
@@ -46,7 +46,7 @@
 	});
 	$(".markdownnote1").click(function(){
 		var selectedBookId = $("#selectedBook").attr("value");
-		if(selectedBookId == null){
+		if(!selectedBookId){
 			layer.msg("没有选中笔记本   无法创建笔记");
 			return;
 		}

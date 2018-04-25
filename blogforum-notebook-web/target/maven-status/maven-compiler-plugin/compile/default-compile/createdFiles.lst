@@ -8,4 +8,5 @@ com\blogforum\notebook\web\controller\UserController.class
 com\blogforum\notebook\web\controller\QiNiuYunController.class
 com\blogforum\notebook\web\filter\SessionFilter.class
 com\blogforum\notebook\web\controller\IndexController.class
+com\blogforum\notebook\web\exception\MyCustomExceptionResolver.class
 com\blogforum\notebook\web\aspect\ControllerTimeLog.class

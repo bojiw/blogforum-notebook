@@ -28,7 +28,20 @@
 	cursor:pointer;
 }
 
+.tag{
+	background: #c5e7ff!important;
+	border: 1px solid #c5e7ff!important;
+    color: #2d2d2d!important;
+}
 
+.tag a{
+    color: #74b0b1!important;
+}
+
+.note-btn{
+	background: #37485e!important;
+	border: 1px solid #5fa29f!important;
+}
 
 .ibox-title {
     height: 41px;
@@ -252,7 +265,9 @@ select.m-wrap {
 
 
 .desc{
-	width:98%
+	width:98%;
+	margin-top: 3px;
+	letter-spacing:1px;
 }
 
 
@@ -407,8 +422,8 @@ ul {
 }
 .label-danger,
 .badge-danger {
-  background-color: #e36159;
-  color: #fff;
+  background-color: #e2e2e2;
+  color: #171616;
 }
 .label-warning,
 .badge-warning {
