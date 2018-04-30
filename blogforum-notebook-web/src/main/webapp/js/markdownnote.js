@@ -59,6 +59,8 @@ $(function() {
 							var noteBody = data.data;
 							if(noteBody.label != null){
 								var tags = noteBody.label.split(",,;");
+								tag.removeTag();
+								console.info(noteBody.label);
 								$.each(tags, function(i,item){ 
 									tag.addTag(item);
 								});
