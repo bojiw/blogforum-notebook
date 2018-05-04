@@ -140,7 +140,7 @@
 				<div class="noteInfoList" style="float:left;width:278px;height:100%">
 					<div class="smart-widget">
 						<div class="ibox-title">
-							<span class="badge badge-danger pull-right">10</span>
+							<!--<span class="badge badge-danger pull-right">10</span>-->
 							最新笔记
 						</div>
 					</div>

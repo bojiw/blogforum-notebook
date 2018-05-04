@@ -568,6 +568,7 @@ $(function(){
 			lis += item.noteTitle;
 		}
 		lis += "</p><p class='item-info'><i class='fa fa-book'></i><span class='note-notebook'> ";
+		
 		if(item.noteBookName != null){
 			lis += item.noteBookName;
 		}
