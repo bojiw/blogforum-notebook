@@ -54,7 +54,7 @@ public class NoteMsgConsumerListenter implements ChannelAwareMessageListener  {
 		} catch (MsgDiscardException discardException){
 			//可丢弃异常 直接ack确认 如重复消息
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			//打印消息处理失败日志
 			logger.error("消息处理失败:" + message.toString(),e);
 			//丢到死信队列 TODO 后期加入redis计数器 达到指定次数以后再丢到死信队列
