@@ -9,11 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
 
+import com.blogforum.common.exception.MsgDiscardException;
 import com.blogforum.notebook.common.enums.MsgExchangeNameEnum;
 import com.rabbitmq.client.Channel;
 
 /**
- * 接收sso系统消息处理类
+ * 接收系统消息监听类
  * @author wwd
  *
  */
@@ -50,10 +51,14 @@ public class NoteMsgConsumerListenter implements ChannelAwareMessageListener  {
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 			//channel.basicNack(message.getMessageProperties().getDeliveryTag(), false,false);
 			//channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);
-		} catch (Exception e) {
-			//TODO因为还没找到rabbitmq无限重试的处理方案 所以暂时采用打印日志处理
-			logger.error("消息处理失败:" + message.toString(),e);
+		} catch (MsgDiscardException discardException){
+			//可丢弃异常 直接ack确认 如重复消息
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+		}catch (Exception e) {
+			//打印消息处理失败日志
+			logger.error("消息处理失败:" + message.toString(),e);
+			//丢到死信队列 TODO 后期加入redis计数器 达到指定次数以后再丢到死信队列
+			channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
 		}
 
 	}

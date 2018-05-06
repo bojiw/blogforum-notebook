@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
@@ -36,6 +37,8 @@ public class SendMqMessageImpl implements SendMqMessage {
 		//回调id
 		CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
 		MessageProperties messageProperties = new MessageProperties();
+		//设置消息持久化
+		messageProperties.setDeliveryMode(MessageDeliveryMode.PERSISTENT);
 		messageProperties.setMessageId(UUID.randomUUID().toString());
 		Message message = new Message(body.getBytes(), messageProperties);
 		if (LOGGER.isInfoEnabled()) {

@@ -24,11 +24,28 @@
     	 exclusive: 仅创建者可以使用的私有队列，断开后自动删除
     	 auto_delete: 当所有消费客户端连接断开后，是否自动删除队列
       -->
-	<rabbit:queue id="note_init_user_queue" name="note_init_user_queue" durable="true" auto-delete="false" exclusive="false" />
+    <!-- 消费队列 -->
 	
+	<!-- 绑定sso的初始化用户交换机 -->
 
-	<rabbit:queue id="docking_image_conver_string" name="docking_image_conver_string" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue id="note_init_user_queue" name="note_init_user_queue" durable="true"  auto-delete="false" exclusive="false" />
+	<rabbit:fanout-exchange  name="sso_fanout_init_user" durable="true" auto-delete="false">
+	    <rabbit:bindings>
+	        <rabbit:binding queue="note_init_user_queue"></rabbit:binding>
+	    </rabbit:bindings>
+	</rabbit:fanout-exchange>
+
 	
+	<!-- 发送队列 -->
+
+	<!-- 图片转文字 -->
+	<rabbit:queue id="docking_image_conver_string" name="docking_image_conver_string" durable="true" auto-delete="false" exclusive="false" >
+		<rabbit:queue-arguments>
+		    <!-- 设置死信交换机和队列 -->
+	        <entry key="x-dead-letter-exchange" value="direct_image_conver_string_docking_DLX" />  
+	        <entry key="x-dead-letter-routing-key" value="docking_image_conver_string_DLX" />  
+		</rabbit:queue-arguments>
+	</rabbit:queue>
 	<!-- 绑定docking交换机转换图片交换机 -->
 	<rabbit:direct-exchange  name="direct_image_conver_string_docking" durable="true" auto-delete="false">
 	    <rabbit:bindings>
@@ -36,12 +53,17 @@
 	    </rabbit:bindings>
 	</rabbit:direct-exchange>
 	
-	<!-- 绑定sso的初始化用户交换机 -->
-	<rabbit:fanout-exchange  name="sso_fanout_init_user" durable="true" auto-delete="false">
-	    <rabbit:bindings>
-	        <rabbit:binding queue="note_init_user_queue"></rabbit:binding>
-	    </rabbit:bindings>
-	</rabbit:fanout-exchange>
+	
+	
+	<!-- 死信交换机和队列 -->
+	<!-- 图片转文字 -->
+	<rabbit:queue name="docking_image_conver_string_DLX" />  
+	<rabbit:direct-exchange name="direct_image_conver_string_docking_DLX"  
+	    durable="false" auto-delete="false" >  
+	    <rabbit:bindings>  
+	        <rabbit:binding queue="docking_image_conver_string_DLX" />  
+	    </rabbit:bindings>  
+	</rabbit:direct-exchange>  
 	
 	<!-- 监听配置
 		 queues：监听的队列，多个的话用逗号（,）分隔 
@@ -63,4 +85,8 @@
 	
 	<bean id="initNoteHandler" class="com.blogforum.notebook.service.rabbitmq.consumer.impl.InitNoteHandlerImpl"></bean>
 	
+	
+	
+	
+
 </beans>
