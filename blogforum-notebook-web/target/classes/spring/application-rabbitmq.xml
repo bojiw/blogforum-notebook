@@ -56,10 +56,18 @@
 	
 	
 	<!-- 死信交换机和队列 -->
-	<!-- 图片转文字 -->
+	<!-- 图片转文字 
 	<rabbit:queue id="docking_image_conver_string_DLX" name="docking_image_conver_string_DLX" durable="true" auto-delete="false" exclusive="false"/>  
 	<rabbit:direct-exchange name="direct_image_conver_string_docking_DLX"  
 	    durable="true" auto-delete="false" >  
+	    <rabbit:bindings>  
+	        <rabbit:binding queue="docking_image_conver_string_DLX" />  
+	    </rabbit:bindings>  
+	</rabbit:direct-exchange>  
+	-->
+	<rabbit:queue name="docking_image_conver_string_DLX" />  
+	<rabbit:direct-exchange name="direct_image_conver_string_docking_DLX"  
+	    durable="false" auto-delete="false" >  
 	    <rabbit:bindings>  
 	        <rabbit:binding queue="docking_image_conver_string_DLX" />  
 	    </rabbit:bindings>  
