@@ -39,7 +39,20 @@ public class ControllerTimeLog {
 		HttpServletRequest request = attributes.getRequest();
 		//获取真实ip
 		String ip = IpUtils.getIp(request);
+		String ip1 = request.getHeader("x-forwarded-for");
+		String ip2 = request.getHeader("Proxy-Client-IP");
+		String ip3 = request.getHeader("WL-Proxy-Client-IP");
+		String ip4 = request.getRemoteAddr();
+		String ip5 = request.getHeader("X-Forwarded-For");
+        String ip6 = request.getHeader("X-Real-IP");
+		
 		LoggerUtil.info(LOGGER, "请求ip地址为：{0}",ip);
+		LoggerUtil.info(LOGGER, "请求ip1地址为：{0}",ip1);
+		LoggerUtil.info(LOGGER, "请求ip2地址为：{0}",ip2);
+		LoggerUtil.info(LOGGER, "请求ip3地址为：{0}",ip3);
+		LoggerUtil.info(LOGGER, "请求ip4地址为：{0}",ip4);
+		LoggerUtil.info(LOGGER, "请求ip5地址为：{0}",ip5);
+		LoggerUtil.info(LOGGER, "请求ip6地址为：{0}",ip6);
 		//LoggerUtil.info(LOGGER, "入参为：{0}",JSON.toJSONString(request.getParameterMap()));
 		LoggerUtil.info(LOGGER, "请求路径为：{0}",request.getPathInfo());
 	}
