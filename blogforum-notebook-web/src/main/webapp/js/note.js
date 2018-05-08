@@ -124,7 +124,7 @@ $(function(){
     //绑定粘贴事件图片上传七牛云
 	document.getElementById("editor").addEventListener('paste', function(event){
 		var event = event || window.event;
-		var text = paste(event);
+		//var text = paste(event);
 	});
     //粘贴图片上传七牛云
 	function paste(event) {
