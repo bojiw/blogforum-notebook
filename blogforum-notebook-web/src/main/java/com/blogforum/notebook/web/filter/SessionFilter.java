@@ -12,8 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.LoggerUtil;
+import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.notebook.service.session.SessionServer;
 import com.blogforum.sso.facade.model.UserVO;
 
@@ -82,7 +84,7 @@ public class SessionFilter extends OncePerRequestFilter {
 		PrintWriter out;
 		try {
 			out = response.getWriter();
-			out.print("{'status':'600','msg':'登录已过期，请重新登录'}");
+			out.print(blogforumResult.build(BizErrorEnum.NO_LOGIN, "登录已过期，请重新登录"));
 		} catch (IOException e) {
 			LoggerUtil.error(logger, e, "跳转登录页面异常");
 		}
