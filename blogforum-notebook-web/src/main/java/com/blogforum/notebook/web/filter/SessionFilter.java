@@ -89,8 +89,7 @@ public class SessionFilter extends OncePerRequestFilter {
 		    JSONObject res = new JSONObject();  
 		    res.put("status","702");  
 		    res.put("msg","登录已过期，请重新登录");  
-		    out = response.getWriter();  
-		    out.append(res.toString());  
+			out.print(res);
 		} catch (IOException e) {
 			LoggerUtil.error(logger, e, "跳转登录页面异常");
 		}
