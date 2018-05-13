@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.blogforum.common.tools.CookieUtils;
+import com.blogforum.common.tools.LoggerUtil;
 import com.blogforum.notebook.service.session.SessionServer;
 import com.blogforum.sso.facade.model.UserVO;
 
@@ -41,7 +42,16 @@ public class SessionFilter extends OncePerRequestFilter {
 			UserVO user = sessionServer.getUserByToken(token);
 			//如果用户为空代表没有登录返回跳转页面
 			if (user == null) {
-				loginAgain(request, response);
+				// 判断是否ajax请求
+				if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request
+									.getHeader("X-Requested-With") != null && request.getHeader(
+														"X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
+					//页面请求返回跳转提示
+					loginAgain(request, response);
+				}else {
+					ajaxLoginAgain(response);
+				}
+				
 				return ;
 			}
 			if (logger.isInfoEnabled()) {
@@ -57,6 +67,24 @@ public class SessionFilter extends OncePerRequestFilter {
 		//业务逻辑不包异常
 		filterChain.doFilter(request, response);
 		
+	}
+	
+	/**
+	 * 返回登录页面地址 前端直接跳转
+	 * 
+	 * @author: wwd
+	 * @time: 2018年2月24日
+	 */
+	private void ajaxLoginAgain(HttpServletResponse response){
+		//ajax请求返回登录地址
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.print("{'status':'600','msg':'登录已失效，请重新登录'}");
+		} catch (IOException e) {
+			LoggerUtil.error(logger, e, "跳转登录页面异常");
+		}
 	}
 	
 	/**
