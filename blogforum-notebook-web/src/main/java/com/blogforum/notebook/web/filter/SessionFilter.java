@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.LoggerUtil;
@@ -85,9 +86,11 @@ public class SessionFilter extends OncePerRequestFilter {
 		PrintWriter out;
 		try {
 			out = response.getWriter();
-			blogforumResult blogforum = blogforumResult.build(BizErrorEnum.NO_LOGIN, "登录已过期，请重新登录");
-			Object json = JSON.toJSON(blogforum);
-			out.print(json.toString());
+		    JSONObject res = new JSONObject();  
+		    res.put("status","702");  
+		    res.put("msg","登录已过期，请重新登录");  
+		    out = response.getWriter();  
+		    out.append(res.toString());  
 		} catch (IOException e) {
 			LoggerUtil.error(logger, e, "跳转登录页面异常");
 		}
