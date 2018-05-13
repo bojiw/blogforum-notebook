@@ -76,12 +76,13 @@ public class SessionFilter extends OncePerRequestFilter {
 	 * @time: 2018年2月24日
 	 */
 	private void ajaxLoginAgain(HttpServletResponse response){
-		//ajax请求返回登录地址
+		//ajax返回提示
+		response.setHeader("Content-type", "text/html;charset=UTF-8");  
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out;
 		try {
 			out = response.getWriter();
-			out.print("{'status':'600','msg':'登录已失效，请重新登录'}");
+			out.print("{'status':'600','msg':'登录已过期，请重新登录'}");
 		} catch (IOException e) {
 			LoggerUtil.error(logger, e, "跳转登录页面异常");
 		}
