@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.notebook.pojo.vo.NoteBookVO;
+import com.blogforum.notebook.service.manager.note.NoteBookManager;
 import com.blogforum.notebook.service.note.NoteBookService;
 import com.blogforum.notebook.service.note.NoteQueryManager;
 import com.blogforum.sso.facade.model.UserVO;
@@ -26,6 +27,9 @@ public class NoteBookController {
 
 	@Autowired
 	private NoteQueryManager			noteQueryManager;
+	
+	@Autowired
+	private NoteBookManager				noteBookManager;
 
 	@RequestMapping("/getNoteBook/{parentId}")
 	@ResponseBody
@@ -57,8 +61,7 @@ public class NoteBookController {
 	@ResponseBody
 	public blogforumResult updateNoteBooks(String id, String name, HttpServletRequest request) {
 		UserVO user = (UserVO) request.getAttribute("user");
-		NoteBookVO noteBookVO = noteBookService.updateBook(id, user, name);
-		return blogforumResult.ok(noteBookVO);
+		return noteBookManager.updateNoteBook(id, user, name);
 	}
 
 	@RequestMapping(value = "/deleteNoteBook", method = RequestMethod.POST)

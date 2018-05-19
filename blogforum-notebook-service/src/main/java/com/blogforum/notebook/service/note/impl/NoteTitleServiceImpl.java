@@ -176,4 +176,11 @@ public class NoteTitleServiceImpl extends CrudService<NoteTitle> implements Note
 		return count;
 	}
 
+	@Override
+	public Integer updateBookName(String noteBookId,String userId,String noteBookName) {
+		NoteTitle noteTitle = new NoteTitle(userId, noteBookId);
+		noteTitle.setNoteBookName(noteBookName);
+		return noteTitleMapper.updateBookName(noteTitle);
+	}
+
 }

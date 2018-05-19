@@ -29,6 +29,17 @@ public interface NoteTitleService extends BaseService<NoteTitle> {
 	 * @time: 2017年12月2日
 	 */
 	NoteTitleVO addNote(UserVO user, NoteTitle noteTitle);
+	
+	/**
+	 * 更新笔记本名
+	 * @param noteTitle
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年5月19日
+	 */
+	Integer updateBookName(String noteBookId,String userId,String noteBookName);
+	
+	
 
 	
 	/**

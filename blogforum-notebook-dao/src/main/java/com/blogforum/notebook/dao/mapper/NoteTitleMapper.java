@@ -32,5 +32,14 @@ public interface NoteTitleMapper extends CrudMapper<NoteTitle> {
 	 * @time: 2018年3月3日
 	 */
 	Integer countDateInNote(NoteDateIn noteDateIn);
+	
+	/**
+	 * 更新笔记本名
+	 * @param noteTitle
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年5月19日
+	 */
+	Integer updateBookName(NoteTitle noteTitle);
 
 }

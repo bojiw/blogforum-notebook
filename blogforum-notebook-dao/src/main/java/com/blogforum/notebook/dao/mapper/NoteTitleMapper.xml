@@ -79,6 +79,20 @@
 	    
 	</update>
 	
+	<!-- 修改笔记本名 -->
+	<update id="updateBookName" parameterType="com.blogforum.notebook.pojo.entity.NoteTitle">
+	    update 
+	    	note_title 
+	    set 
+		    note_book_name=#{noteBookName}
+	    where 
+	    	note_book_id=#{noteBookId}
+	    <if test="userId != null and userId != ''">
+			AND user_id=#{userId}
+		</if>
+	    
+	</update>
+	
 	
 	<!-- 通过ID查询笔记 -->
 	<select id="getById" parameterType="com.blogforum.notebook.pojo.entity.NoteTitle" resultType="com.blogforum.notebook.pojo.entity.NoteTitle" >
