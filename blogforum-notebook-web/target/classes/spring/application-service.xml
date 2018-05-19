@@ -16,6 +16,7 @@
     <bean id="sessionFilter" class="com.blogforum.notebook.web.filter.SessionFilter">
         <property name="sessionServer" ref="sessionServer"></property>
         <property name="ssoUrl" value="${sso.url}"></property>
+        <property name="htmlRequest" value="simplenote,nullnote,markdownnote"/>
     </bean>
     
     

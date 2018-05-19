@@ -1090,8 +1090,9 @@ $(function(){
 				function rename(){
 					layer.prompt({title: '输入新笔记本名，并确认', formType: 3}, function(name, index){
 						  layer.close(index);
+						  var notebookid = book.attr("value");
 						  $.post("/noteBook/updateNoteBook",{
-							id:book.attr("value"),
+							id:notebookid,
 							name:name
 							},
 							function(data) {
@@ -1099,6 +1100,9 @@ $(function(){
 							layer.msg(data.msg);
 							} else {
 								book.html(data.data.name);
+								if(notebookid == selectedBook){
+									$(".note-notebook").html(data.data.name);
+								}
 							}
 				
 						  });

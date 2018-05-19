@@ -2,22 +2,22 @@ package com.blogforum.notebook.web.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.LoggerUtil;
-import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.notebook.service.session.SessionServer;
 import com.blogforum.sso.facade.model.UserVO;
 
@@ -30,6 +30,9 @@ public class SessionFilter extends OncePerRequestFilter {
 	
 	/**登录地址*/
 	private String	ssoUrl;
+	
+	/**html页面请求*/
+	private String htmlRequest;
 	
 
 	public void setSsoUrl(String ssoUrl) {
@@ -49,7 +52,7 @@ public class SessionFilter extends OncePerRequestFilter {
 				// 判断是否ajax请求
 				if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request
 									.getHeader("X-Requested-With") != null && request.getHeader(
-														"X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
+														"X-Requested-With").indexOf("XMLHttpRequest") > -1)) || requestAjaxHtml(request)) {
 					//页面请求返回跳转提示
 					loginAgain(request, response);
 				}else {
@@ -74,6 +77,28 @@ public class SessionFilter extends OncePerRequestFilter {
 	}
 	
 	/**
+	 * 如果是ajax请求html页面 则返回true
+	 * @param request
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年5月19日
+	 */
+	private Boolean requestAjaxHtml(HttpServletRequest request){
+		if (StringUtils.isEmpty(htmlRequest)) {
+			return false;
+		}
+		String requestURI = request.getRequestURI();
+		String[] htmls = htmlRequest.split(",");
+		for (String html : htmls) {
+			if (StringUtils.equals("/" + html, requestURI)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	/**
 	 * 返回登录页面地址 前端直接跳转
 	 * 
 	 * @author: wwd
@@ -81,14 +106,18 @@ public class SessionFilter extends OncePerRequestFilter {
 	 */
 	private void ajaxLoginAgain(HttpServletResponse response){
 		//ajax返回提示
-		response.setHeader("Content-type", "text/html;charset=UTF-8");  
+		//设置json格式返回 浏览器以UTF-8格式进行编码
+		response.setHeader("Content-type", "application/json;charset=UTF-8");  
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out;
 		try {
+			
 			out = response.getWriter();
-		    JSONObject res = new JSONObject();  
-		    res.put("status","702");  
-		    res.put("msg","登录已过期，请重新登录");  
+			Map<String, Object> map = new HashMap<String, Object>(); 
+		    
+		    map.put("status","702");  
+		    map.put("msg","登录已过期，请重新登录"); 
+		    JSONObject res = new JSONObject(map);  
 			out.print(res);
 		} catch (IOException e) {
 			LoggerUtil.error(logger, e, "跳转登录页面异常");
@@ -127,5 +156,10 @@ public class SessionFilter extends OncePerRequestFilter {
 	public void setSessionServer(SessionServer sessionServer) {
 		this.sessionServer = sessionServer;
 	}
+
+	public void setHtmlRequest(String htmlRequest) {
+		this.htmlRequest = htmlRequest;
+	}
+	
 
 }
