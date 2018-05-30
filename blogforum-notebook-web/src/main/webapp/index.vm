@@ -161,7 +161,7 @@
 						</div><!--node-body-->
 					</div><!--noteInfoListItem-->
 				</div><!--noteInfoList-->
-				<div class="noteRightInfo" style="margin-left:278px;border:0px;width:auto;height:100%;overflow:auto">
+				<div class="noteRightInfo" style="margin-left:278px;border:0px;width:auto;height:104%;overflow:auto">
 
 				</div><!--noteRightInfo-->
 			</div><!--noteRight-->
