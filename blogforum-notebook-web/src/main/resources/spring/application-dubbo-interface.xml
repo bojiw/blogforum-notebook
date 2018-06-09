@@ -28,5 +28,7 @@
     <dubbo:reference id="sessionServerFacade" timeout="3000" interface="com.blogforum.sso.facade.session.SessionServerFacade"/>
     <!-- 搜索相关接口 -->
     <dubbo:reference id="solrServiceFacade" timeout="3000" interface="com.blogforum.search.facade.service.SolrServiceFacade"/>
+    <!-- 获取七牛云接口 -->
+    <dubbo:reference id="qiNiuYunFacade" timeout="3000" interface="com.blogforum.docking.facade.qiniuyun.QiNiuYunFacade"/>
     
 </beans>

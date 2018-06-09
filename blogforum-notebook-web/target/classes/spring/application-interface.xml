@@ -16,4 +16,9 @@
     <bean id="solrServiceFacadeClient" class="com.blogforum.notebook.interfaces.search.impl.SolrServiceFacadeClientImpl">
         <property name="solrServiceFacade" ref="solrServiceFacade"/>
     </bean>
+    
+    
+    <bean id="qiNiuYunFacadeClient" class="com.blogforum.notebook.interfaces.docking.impl.QiNiuYunFacadeClientImpl">
+        <property name="qiNiuYunFacade" ref="qiNiuYunFacade"></property>
+    </bean>
 </beans>
