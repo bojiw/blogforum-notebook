@@ -111,7 +111,7 @@ $(function(){
 		   	 }).done(function(res) {
 		   		 //关闭等待图标
 		   		layer.close(loading);
-		   		overallInsert("http://ouqhxmwfh.bkt.clouddn.com/"+res.key)
+		   		overallInsert("http://qiniu.bojiw.com/"+res.key)
 		   	 }).fail(function(res) {
 		   		layer.close(loading);
 		   		layer.msg("上传失败请重试！！！");

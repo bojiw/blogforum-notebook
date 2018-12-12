@@ -151,7 +151,7 @@ $(function() {
 				   	 }).done(function(res) {
 				   		 //关闭等待图标
 				   		layer.close(loading);
-				   		var qiniuUrl = '![](http://ouqhxmwfh.bkt.clouddn.com/' + res.key + ')';
+				   		var qiniuUrl = '![](http://qiniu.bojiw.com/' + res.key + ')';
 				   	 	editor.insertValue(qiniuUrl);
 				   	 }).fail(function(res) {
 				   		layer.close(loading);
@@ -201,7 +201,7 @@ $(function() {
 		   	 }).done(function(res) {
 		   		 //关闭等待图标
 		   		layer.close(loading);
-		   		var qiniuUrl = '![](http://ouqhxmwfh.bkt.clouddn.com/' + res.key + ')';
+		   		var qiniuUrl = '![](http://qiniu.bojiw.com/' + res.key + ')';
 		   	 	editor.insertValue(qiniuUrl);
 		   	 }).fail(function(res) {
 		   		layer.close(loading);
