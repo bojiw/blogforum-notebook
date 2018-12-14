@@ -39,12 +39,12 @@ public class TestController {
         for (NoteBody noteBody : noteBodies){
             String noteBody1 = noteBody.getNoteBody();
             if (StringUtils.isNotEmpty(noteBody1)){
-                noteBody1.replace("ouqhxmwfh.bkt.clouddn.com","qiniu.bojiw.com");
+                noteBody1.replaceAll("ouqhxmwfh.bkt.clouddn.com","qiniu.bojiw.com");
                 noteBody.setNoteBody(noteBody1);
             }
             String mdNoteBody = noteBody.getMdNoteBody();
             if (StringUtils.isNotEmpty(mdNoteBody)){
-                mdNoteBody.replace("ouqhxmwfh.bkt.clouddn.com","qiniu.bojiw.com");
+                mdNoteBody.replaceAll("ouqhxmwfh.bkt.clouddn.com","qiniu.bojiw.com");
                 noteBody.setMdNoteBody(mdNoteBody);
             }
             noteBodyService.update(noteBody);
