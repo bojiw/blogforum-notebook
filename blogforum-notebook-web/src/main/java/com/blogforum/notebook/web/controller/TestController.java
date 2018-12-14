@@ -49,7 +49,7 @@ public class TestController {
             }
             noteBodyService.update(noteBody);
         }
-        return blogforumResult.ok();
+        return blogforumResult.ok(noteBodies.size());
     }
 
 }
