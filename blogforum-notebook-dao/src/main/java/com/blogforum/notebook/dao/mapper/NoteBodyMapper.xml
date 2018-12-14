@@ -102,6 +102,14 @@
 			AND nb.user_id=#{userId}
 		</if>
 	</select>
+
+	<!-- 通过ID查询笔记 -->
+	<select id="queryList" resultType="com.blogforum.notebook.pojo.entity.NoteBody" >
+		SELECT
+		<include refid="NoteBodyField"/>
+		FROM
+		note_body nb
+	</select>
 	
 
 </mapper>
