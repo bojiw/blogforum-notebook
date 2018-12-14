@@ -31,7 +31,7 @@ public class TestController {
     @Autowired
     private NoteBodyService noteBodyService;
 
-    @RequestMapping(value = "/updatenode", method = RequestMethod.POST)
+    @RequestMapping(value = "/updatenode")
     @ResponseBody
     public blogforumResult updatenode(NoteTitle noteTitle, HttpServletRequest request) {
 
