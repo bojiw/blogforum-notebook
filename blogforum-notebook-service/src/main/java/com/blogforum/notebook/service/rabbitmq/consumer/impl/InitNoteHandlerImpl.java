@@ -88,7 +88,7 @@ public class InitNoteHandlerImpl implements Handler {
 		noteTitle.setNoteBookName("默认笔记");
 		noteTitle.setNoteTitle(noteTitleName);
 		noteTitle.setType(NoteTypeEnum.SIMPLENOTE.getValue());
-		noteTitle.setNoteContext("<p>接下来开始介绍下系统的使用</p>");
+		noteTitle.setNoteContext("接下来开始介绍下系统的使用");
 		noteTitleService.save(noteTitle);
 		return id;
 	}
