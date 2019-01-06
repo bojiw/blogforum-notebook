@@ -16,6 +16,7 @@ import com.blogforum.notebook.service.note.NoteBookService;
 import com.blogforum.notebook.service.note.NoteTitleService;
 import com.blogforum.notebook.service.rabbitmq.consumer.Handler;
 import com.blogforum.sso.facade.model.UserVO;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * 用户注册时笔记系统一些初始化准备
@@ -33,6 +34,11 @@ public class InitNoteHandlerImpl implements Handler {
 
 	@Autowired
 	private NoteBodyService		noteBodyService;
+
+    @Value("${note.init.body}")
+    private String              noteInitBody;
+    @Value("${note.init.title}")
+    private String              noteInitTitle;
 
 	private static String		noteTitleName	= "欢迎来到博记系统";
 
@@ -88,7 +94,7 @@ public class InitNoteHandlerImpl implements Handler {
 		noteTitle.setNoteBookName("默认笔记");
 		noteTitle.setNoteTitle(noteTitleName);
 		noteTitle.setType(NoteTypeEnum.SIMPLENOTE.getValue());
-		noteTitle.setNoteContext("接下来开始介绍下系统的使用");
+		noteTitle.setNoteContext(noteInitTitle);
 		noteTitleService.save(noteTitle);
 		return id;
 	}
@@ -103,7 +109,7 @@ public class InitNoteHandlerImpl implements Handler {
 		noteBody.setLabel("默认笔记");
 		noteBody.setDelFlag(IsDelFlagEnum.N.getValue());
 		noteBody.setTextType(NoteTextTypeEnum.ORIGINAL.getMemo());
-		noteBody.setNoteBody("接下来开始介绍下系统的使用");
+		noteBody.setNoteBody(noteInitBody);
 		noteBodyService.save(noteBody);
 	}
 
