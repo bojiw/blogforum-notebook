@@ -21,6 +21,17 @@
 		<property name="maxActive" value="10" />
 		<!-- 数据库连接超时时间 -->
 		<property name="maxWait" value="600000"/>
+
+		<property name="validationQuery" value="SELECT 1" />   <!-- 数据库连接可用性测试语句 -->
+		<property name="testOnBorrow" value="true" />          <!-- 每次获取一个连接的时候，验证一下连接是否可用，语句在validationQuery里面 -->
+		<property name="removeAbandoned" value="true" />       <!-- 自动处理连接未关闭的问题，Setting this to true can recover db connections from poorly written applications which fail to close a connection.  -->
+		<property name="removeAbandonedTimeout" value="300" /> <!-- 连接使用后5分钟未关闭，则抛弃 -->
+
+		<!-- 每5分钟检查一次，每次检查3个连接，如果连接空闲时间达到5分钟，则认为可以Evict，从连接池排除
+             空闲的连接是否排除对连接池似乎没有太大影响，我们只需要保证每次获取的连接都可用，所以暂时先不开启
+        <property name="timeBetweenEvictionRunsMillis" value="300000" />
+        <property name="numTestsPerEvictionRun" value="3" />
+        <property name="minEvictableIdleTimeMillis" value="320000" />-->
 	</bean>
 	<!-- 让spring管理sqlsessionfactory 使用mybatis和spring整合包中的 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
